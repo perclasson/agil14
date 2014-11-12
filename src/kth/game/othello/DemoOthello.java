@@ -16,6 +16,7 @@ public class DemoOthello implements Othello {
 	private Player white;
 	private boolean isBlackTurn;
 	private int boardOrder;
+	private boolean isActive;
 
 	public DemoOthello(Board board, Player black, Player white, int boardOrder) {
 		this.board = board;
@@ -96,8 +97,7 @@ public class DemoOthello implements Othello {
 
 	@Override
 	public boolean isActive() {
-		// TODO Auto-generated method stub
-		return false;
+		return isActive;
 	}
 
 	@Override
@@ -122,11 +122,13 @@ public class DemoOthello implements Othello {
 	public void start() {
 		Random random = new Random();
 		isBlackTurn = random.nextBoolean();
+		isActive = true;
 	}
 
 	@Override
 	public void start(String playerId) {
 		isBlackTurn = black.getId().equals(playerId);
+		isActive = true;
 	}
 
 	/**
