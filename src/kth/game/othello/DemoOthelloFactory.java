@@ -12,7 +12,7 @@ public class DemoOthelloFactory implements OthelloFactory {
 	public Othello createComputerGame() {
 		Player black = new OthelloPlayer(Type.COMPUTER, "black", "0");
 		Player white = new OthelloPlayer(Type.COMPUTER, "white", "1");
-		Board board = new OthelloBoard();
+		Board board = new OthelloBoard(black.getId(), white.getId());
 		return new DemoOthello(board, black, white);
 	}
 
@@ -20,7 +20,7 @@ public class DemoOthelloFactory implements OthelloFactory {
 	public Othello createHumanGame() {
 		Player black = new OthelloPlayer(Type.HUMAN, "black", "0");
 		Player white = new OthelloPlayer(Type.HUMAN, "white", "1");
-		Board board = new OthelloBoard();
+		Board board = new OthelloBoard(black.getId(), white.getId());
 		return new DemoOthello(board, black, white);
 	}
 
@@ -28,7 +28,7 @@ public class DemoOthelloFactory implements OthelloFactory {
 	public Othello createHumanVersusComputerGame() {
 		Player black = new OthelloPlayer(Type.COMPUTER, "black", "0");
 		Player white = new OthelloPlayer(Type.HUMAN, "white", "1");
-		Board board = new OthelloBoard();
+		Board board = new OthelloBoard(black.getId(), white.getId());
 		return new DemoOthello(board, black, white);
 	}
 

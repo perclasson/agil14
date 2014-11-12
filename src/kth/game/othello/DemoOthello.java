@@ -1,6 +1,8 @@
 package kth.game.othello;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
@@ -11,6 +13,7 @@ public class DemoOthello implements Othello {
 	private Board board;
 	private Player black;
 	private Player white;
+	private boolean isBlackTurn;
 
 	public DemoOthello(Board board, Player black, Player white) {
 		this.board = board;
@@ -37,8 +40,7 @@ public class DemoOthello implements Othello {
 
 	@Override
 	public List<Player> getPlayers() {
-		// TODO Auto-generated method stub
-		return null;
+		return Arrays.asList(white, black);
 	}
 
 	@Override
@@ -73,14 +75,13 @@ public class DemoOthello implements Othello {
 
 	@Override
 	public void start() {
-		// TODO Auto-generated method stub
-
+		Random random = new Random();
+		isBlackTurn = random.nextBoolean();
 	}
 
 	@Override
 	public void start(String playerId) {
-		// TODO Auto-generated method stub
-
+		isBlackTurn = black.getId().equals(playerId);
 	}
 
 }
