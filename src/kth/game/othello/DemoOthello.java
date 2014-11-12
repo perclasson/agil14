@@ -36,30 +36,46 @@ public class DemoOthello implements Othello {
 			return new ArrayList<Node>();
 		}
 
-		Node node = getNode(nodeId);
-		int x = node.getXCoordinate();
-		int y = node.getYCoordinate();
-		int[][] deltas = { { -1, -1 }, { 0, -1 }, { 1, -1 }, { 0, -1 }, { 0, 1 }, { 1, -1 }, { 1, 0 }, { 1, 1 } };
-		List<Node> allSwaps = new ArrayList<Node>();
+		Node targetNode = getNode(nodeId);
 
-		for (int[] delta : deltas) {
-			int deltaInX = delta[0];
-			int deltaInY = delta[1];
-			int currentX = x;
-			int currentY = y;
-			List<Node> swaps = new ArrayList<Node>();
+		// Try every direction from the target node
+		int[][] directions = { { 0, 1 }, // ↑
+				{ 1, 1 }, // ↗
+				{ 1, 0 }, // →
+				{ 1, -1 }, // ↘
+				{ 0, -1 }, // ↓
+				{ -1,  -1 }, // ↙
+				{ -1, 0 }, // ←
+				{ -1, 1 } // ↖
+		};
+
+		// Nodes that will be swapped
+		List<Node> swaps = new ArrayList<Node>();
+
+		for (int[] direction : directions) {
+			int x = targetNode.getXCoordinate();
+			int y = targetNode.getYCoordinate();
+
+			List<Node> currentSwaps = new ArrayList<Node>();
 			boolean isValidDirection = false;
 
-			while (currentX >= 0 && currentX <= boardOrder && currentY >= 0 && currentY <= boardOrder) {
-				currentX += deltaInX;
-				currentY += deltaInY;
-				Node current = getNodeByCoordinates(currentX, currentY);
-				boolean isOpponent = current.isMarked() && !current.getOccupantPlayerId().equals(playerId);
-				boolean lastIsMine = swaps.size() > 0 && current.isMarked()
-						&& current.getOccupantPlayerId().equals(playerId);
-				if (isOpponent) {
-					swaps.add(current);
-				} else if (lastIsMine) {
+			// Follow the direction
+			while (true) {
+				x += direction[0];
+				y += direction[1];
+
+				if ((x < 0 || x > boardOrder) || (y < 0 || y > boardOrder)) {
+					break;
+				}
+
+				Node node = getNodeByCoordinates(x, y);
+
+				boolean nodeIsOpponent = node.isMarked() && !node.getOccupantPlayerId().equals(playerId);
+				boolean nodeIsMine = !nodeIsOpponent;
+
+				if (nodeIsOpponent) {
+					currentSwaps.add(node);
+				} else if (currentSwaps.size() > 0 && nodeIsMine) {
 					isValidDirection = true;
 					break;
 				} else {
@@ -68,11 +84,10 @@ public class DemoOthello implements Othello {
 			}
 
 			if (isValidDirection) {
-				allSwaps.addAll(swaps);
+				swaps.addAll(currentSwaps);
 			}
 		}
-
-		return allSwaps;
+		return swaps;
 	}
 
 	@Override
@@ -102,8 +117,8 @@ public class DemoOthello implements Othello {
 
 	@Override
 	public boolean isMoveValid(String playerId, String nodeId) {
-		Node node = getNode(nodeId);
-		return false;
+		// TODO
+		return true;
 	}
 
 	@Override
