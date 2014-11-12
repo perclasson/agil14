@@ -8,8 +8,8 @@ public class OthelloBoard implements Board {
 	private static final int BOARD_SIZE = 8;
 
 	public OthelloBoard(String playerOneId, String playerTwoId) {
-		for (int x = 0; x < BOARD_SIZE; x++) {
-			for (int y = 0; y < BOARD_SIZE; y++) {
+		for (int y = 0; y < BOARD_SIZE; y++) {
+			for (int x = 0; x < BOARD_SIZE; x++) {
 				if (x == 3 && y == 3 || x == 4 && y == 4) {
 					nodes.add(new OthelloNode(playerOneId, x, y));
 				} else if (x == 4 && y == 3 || x == 3 && y == 4) {
