@@ -15,12 +15,13 @@ public class DemoOthello implements Othello {
 	private Player black;
 	private Player white;
 	private boolean isBlackTurn;
-	private static final int BOARD_SIZE = 8;
+	private int boardOrder;
 
 	public DemoOthello(Board board, Player black, Player white) {
 		this.board = board;
 		this.black = black;
 		this.white = white;
+		boardOrder = (int) Math.sqrt(board.getNodes().size());
 	}
 
 	@Override
@@ -48,7 +49,7 @@ public class DemoOthello implements Othello {
 			List<Node> swaps = new ArrayList<Node>();
 			boolean isValidDirection = false;
 
-			while (currentX >= 0 && currentX <= BOARD_SIZE && currentY >= 0 && currentY <= BOARD_SIZE) {
+			while (currentX >= 0 && currentX <= boardOrder && currentY >= 0 && currentY <= boardOrder) {
 				currentX += deltaInX;
 				currentY += deltaInY;
 				Node current = getNodeByCoordinates(currentX, currentY);
@@ -152,15 +153,6 @@ public class DemoOthello implements Othello {
 	 * @return Node node
 	 */
 	private Node getNodeByCoordinates(int x, int y) {
-		return board.getNodes().get(y * BOARD_SIZE + x);
+		return board.getNodes().get(y * boardOrder + x);
 	}
-
-	private String getOpponent(String playerId) {
-		for (Player player : getPlayers()) {
-
-		}
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

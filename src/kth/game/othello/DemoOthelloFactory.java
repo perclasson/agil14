@@ -7,7 +7,6 @@ import kth.game.othello.player.Player;
 import kth.game.othello.player.Player.Type;
 
 public class DemoOthelloFactory implements OthelloFactory {
-
 	@Override
 	public Othello createComputerGame() {
 		Player black = new OthelloPlayer(Type.COMPUTER, "black", "0");
