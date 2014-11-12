@@ -17,11 +17,11 @@ public class DemoOthello implements Othello {
 	private boolean isBlackTurn;
 	private int boardOrder;
 
-	public DemoOthello(Board board, Player black, Player white) {
+	public DemoOthello(Board board, Player black, Player white, int boardOrder) {
 		this.board = board;
 		this.black = black;
 		this.white = white;
-		boardOrder = (int) Math.sqrt(board.getNodes().size());
+		this.boardOrder = boardOrder;
 	}
 
 	@Override
