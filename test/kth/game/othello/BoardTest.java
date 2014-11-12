@@ -1,10 +1,11 @@
 package kth.game.othello;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
 import java.util.List;
 
 import org.junit.Test;
-
-import static org.mockito.Mockito.*;
 
 public class BoardTest {
 
@@ -20,6 +21,11 @@ public class BoardTest {
 		// verification
 		verify(mockedList).add("one");
 		verify(mockedList).clear();
+
+	}
+
+	@Test
+	public void testOthelloBoard() {
 
 	}
 }

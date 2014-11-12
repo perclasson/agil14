@@ -8,7 +8,15 @@ import kth.game.othello.player.Player;
 
 public class DemoOthello implements Othello {
 
-	Board board;
+	private Board board;
+	private Player black;
+	private Player white;
+
+	public DemoOthello(Board board, Player black, Player white) {
+		this.board = board;
+		this.black = black;
+		this.white = white;
+	}
 
 	@Override
 	public Board getBoard() {
