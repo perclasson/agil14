@@ -19,7 +19,7 @@ public class OthelloTest {
 		List<Node> nodes = new ArrayList<Node>();
 		for (int y = 0; y < n; y++) {
 			for (int x = 0; x < n; x++) {
-				Node node = Mockito.mock(Node.class);
+				Node node = mock(Node.class);
 				when(node.getId()).thenReturn("x" + x + "y" + y);
 				when(node.getXCoordinate()).thenReturn(x);
 				when(node.getYCoordinate()).thenReturn(y);
@@ -31,42 +31,39 @@ public class OthelloTest {
 
 	@Test
 	public void testGetNodesToSwap() {
-		OthelloBoard board = Mockito.mock(OthelloBoard.class);
-		OthelloPlayer black = Mockito.mock(OthelloPlayer.class);
-		OthelloPlayer white = Mockito.mock(OthelloPlayer.class);
-
-		int boardOrder = 8;
-		Othello othello = new DemoOthello(board, black, white);
-
-		List<Node> nodes = mockBoardNodes(boardOrder);
-
-		when(board.getNodes()).thenReturn(nodes);
-		when(board.getOrder()).thenReturn(boardOrder);
-
-		List<Node> swapped = null;
-
-		// Random moves on empty board
+		OthelloBoard board = mock(OthelloBoard.class);
+		OthelloPlayer black = mock(OthelloPlayer.class);
+		OthelloPlayer white = mock(OthelloPlayer.class);
+		MoveLogic moveLogic = mock(MoveLogic.class);
+		
+		// Create the Othello to test
+		Othello othello = new DemoOthello(board, black, white, moveLogic);
+		
+		// Empty board should not return any swapped nodes
 		assertEquals(othello.getNodesToSwap("black", "x0y0").size(), 0);
 		assertEquals(othello.getNodesToSwap("black", "x3y2").size(), 0);
 		assertEquals(othello.getNodesToSwap("black", "x5y1").size(), 0);
 		
-		// black - white - white - target - empty
-		when(nodes.get(0).getOccupantPlayerId()).thenReturn("black");
-		when(nodes.get(0).isMarked()).thenReturn(true);
-		when(nodes.get(1).getOccupantPlayerId()).thenReturn("white");
-		when(nodes.get(1).isMarked()).thenReturn(true);
-		when(nodes.get(2).getOccupantPlayerId()).thenReturn("white");
-		when(nodes.get(2).isMarked()).thenReturn(true);
-		swapped = othello.getNodesToSwap("black", "x3y0");
-		assertTrue(swapped.contains(nodes.get(1)));
-		assertTrue(swapped.contains(nodes.get(2)));
-
-
-		// black - white - black - target - empty
-		when(nodes.get(2).getOccupantPlayerId()).thenReturn("black");
-		when(nodes.get(2).isMarked()).thenReturn(true);
-		swapped = othello.getNodesToSwap("black", "x3y0");
-		assertEquals(swapped.size(), 0);
+		// Create a list of mocked board nodes
+		List<Node> nodes = mockBoardNodes(8);
+		
+		// Create some moves
+		Move moveOne = Mockito.mock(Move.class);
+		Move moveTwo = Mockito.mock(Move.class);
+		Move moveThree = Mockito.mock(Move.class);
+		List<Move> moves = new ArrayList<Move>();
+		
+		List<Node> intermediate = new ArrayList<Node>();
+		intermediate.add(nodes.get(0));
+		intermediate.add(nodes.get(1));
+		when(moveOne.getIntermediateNodes()).thenReturn(intermediate);
+		moves.add(moveOne);
+		
+		// 
+		when(moveLogic.getValidMoves("black", "x0y0")).thenReturn(moves);
+		
+		List<Node> toSwap = othello.getNodesToSwap("black", "x0y0");
+		assertEquals(toSwap, intermediate);		
 	}
 
 	@Test
@@ -86,8 +83,9 @@ public class OthelloTest {
 		OthelloBoard board = Mockito.mock(OthelloBoard.class);
 		OthelloPlayer black = Mockito.mock(OthelloPlayer.class);
 		OthelloPlayer white = Mockito.mock(OthelloPlayer.class);
+		MoveLogic moveLogic = Mockito.mock(MoveLogic.class);
 
-		Othello othello = new DemoOthello(board, black, white);
+		Othello othello = new DemoOthello(board, black, white, moveLogic);
 		
 		when(black.getId()).thenReturn("black");
 
