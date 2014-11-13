@@ -5,6 +5,7 @@ import java.util.List;
 public class OthelloBoard implements Board {
 
 	private List<Node> nodes;
+	private int boardOrder;
 
 	/**
 	 * 
@@ -14,6 +15,9 @@ public class OthelloBoard implements Board {
 	 *            Must be an even number.
 	 */
 	public OthelloBoard(String playerOneId, String playerTwoId, int boardOrder) {
+		this.boardOrder = boardOrder;;
+		
+
 		int[] startCoordinate = { boardOrder / 2 - 1, boardOrder / 2 };
 
 		for (int y = 0; y < boardOrder; y++) {
@@ -35,6 +39,10 @@ public class OthelloBoard implements Board {
 	@Override
 	public List<Node> getNodes() {
 		return nodes;
+	}
+
+	public int getOrder() {
+		return boardOrder;
 	}
 
 }

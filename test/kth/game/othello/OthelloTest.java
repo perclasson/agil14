@@ -6,9 +6,9 @@ import static org.mockito.Mockito.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
-import kth.game.othello.player.Player;
+import kth.game.othello.board.OthelloBoard;
+import kth.game.othello.player.OthelloPlayer;
 
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -31,16 +31,17 @@ public class OthelloTest {
 
 	@Test
 	public void testGetNodesToSwap() {
-		Board board = Mockito.mock(Board.class);
-		Player black = Mockito.mock(Player.class);
-		Player white = Mockito.mock(Player.class);
+		OthelloBoard board = Mockito.mock(OthelloBoard.class);
+		OthelloPlayer black = Mockito.mock(OthelloPlayer.class);
+		OthelloPlayer white = Mockito.mock(OthelloPlayer.class);
 
 		int boardOrder = 8;
-		Othello othello = new DemoOthello(board, black, white, boardOrder);
+		Othello othello = new DemoOthello(board, black, white);
 
 		List<Node> nodes = mockBoardNodes(boardOrder);
 
 		when(board.getNodes()).thenReturn(nodes);
+		when(board.getOrder()).thenReturn(boardOrder);
 
 		List<Node> swapped = null;
 
@@ -82,13 +83,13 @@ public class OthelloTest {
 
 	@Test
 	public void testStart() {
-		Board board = Mockito.mock(Board.class);
-		Player black = Mockito.mock(Player.class);
-		Player white = Mockito.mock(Player.class);
+		OthelloBoard board = Mockito.mock(OthelloBoard.class);
+		OthelloPlayer black = Mockito.mock(OthelloPlayer.class);
+		OthelloPlayer white = Mockito.mock(OthelloPlayer.class);
 
+		Othello othello = new DemoOthello(board, black, white);
+		
 		when(black.getId()).thenReturn("black");
-
-		Othello othello = new DemoOthello(board, black, white, 8);
 
 		// The game is active after start
 		othello.start();

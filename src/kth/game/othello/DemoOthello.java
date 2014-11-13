@@ -7,22 +7,22 @@ import java.util.Random;
 
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
+import kth.game.othello.board.OthelloBoard;
+import kth.game.othello.player.OthelloPlayer;
 import kth.game.othello.player.Player;
 
 public class DemoOthello implements Othello {
 
-	private Board board;
+	private OthelloBoard board;
 	private Player black;
 	private Player white;
 	private boolean isBlackTurn;
-	private int boardOrder;
 	private boolean isActive;
 
-	public DemoOthello(Board board, Player black, Player white, int boardOrder) {
+	public DemoOthello(OthelloBoard board, OthelloPlayer black, OthelloPlayer white) {
 		this.board = board;
 		this.black = black;
 		this.white = white;
-		this.boardOrder = boardOrder;
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class DemoOthello implements Othello {
 				x += direction[0];
 				y += direction[1];
 
-				if ((x < 0 || x > boardOrder) || (y < 0 || y > boardOrder)) {
+				if ((x < 0 || x > board.getOrder()) || (y < 0 || y > board.getOrder())) {
 					break;
 				}
 
@@ -170,6 +170,6 @@ public class DemoOthello implements Othello {
 	 * @return Node node
 	 */
 	private Node getNodeByCoordinates(int x, int y) {
-		return board.getNodes().get(y * boardOrder + x);
+		return board.getNodes().get(y * board.getOrder() + x);
 	}
 }
