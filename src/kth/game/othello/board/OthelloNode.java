@@ -6,11 +6,17 @@ public class OthelloNode implements Node {
 	private String playerId;
 	private int x, y;
 
-	public OthelloNode(String playerId, int x, int y) {
-		this.id = "x" + x + "y" + y;
+	public OthelloNode(int x, int y, String playerId) {
 		this.playerId = playerId;
 		this.x = x;
 		this.y = y;
+		setId(x, y);
+	}
+
+	public OthelloNode(int x, int y) {
+		this.x = x;
+		this.y = y;
+		setId(x, y);
 	}
 
 	@Override
@@ -36,5 +42,9 @@ public class OthelloNode implements Node {
 	@Override
 	public boolean isMarked() {
 		return getOccupantPlayerId() != null;
+	}
+	
+	private void setId(int x, int y) {
+		this.id = "x" + x + "y" + y;
 	}
 }

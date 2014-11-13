@@ -13,16 +13,16 @@ public class NodeTest {
 
 	@Test
 	public void testIsMarkedNode() {
-		Node unmarkedNode = new OthelloNode(null, 0, 0);
+		Node unmarkedNode = new OthelloNode(0, 0);
 		assertFalse("Unmarked node must not have player id.", unmarkedNode.isMarked());
 
-		Node markedNode = new OthelloNode("player", 0, 0);
+		Node markedNode = new OthelloNode(0, 0, "player");
 		assertTrue("Markned node must have player id.", markedNode.isMarked());
 	}
 
 	@Test
 	public void testNodeId() {
-		Node node = new OthelloNode(null, 1, 2);
+		Node node = new OthelloNode(1, 2);
 		assertEquals("Node id must be x1y2.", node.getId(), "x1y2");
 		assertNotEquals("Node id must be x1y2.", node.getId(), "x5y9");
 	}
