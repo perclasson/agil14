@@ -1,7 +1,8 @@
 package kth.game.othello;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +50,7 @@ public class OthelloTest {
 		assertEquals(othello.getNodesToSwap("black", "x0y0").size(), 0);
 		assertEquals(othello.getNodesToSwap("black", "x3y2").size(), 0);
 		assertEquals(othello.getNodesToSwap("black", "x5y1").size(), 0);
-		
+
 		// black - white - white - target - empty
 		when(nodes.get(0).getOccupantPlayerId()).thenReturn("black");
 		when(nodes.get(0).isMarked()).thenReturn(true);
@@ -60,7 +61,6 @@ public class OthelloTest {
 		swapped = othello.getNodesToSwap("black", "x3y0");
 		assertTrue(swapped.contains(nodes.get(1)));
 		assertTrue(swapped.contains(nodes.get(2)));
-
 
 		// black - white - black - target - empty
 		when(nodes.get(2).getOccupantPlayerId()).thenReturn("black");
@@ -88,7 +88,7 @@ public class OthelloTest {
 		OthelloPlayer white = Mockito.mock(OthelloPlayer.class);
 
 		Othello othello = new DemoOthello(board, black, white);
-		
+
 		when(black.getId()).thenReturn("black");
 
 		// The game is active after start
