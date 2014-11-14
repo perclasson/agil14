@@ -18,11 +18,15 @@ public class DemoOthello implements Othello {
 	private Player white;
 	private boolean isBlackTurn;
 	private boolean isActive;
+	private Random random;
+	private MoveLogic moveLogic;
 
-	public DemoOthello(OthelloBoard board, OthelloPlayer black, OthelloPlayer white) {
+	public DemoOthello(OthelloBoard board, OthelloPlayer black, OthelloPlayer white, MoveLogic moveLogic, Random random) {
 		this.board = board;
 		this.black = black;
 		this.white = white;
+		this.moveLogic = moveLogic;
+		this.random = random;
 	}
 
 	@Override
@@ -31,72 +35,8 @@ public class DemoOthello implements Othello {
 	}
 
 	@Override
-	public List<Node> getNodesToSwap(String playerId, String nodeId) {
-		if (!isMoveValid(playerId, nodeId)) {
-			return new ArrayList<Node>();
-		}
-
-		Node targetNode = getNode(nodeId);
-
-		// Try every direction from the target node
-		int[][] directions = { { 0, 1 }, // ↑
-				{ 1, 1 }, // ↗
-				{ 1, 0 }, // →
-				{ 1, -1 }, // ↘
-				{ 0, -1 }, // ↓
-				{ -1, -1 }, // ↙
-				{ -1, 0 }, // ←
-				{ -1, 1 } // ↖
-		};
-
-		// Nodes that will be swapped
-		List<Node> swaps = new ArrayList<Node>();
-
-		for (int[] direction : directions) {
-			int x = targetNode.getXCoordinate();
-			int y = targetNode.getYCoordinate();
-
-			List<Node> currentSwaps = new ArrayList<Node>();
-			boolean isValidDirection = false;
-
-			// Follow the direction
-			while (true) {
-				x += direction[0];
-				y += direction[1];
-
-				if ((x < 0 || x > board.getOrder()) || (y < 0 || y > board.getOrder())) {
-					break;
-				}
-
-				Node node = getNodeByCoordinates(x, y);
-
-				boolean nodeIsOpponent = node.isMarked() && !node.getOccupantPlayerId().equals(playerId);
-				boolean nodeIsMine = !nodeIsOpponent;
-
-				if (nodeIsOpponent) {
-					currentSwaps.add(node);
-				} else if (currentSwaps.size() > 0 && nodeIsMine) {
-					isValidDirection = true;
-					break;
-				} else {
-					break;
-				}
-			}
-
-			if (isValidDirection) {
-				swaps.addAll(currentSwaps);
-			}
-		}
-		return swaps;
-	}
-
-	@Override
 	public Player getPlayerInTurn() {
-		if (isBlackTurn) {
-			return black;
-		} else {
-			return white;
-		}
+		return isBlackTurn ? black : white;
 	}
 
 	@Override
@@ -106,8 +46,7 @@ public class DemoOthello implements Othello {
 
 	@Override
 	public boolean hasValidMove(String playerId) {
-		// TODO Auto-generated method stub
-		return false;
+		return moveLogic.getValidMoves(playerId).size() > 0;
 	}
 
 	@Override
@@ -117,25 +56,52 @@ public class DemoOthello implements Othello {
 
 	@Override
 	public boolean isMoveValid(String playerId, String nodeId) {
-		// TODO
-		return true;
+		return moveLogic.getValidMoves(playerId, nodeId).size() > 0;
+	}
+
+	@Override
+	public List<Node> getNodesToSwap(String playerId, String nodeId) {
+		List<Move> moves = moveLogic.getValidMoves(playerId, nodeId);
+		List<Node> swapped = new ArrayList<Node>();
+		for (Move m : moves) {
+			swapped.addAll(m.getIntermediateNodes());
+		}
+		return swapped;
 	}
 
 	@Override
 	public List<Node> move() {
-		// TODO Auto-generated method stub
-		return null;
+		// If the current player is not a computer
+		if (getPlayerInTurn().getType() != Player.Type.COMPUTER) {
+			throw new IllegalStateException();
+		}
+		List<Move> moves = moveLogic.getValidMoves(getPlayerInTurn().getId());
+		if (moves.isEmpty()) {
+			return new ArrayList<Node>();
+		} else {
+			// Let the computer make a random move
+			Move move = moves.get(random.nextInt(moves.size()));
+
+			// Return the number of nodes that were swapped
+			return getNodesToSwap(getPlayerInTurn().getId(), move.getMovedToNode().getId());
+		}
 	}
 
 	@Override
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
+		if (!getPlayerInTurn().equals(playerId)) {
+			throw new IllegalArgumentException();
+		}
+		List<Node> nodes = getNodesToSwap(playerId, nodeId);
+		if (nodes.isEmpty()) {
+			throw new IllegalArgumentException();
+		} else {
+			return nodes;
+		}
 	}
 
 	@Override
 	public void start() {
-		Random random = new Random();
 		isBlackTurn = random.nextBoolean();
 		isActive = true;
 	}
@@ -144,32 +110,5 @@ public class DemoOthello implements Othello {
 	public void start(String playerId) {
 		isBlackTurn = black.getId().equals(playerId);
 		isActive = true;
-	}
-
-	/**
-	 * Get node by id from board, returns null if non-existent node.
-	 * 
-	 * @param String
-	 *            nodeId
-	 * @return Node node
-	 */
-	private Node getNode(String nodeId) {
-		for (Node node : board.getNodes()) {
-			if (node.getId().equals(nodeId)) {
-				return node;
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * Get node by coordinates.
-	 * 
-	 * @param int x
-	 * @param int y
-	 * @return Node node
-	 */
-	private Node getNodeByCoordinates(int x, int y) {
-		return board.getNodes().get(y * board.getOrder() + x);
 	}
 }
