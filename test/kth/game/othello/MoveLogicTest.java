@@ -1,24 +1,23 @@
 package kth.game.othello;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import kth.game.othello.board.Node;
+import kth.game.othello.board.OthelloBoard;
+import kth.game.othello.player.OthelloPlayer;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 
 public class MoveLogicTest {
 
-	@Test
-	public void testGetNodesToSwap() {
-		// TODO
-	}
-	
 	private List<Node> mockBoardNodes(int n) {
 		List<Node> nodes = new ArrayList<Node>();
 		for (int y = 0; y < n; y++) {
@@ -33,4 +32,42 @@ public class MoveLogicTest {
 		return nodes;
 	}
 
+	@Rule
+	public ExpectedException exception = ExpectedException.none();
+
+	@Test
+	public void testGetNodesToSwap() {
+		OthelloBoard board = mock(OthelloBoard.class);
+		OthelloPlayer black = mock(OthelloPlayer.class);
+		OthelloPlayer white = mock(OthelloPlayer.class);
+		MoveLogic moveLogic = new MoveLogic(board);
+
+		// Create empty node list
+		List<Node> nodes = mockBoardNodes(0);
+		when(board.getNodes()).thenReturn(nodes);
+
+		// Empty board should not have any nodes to swap
+		exception.expect(IllegalArgumentException.class);
+		moveLogic.getNodesToSwap("black", "x0y0");
+
+		// Create a list of mocked board nodes
+		nodes = mockBoardNodes(8);
+
+		// Create some moves
+		Move moveOne = Mockito.mock(Move.class);
+		Move moveTwo = Mockito.mock(Move.class);
+		Move moveThree = Mockito.mock(Move.class);
+		List<Move> moves = new ArrayList<Move>();
+
+		List<Node> intermediate = new ArrayList<Node>();
+		intermediate.add(nodes.get(0));
+		intermediate.add(nodes.get(1));
+		when(moveOne.getIntermediateNodes()).thenReturn(intermediate);
+		moves.add(moveOne);
+
+		when(moveLogic.getValidMoves("black", "x0y0")).thenReturn(moves);
+
+		List<Node> toSwap = moveLogic.getNodesToSwap("black", "x0y0");
+		assertEquals(toSwap, intermediate);
+	}
 }

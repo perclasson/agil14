@@ -12,6 +12,7 @@ import java.util.Random;
 import kth.game.othello.board.Node;
 import kth.game.othello.board.OthelloBoard;
 import kth.game.othello.player.OthelloPlayer;
+import kth.game.othello.player.Player;
 
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -33,43 +34,6 @@ public class OthelloTest {
 	}
 
 	@Test
-	public void testGetNodesToSwap() {
-		OthelloBoard board = mock(OthelloBoard.class);
-		OthelloPlayer black = mock(OthelloPlayer.class);
-		OthelloPlayer white = mock(OthelloPlayer.class);
-		MoveLogic moveLogic = mock(MoveLogic.class);
-
-		// Create the Othello to test
-		Othello othello = new DemoOthello(board, black, white, moveLogic, new Random());
-
-		// Empty board should not return any swapped nodes
-		assertEquals(othello.getNodesToSwap("black", "x0y0").size(), 0);
-		assertEquals(othello.getNodesToSwap("black", "x3y2").size(), 0);
-		assertEquals(othello.getNodesToSwap("black", "x5y1").size(), 0);
-
-		// Create a list of mocked board nodes
-		List<Node> nodes = mockBoardNodes(8);
-
-		// Create some moves
-		Move moveOne = Mockito.mock(Move.class);
-		Move moveTwo = Mockito.mock(Move.class);
-		Move moveThree = Mockito.mock(Move.class);
-		List<Move> moves = new ArrayList<Move>();
-
-		List<Node> intermediate = new ArrayList<Node>();
-		intermediate.add(nodes.get(0));
-		intermediate.add(nodes.get(1));
-		when(moveOne.getIntermediateNodes()).thenReturn(intermediate);
-		moves.add(moveOne);
-
-		//
-		when(moveLogic.getValidMoves("black", "x0y0")).thenReturn(moves);
-
-		List<Node> toSwap = othello.getNodesToSwap("black", "x0y0");
-		assertEquals(toSwap, intermediate);
-	}
-
-	@Test
 	public void testHasValidMove() {
 	}
 
@@ -79,6 +43,59 @@ public class OthelloTest {
 
 	@Test
 	public void testMove() {
+		OthelloBoard board = Mockito.mock(OthelloBoard.class);
+		final OthelloPlayer black = Mockito.mock(OthelloPlayer.class);
+		OthelloPlayer white = Mockito.mock(OthelloPlayer.class);
+		MoveLogic moveLogic = Mockito.mock(MoveLogic.class);
+
+		Othello othello = new DemoOthello(board, black, white, moveLogic, new Random()) {
+			@Override
+			public Player getPlayerInTurn() {
+				return black;
+			}
+		};
+
+		String blackId = "black";
+		when(black.getId()).thenReturn(blackId);
+		when(black.getType()).thenReturn(Player.Type.COMPUTER);
+		when(moveLogic.getValidMoves(blackId)).thenReturn(new ArrayList<Move>());
+
+		// When no valid moves are return from moveLogic, it should return empty list
+		assertEquals(othello.move(), new ArrayList<Node>());
+
+		List<Node> nodes = new ArrayList<Node>();
+		Node node = Mockito.mock(Node.class);
+		when(node.getId()).thenReturn("x0y0");
+		nodes.add(node);
+
+		List<Move> moves = new ArrayList<Move>();
+		Move move = Mockito.mock(Move.class);
+		moves.add(move);
+
+		when(move.getIntermediateNodes()).thenReturn(nodes);
+		when(move.getMovedToNode()).thenReturn(node);
+		when(moveLogic.getValidMoves(blackId)).thenReturn(moves);
+
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void testMoveException() {
+		OthelloBoard board = Mockito.mock(OthelloBoard.class);
+		final OthelloPlayer black = Mockito.mock(OthelloPlayer.class);
+		OthelloPlayer white = Mockito.mock(OthelloPlayer.class);
+		MoveLogic moveLogic = Mockito.mock(MoveLogic.class);
+
+		Othello othello = new DemoOthello(board, black, white, moveLogic, null) {
+			@Override
+			public Player getPlayerInTurn() {
+				return black;
+			}
+		};
+
+		when(black.getType()).thenReturn(Player.Type.HUMAN);
+
+		// As player in turn is of type human, it should give exception
+		othello.move();
 	}
 
 	@Test

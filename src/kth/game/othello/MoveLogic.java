@@ -109,7 +109,7 @@ public class MoveLogic {
 				return node;
 			}
 		}
-		return null;
+		throw new IllegalArgumentException();
 	}
 
 	/**
