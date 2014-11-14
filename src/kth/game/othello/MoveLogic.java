@@ -3,8 +3,8 @@ package kth.game.othello;
 import java.util.ArrayList;
 import java.util.List;
 
-import kth.game.othello.board.OthelloBoard;
 import kth.game.othello.board.Node;
+import kth.game.othello.board.OthelloBoard;
 
 public class MoveLogic {
 
@@ -32,6 +32,12 @@ public class MoveLogic {
 		return moves;
 	}
 
+	/**
+	 * 
+	 * @param playerId
+	 * @param nodeId
+	 * @return Return list with all valid moves.
+	 */
 	List<Move> getValidMoves(String playerId, String nodeId) {
 		// The valid moves
 		List<Move> moves = new ArrayList<Move>();
