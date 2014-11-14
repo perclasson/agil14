@@ -2,6 +2,7 @@ package kth.game.othello;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import kth.game.othello.board.Node;
 import kth.game.othello.board.OthelloBoard;
@@ -22,6 +23,16 @@ public class MoveLogic {
 
 	public MoveLogic(OthelloBoard board) {
 		this.board = board;
+	}
+
+	public List<Node> getNodesToSwap(String playerId, String nodeId) {
+		List<Move> moves = getValidMoves(playerId, nodeId);
+		List<Node> swapped = new ArrayList<Node>();
+		for (Move m : moves) {
+			swapped.addAll(m.getIntermediateNodes());
+		}
+		return swapped;
+
 	}
 
 	public List<Move> getValidMoves(String playerId) {
@@ -111,4 +122,19 @@ public class MoveLogic {
 	private Node getNodeByCoordinates(int x, int y) {
 		return board.getNodes().get(y * board.getOrder() + x);
 	}
+
+	public List<Node> getRandomValidMove(String playerId, Random random) {
+		List<Move> moves = getValidMoves(playerId);
+
+		if (moves.isEmpty()) {
+			return new ArrayList<Node>();
+		} else {
+			// Let the computer make a random move
+			Move move = moves.get(random.nextInt(moves.size()));
+
+			// Return the number of nodes that were swapped
+			return getNodesToSwap(playerId, move.getMovedToNode().getId());
+		}
+	}
+
 }

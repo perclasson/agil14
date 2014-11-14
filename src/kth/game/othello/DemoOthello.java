@@ -1,6 +1,5 @@
 package kth.game.othello;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -61,12 +60,7 @@ public class DemoOthello implements Othello {
 
 	@Override
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
-		List<Move> moves = moveLogic.getValidMoves(playerId, nodeId);
-		List<Node> swapped = new ArrayList<Node>();
-		for (Move m : moves) {
-			swapped.addAll(m.getIntermediateNodes());
-		}
-		return swapped;
+		return moveLogic.getNodesToSwap(playerId, nodeId);
 	}
 
 	@Override
@@ -75,16 +69,7 @@ public class DemoOthello implements Othello {
 		if (getPlayerInTurn().getType() != Player.Type.COMPUTER) {
 			throw new IllegalStateException();
 		}
-		List<Move> moves = moveLogic.getValidMoves(getPlayerInTurn().getId());
-		if (moves.isEmpty()) {
-			return new ArrayList<Node>();
-		} else {
-			// Let the computer make a random move
-			Move move = moves.get(random.nextInt(moves.size()));
-
-			// Return the number of nodes that were swapped
-			return getNodesToSwap(getPlayerInTurn().getId(), move.getMovedToNode().getId());
-		}
+		return moveLogic.getRandomValidMove(getPlayerInTurn().getId(), random);
 	}
 
 	@Override
