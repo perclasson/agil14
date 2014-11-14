@@ -1,5 +1,7 @@
 package kth.game.othello;
 
+import java.util.Random;
+
 import kth.game.othello.board.OthelloBoard;
 import kth.game.othello.player.OthelloPlayer;
 import kth.game.othello.player.Player.Type;
@@ -13,7 +15,8 @@ public class DemoOthelloFactory implements OthelloFactory {
 		OthelloPlayer white = new OthelloPlayer(Type.COMPUTER, "white", "1");
 		OthelloBoard board = new OthelloBoard(black.getId(), white.getId(), BOARD_ORDER);
 		MoveLogic moveLogic = new MoveLogic(board);
-		return new DemoOthello(board, black, white, moveLogic);
+		Random random = new Random();
+		return new DemoOthello(board, black, white, moveLogic, random);
 	}
 
 	@Override
@@ -22,7 +25,8 @@ public class DemoOthelloFactory implements OthelloFactory {
 		OthelloPlayer white = new OthelloPlayer(Type.HUMAN, "white", "1");
 		OthelloBoard board = new OthelloBoard(black.getId(), white.getId(), BOARD_ORDER);
 		MoveLogic moveLogic = new MoveLogic(board);
-		return new DemoOthello(board, black, white, moveLogic);
+		Random random = new Random();
+		return new DemoOthello(board, black, white, moveLogic, random);
 	}
 
 	@Override
@@ -31,7 +35,8 @@ public class DemoOthelloFactory implements OthelloFactory {
 		OthelloPlayer white = new OthelloPlayer(Type.HUMAN, "white", "1");
 		OthelloBoard board = new OthelloBoard(black.getId(), white.getId(), BOARD_ORDER);
 		MoveLogic moveLogic = new MoveLogic(board);
-		return new DemoOthello(board, black, white, moveLogic);
+		Random random = new Random();
+		return new DemoOthello(board, black, white, moveLogic, random);
 	}
 
 }

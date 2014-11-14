@@ -21,12 +21,12 @@ public class DemoOthello implements Othello {
 	private Random random;
 	private MoveLogic moveLogic;
 
-	public DemoOthello(OthelloBoard board, OthelloPlayer black, OthelloPlayer white, MoveLogic moveLogic) {
+	public DemoOthello(OthelloBoard board, OthelloPlayer black, OthelloPlayer white, MoveLogic moveLogic, Random random) {
 		this.board = board;
 		this.black = black;
 		this.white = white;
 		this.moveLogic = moveLogic;
-		this.random = new Random();
+		this.random = random;
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public class DemoOthello implements Othello {
 		} else {
 			// Let the computer make a random move
 			Move move = moves.get(random.nextInt(moves.size()));
-			
+
 			// Return the number of nodes that were swapped
 			return getNodesToSwap(getPlayerInTurn().getId(), move.getMovedToNode().getId());
 		}
@@ -90,11 +90,11 @@ public class DemoOthello implements Othello {
 	@Override
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
 		if (!getPlayerInTurn().equals(playerId)) {
-			throw new IllegalStateException();
+			throw new IllegalArgumentException();
 		}
 		List<Node> nodes = getNodesToSwap(playerId, nodeId);
 		if (nodes.isEmpty()) {
-			throw new IllegalStateException();
+			throw new IllegalArgumentException();
 		} else {
 			return nodes;
 		}

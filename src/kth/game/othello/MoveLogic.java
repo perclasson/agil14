@@ -10,7 +10,7 @@ public class MoveLogic {
 
 	private OthelloBoard board;
 
-	int[][] directions = { { 0, 1 }, // ↑
+	private static final int[][] directions = { { 0, 1 }, // ↑
 			{ 1, 1 }, // ↗
 			{ 1, 0 }, // →
 			{ 1, -1 }, // ↘
@@ -20,11 +20,11 @@ public class MoveLogic {
 			{ -1, 1 } // ↖
 	};
 
-	MoveLogic(OthelloBoard board) {
+	public MoveLogic(OthelloBoard board) {
 		this.board = board;
 	}
 
-	List<Move> getValidMoves(String playerId) {
+	public List<Move> getValidMoves(String playerId) {
 		List<Move> moves = new ArrayList<Move>();
 		for (Node node : board.getNodes()) {
 			moves.addAll(getValidMoves(playerId, node.getId()));
@@ -38,7 +38,7 @@ public class MoveLogic {
 	 * @param nodeId
 	 * @return Return list with all valid moves.
 	 */
-	List<Move> getValidMoves(String playerId, String nodeId) {
+	public List<Move> getValidMoves(String playerId, String nodeId) {
 		// The valid moves
 		List<Move> moves = new ArrayList<Move>();
 
