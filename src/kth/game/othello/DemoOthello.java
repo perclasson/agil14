@@ -75,7 +75,7 @@ public class DemoOthello implements Othello {
 	@Override
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
 		if (!getPlayerInTurn().equals(playerId)) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Player not in turn.");
 		}
 		List<Node> nodes = getNodesToSwap(playerId, nodeId);
 		if (nodes.isEmpty()) {

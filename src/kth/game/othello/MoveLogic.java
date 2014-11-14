@@ -25,6 +25,13 @@ public class MoveLogic {
 		this.board = board;
 	}
 
+	/**
+	 * 
+	 * @param playerId
+	 * @param nodeId
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
 		List<Move> moves = getValidMoves(playerId, nodeId);
 		List<Node> swapped = new ArrayList<Node>();
@@ -48,6 +55,7 @@ public class MoveLogic {
 	 * @param playerId
 	 * @param nodeId
 	 * @return Return list with all valid moves.
+	 * @throws IllegalArgumentException
 	 */
 	public List<Move> getValidMoves(String playerId, String nodeId) {
 		// The valid moves
@@ -97,11 +105,12 @@ public class MoveLogic {
 	}
 
 	/**
-	 * Get node by id from board, returns null if non-existent node.
+	 * Get node by id from board, throws {@link IllegalArgumentException} if non-existent node.
 	 * 
 	 * @param String
 	 *            nodeId
 	 * @return Node node
+	 * @throws IllegalArgumentException
 	 */
 	private Node getNode(String nodeId) {
 		for (Node node : board.getNodes()) {

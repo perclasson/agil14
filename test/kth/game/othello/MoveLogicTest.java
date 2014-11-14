@@ -1,6 +1,5 @@
 package kth.game.othello;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -18,10 +17,10 @@ import org.mockito.Mockito;
 
 public class MoveLogicTest {
 
-	private List<Node> mockBoardNodes(int n) {
+	private List<Node> mockBoardNodes(int order) {
 		List<Node> nodes = new ArrayList<Node>();
-		for (int y = 0; y < n; y++) {
-			for (int x = 0; x < n; x++) {
+		for (int y = 0; y < order; y++) {
+			for (int x = 0; x < order; x++) {
 				Node node = Mockito.mock(Node.class);
 				when(node.getId()).thenReturn("x" + x + "y" + y);
 				when(node.getXCoordinate()).thenReturn(x);
@@ -36,10 +35,8 @@ public class MoveLogicTest {
 	public ExpectedException exception = ExpectedException.none();
 
 	@Test
-	public void testGetNodesToSwap() {
+	public void testGetNodesToSwapException() {
 		OthelloBoard board = mock(OthelloBoard.class);
-		OthelloPlayer black = mock(OthelloPlayer.class);
-		OthelloPlayer white = mock(OthelloPlayer.class);
 		MoveLogic moveLogic = new MoveLogic(board);
 
 		// Create empty node list
@@ -49,25 +46,21 @@ public class MoveLogicTest {
 		// Empty board should not have any nodes to swap
 		exception.expect(IllegalArgumentException.class);
 		moveLogic.getNodesToSwap("black", "x0y0");
+	}
+
+	@Test
+	public void testGetNodesToSwap() {
+		OthelloBoard board = mock(OthelloBoard.class);
+		OthelloPlayer black = mock(OthelloPlayer.class);
+		OthelloPlayer white = mock(OthelloPlayer.class);
+		MoveLogic moveLogic = new MoveLogic(board);
 
 		// Create a list of mocked board nodes
-		nodes = mockBoardNodes(8);
+		List<Node> nodes = mockBoardNodes(8);
+		when(board.getNodes()).thenReturn(nodes);
 
-		// Create some moves
-		Move moveOne = Mockito.mock(Move.class);
-		Move moveTwo = Mockito.mock(Move.class);
-		Move moveThree = Mockito.mock(Move.class);
-		List<Move> moves = new ArrayList<Move>();
-
-		List<Node> intermediate = new ArrayList<Node>();
-		intermediate.add(nodes.get(0));
-		intermediate.add(nodes.get(1));
-		when(moveOne.getIntermediateNodes()).thenReturn(intermediate);
-		moves.add(moveOne);
-
-		when(moveLogic.getValidMoves("black", "x0y0")).thenReturn(moves);
-
+		// TODO
 		List<Node> toSwap = moveLogic.getNodesToSwap("black", "x0y0");
-		assertEquals(toSwap, intermediate);
+		// assertEquals(intermediate, toSwap);
 	}
 }
