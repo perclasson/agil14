@@ -48,38 +48,63 @@ public class OthelloTest {
 	}
 
 	@Test
-	public void testMove() {
-		OthelloBoard board = Mockito.mock(OthelloBoard.class);
+	public void testMoveOfPlayerNotInTurn() {
 		final OthelloPlayer black = Mockito.mock(OthelloPlayer.class);
-		OthelloPlayer white = Mockito.mock(OthelloPlayer.class);
-		MoveLogic moveLogic = Mockito.mock(MoveLogic.class);
-		Random random = new Random();
 
-		Othello othello = new DemoOthello(board, black, white, moveLogic, random) {
+		Othello othello = new DemoOthello(null, black, null, null, null) {
 			@Override
 			public Player getPlayerInTurn() {
 				return black;
 			}
 		};
 
+		when(black.getId()).thenReturn("black");
+
 		exception.expect(IllegalArgumentException.class);
-		exception.expectMessage("Player not in turn.");
-		othello.move("black", "x0y0");
+		exception.expectMessage("Given player not in turn.");
+		othello.move("white", "x0y0");
+	}
+
+	@Test
+	public void testMoveOfHumanPlayer() {
+		final OthelloPlayer black = Mockito.mock(OthelloPlayer.class);
+
+		Othello othello = new DemoOthello(null, black, null, null, null) {
+			@Override
+			public Player getPlayerInTurn() {
+				return black;
+			}
+		};
 
 		when(black.getType()).thenReturn(Player.Type.HUMAN);
 
 		// Exception when player is of type human
 		exception.expect(IllegalStateException.class);
+		exception.expectMessage("Player in turn is not a computer.");
 		othello.move();
+	}
+
+	@Test
+	public void testMove() {
+		final OthelloPlayer black = Mockito.mock(OthelloPlayer.class);
+		MoveLogic moveLogic = Mockito.mock(MoveLogic.class);
+		Random random = new Random();
+
+		Othello othello = new DemoOthello(null, black, null, moveLogic, random) {
+			@Override
+			public Player getPlayerInTurn() {
+				return black;
+			}
+		};
 
 		String playerId = "black";
 		when(black.getType()).thenReturn(Player.Type.COMPUTER);
 		when(black.getId()).thenReturn(playerId);
 
 		othello.move();
-		// Verify that moveLogic get's called correctly
-		verify(moveLogic).getRandomValidMove(playerId, random);
 
+		// Verify that moveLogic get's called with expected arguments
+		verify(moveLogic).getRandomValidMove(playerId, random);
 	}
 
 	@Test

@@ -67,15 +67,15 @@ public class DemoOthello implements Othello {
 	public List<Node> move() {
 		// If the current player is not a computer
 		if (getPlayerInTurn().getType() != Player.Type.COMPUTER) {
-			throw new IllegalStateException();
+			throw new IllegalStateException("Player in turn is not a computer.");
 		}
 		return moveLogic.getRandomValidMove(getPlayerInTurn().getId(), random);
 	}
 
 	@Override
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
-		if (!getPlayerInTurn().equals(playerId)) {
-			throw new IllegalArgumentException("Player not in turn.");
+		if (!getPlayerInTurn().getId().equals(playerId)) {
+			throw new IllegalArgumentException("Given player not in turn.");
 		}
 		List<Node> nodes = getNodesToSwap(playerId, nodeId);
 		if (nodes.isEmpty()) {
