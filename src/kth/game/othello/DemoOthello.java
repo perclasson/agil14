@@ -79,7 +79,7 @@ public class DemoOthello implements Othello {
 		}
 		List<Node> nodes = getNodesToSwap(playerId, nodeId);
 		if (nodes.isEmpty()) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Move is not valid.");
 		} else {
 			return nodes;
 		}

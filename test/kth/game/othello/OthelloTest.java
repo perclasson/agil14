@@ -48,6 +48,29 @@ public class OthelloTest {
 	}
 
 	@Test
+	public void testInvalidMove() {
+		final OthelloPlayer black = Mockito.mock(OthelloPlayer.class);
+		MoveLogic moveLogic = Mockito.mock(MoveLogic.class);
+
+		Othello othello = new DemoOthello(null, black, null, moveLogic, null) {
+			@Override
+			public Player getPlayerInTurn() {
+				return black;
+			}
+		};
+
+		String playerId = "black";
+		String nodeId = "x0y0";
+
+		when(black.getId()).thenReturn(playerId);
+		when(moveLogic.getNodesToSwap(playerId, nodeId)).thenReturn(new ArrayList<Node>());
+
+		exception.expect(IllegalArgumentException.class);
+		exception.expectMessage("Move is not valid.");
+		othello.move(playerId, nodeId);
+	}
+
+	@Test
 	public void testMoveOfPlayerNotInTurn() {
 		final OthelloPlayer black = Mockito.mock(OthelloPlayer.class);
 

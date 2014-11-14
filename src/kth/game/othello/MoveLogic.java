@@ -30,7 +30,6 @@ public class MoveLogic {
 	 * @param playerId
 	 * @param nodeId
 	 * @return
-	 * @throws IllegalArgumentException
 	 */
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
 		List<Move> moves = getValidMoves(playerId, nodeId);
@@ -55,7 +54,6 @@ public class MoveLogic {
 	 * @param playerId
 	 * @param nodeId
 	 * @return Return list with all valid moves.
-	 * @throws IllegalArgumentException
 	 */
 	public List<Move> getValidMoves(String playerId, String nodeId) {
 		// The valid moves
