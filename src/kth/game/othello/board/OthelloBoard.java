@@ -25,6 +25,39 @@ public class OthelloBoard implements Board {
 		return nodes;
 	}
 
+	/**
+	 * Get node by id from board, throws {@link IllegalArgumentException} if
+	 * non-existent node.
+	 * 
+	 * @param String
+	 *            nodeId
+	 * @return Node node
+	 * @throws IllegalArgumentException
+	 */
+	public Node getNode(String nodeId) {
+		for (Node node : nodes) {
+			if (node.getId().equals(nodeId)) {
+				return node;
+			}
+		}
+		throw new IllegalArgumentException();
+	}
+
+	/**
+	 * Get node by coordinates.
+	 * 
+	 * @param int x
+	 * @param int y
+	 * @return Node node
+	 */
+	public Node getNodeByCoordinates(int x, int y) {
+		return nodes.get(x + (boardOrder - 1)*y);
+	}
+	
+	public void toggleNodeOccupant(int x, int y) {
+		//nodes.get()
+	}
+
 	public int getOrder() {
 		return boardOrder;
 	}
@@ -46,6 +79,13 @@ public class OthelloBoard implements Board {
 				}
 			}
 		}
+	}
+
+	public void setOccupantNode(String nodeId, String playerId) {
+		Node n = getNode(nodeId);
+		int x = n.getXCoordinate();
+		int y = n.getYCoordinate(); // TODO A LOT BETTER
+		nodes.set(x + (boardOrder - 1)*y, new OthelloNode(x, y, playerId));
 	}
 
 }

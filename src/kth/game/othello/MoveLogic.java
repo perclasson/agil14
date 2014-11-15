@@ -54,7 +54,7 @@ public class MoveLogic {
 		List<Move> moves = new ArrayList<Move>();
 
 		// Try every direction from the target node
-		Node targetNode = getNode(nodeId);
+		Node targetNode = board.getNode(nodeId);
 		for (int[] direction : directions) {
 			int x = targetNode.getXCoordinate();
 			int y = targetNode.getYCoordinate();
@@ -71,7 +71,7 @@ public class MoveLogic {
 					break;
 				}
 
-				Node node = getNodeByCoordinates(x, y);
+				Node node = board.getNodeByCoordinates(x, y);
 
 				boolean nodeIsOpponent = node.isMarked() && !node.getOccupantPlayerId().equals(playerId);
 				boolean nodeIsMine = !nodeIsOpponent;
@@ -96,34 +96,6 @@ public class MoveLogic {
 		return moves;
 	}
 
-	/**
-	 * Get node by id from board, throws {@link IllegalArgumentException} if
-	 * non-existent node.
-	 * 
-	 * @param String
-	 *            nodeId
-	 * @return Node node
-	 * @throws IllegalArgumentException
-	 */
-	private Node getNode(String nodeId) {
-		for (Node node : board.getNodes()) {
-			if (node.getId().equals(nodeId)) {
-				return node;
-			}
-		}
-		throw new IllegalArgumentException();
-	}
-
-	/**
-	 * Get node by coordinates.
-	 * 
-	 * @param int x
-	 * @param int y
-	 * @return Node node
-	 */
-	private Node getNodeByCoordinates(int x, int y) {
-		return board.getNodes().get(x + (board.getOrder() - 1)*y);
-	}
 
 	public List<Node> getRandomValidMove(String playerId, Random random) {
 		List<Move> moves = getValidMoves(playerId);

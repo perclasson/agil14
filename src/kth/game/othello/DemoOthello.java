@@ -7,6 +7,7 @@ import java.util.Random;
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 import kth.game.othello.board.OthelloBoard;
+import kth.game.othello.board.OthelloNode;
 import kth.game.othello.player.OthelloPlayer;
 import kth.game.othello.player.Player;
 
@@ -69,7 +70,10 @@ public class DemoOthello implements Othello {
 		if (getPlayerInTurn().getType() != Player.Type.COMPUTER) {
 			throw new IllegalStateException("Player in turn is not a computer.");
 		}
-		return moveLogic.getRandomValidMove(getPlayerInTurn().getId(), random);
+		togglePlayerInTurn();
+		List<Node> nodes = moveLogic.getRandomValidMove(getPlayerInTurn().getId(), random);
+		isGameOver(nodes, getPlayerInTurn().getId());
+		return nodes;
 	}
 
 	@Override
@@ -81,6 +85,8 @@ public class DemoOthello implements Othello {
 		if (nodes.isEmpty()) {
 			throw new IllegalArgumentException("Move is not valid.");
 		} else {
+			togglePlayerInTurn();
+			isGameOver(nodes, playerId);
 			return nodes;
 		}
 	}
@@ -95,5 +101,28 @@ public class DemoOthello implements Othello {
 	public void start(String playerId) {
 		isBlackTurn = black.getId().equals(playerId);
 		isActive = true;
+	}
+	
+	// TODO: better
+	private void isGameOver(List<Node> nodes, String playerId) {
+		// Change the swapped nodes occupant
+		for (Node n : nodes) {
+			board.setOccupantNode(n.getId(), playerId);
+		}
+
+		// Check if the opponent has any moves left
+		int possibleMoves = 0;
+		if (!white.getId().equals(playerId)) {
+			possibleMoves = moveLogic.getValidMoves(white.getId()).size();
+		} else {
+			possibleMoves = moveLogic.getValidMoves(black.getId()).size();
+		}
+		if (possibleMoves < 1) {
+			isActive = false;
+		}
+	}
+	
+	private void togglePlayerInTurn() {
+		isBlackTurn = !isBlackTurn;
 	}
 }

@@ -18,6 +18,10 @@ public class OthelloNode implements Node {
 		this.y = y;
 		setId(x, y);
 	}
+	
+	public void setOccupantPlayerId(String playerId) {
+		this.playerId = playerId;
+	}
 
 	@Override
 	public String getId() {
