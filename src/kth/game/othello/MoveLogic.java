@@ -67,7 +67,7 @@ public class MoveLogic {
 				x += direction[0];
 				y += direction[1];
 
-				if ((x < 0 || x > board.getOrder()) || (y < 0 || y > board.getOrder())) {
+				if ((x < 0 || x >= board.getOrder()) || (y < 0 || y >= board.getOrder())) {
 					break;
 				}
 
@@ -122,7 +122,7 @@ public class MoveLogic {
 	 * @return Node node
 	 */
 	private Node getNodeByCoordinates(int x, int y) {
-		return board.getNodes().get(y * board.getOrder() + x);
+		return board.getNodes().get(x + (board.getOrder() - 1)*y);
 	}
 
 	public List<Node> getRandomValidMove(String playerId, Random random) {
