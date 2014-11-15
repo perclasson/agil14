@@ -11,15 +11,9 @@ public class MoveLogic {
 
 	private OthelloBoard board;
 
-	private static final int[][] directions = { { 0, 1 }, // ↑
-			{ 1, 1 }, // ↗
-			{ 1, 0 }, // →
-			{ 1, -1 }, // ↘
-			{ 0, -1 }, // ↓
-			{ -1, -1 }, // ↙
-			{ -1, 0 }, // ←
-			{ -1, 1 } // ↖
-	};
+	// ↑ ↗ → ↘ ↓ ↙ ← ↖
+	private static final int[][] directions = { { 0, 1 }, { 1, 1 }, { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 },
+			{ -1, 0 }, { -1, 1 } };
 
 	public MoveLogic(OthelloBoard board) {
 		this.board = board;
@@ -103,7 +97,8 @@ public class MoveLogic {
 	}
 
 	/**
-	 * Get node by id from board, throws {@link IllegalArgumentException} if non-existent node.
+	 * Get node by id from board, throws {@link IllegalArgumentException} if
+	 * non-existent node.
 	 * 
 	 * @param String
 	 *            nodeId
