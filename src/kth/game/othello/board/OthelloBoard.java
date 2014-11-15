@@ -1,5 +1,6 @@
 package kth.game.othello.board;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OthelloBoard implements Board {
@@ -29,6 +30,7 @@ public class OthelloBoard implements Board {
 	}
 	
 	private void initializeBoard(String playerOneId, String playerTwoId) {
+		nodes = new ArrayList<Node>(boardOrder * boardOrder); // TODO: I think this is OK?
 		int[] startCoordinate = { boardOrder / 2 - 1, boardOrder / 2 };
 		for (int y = 0; y < boardOrder; y++) {
 			for (int x = 0; x < boardOrder; x++) {
