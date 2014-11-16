@@ -1,5 +1,12 @@
 package kth.game.othello.board;
 
+/**
+ * This is a node on the board, which containts information about it's coordinates and who holds the node.
+ * 
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ */
 public class OthelloNode implements Node {
 
 	private String id;
@@ -18,7 +25,7 @@ public class OthelloNode implements Node {
 		this.y = y;
 		setId(x, y);
 	}
-	
+
 	public void setOccupantPlayerId(String playerId) {
 		this.playerId = playerId;
 	}
@@ -47,12 +54,12 @@ public class OthelloNode implements Node {
 	public boolean isMarked() {
 		return getOccupantPlayerId() != null;
 	}
-	
+
 	@Override
-	public String toString(){
+	public String toString() {
 		return getOccupantPlayerId() != null ? getOccupantPlayerId() : "-1";
 	}
-	
+
 	private void setId(int x, int y) {
 		this.id = "x" + x + "y" + y;
 	}

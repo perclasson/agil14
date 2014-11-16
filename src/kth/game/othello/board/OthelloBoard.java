@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class represents the board in a game of Othello.
+ * Class containing the nodes, boardOrder and helper functions for the board.
  * 
- * @author Ludvig Axelsson, Per Classon & Tommy Roshult
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
  */
 
 public class OthelloBoard implements Board {
@@ -64,6 +66,7 @@ public class OthelloBoard implements Board {
 	/**
 	 * @return the length of the board
 	 */
+
 	public int getOrder() {
 		return boardOrder;
 	}
@@ -74,6 +77,7 @@ public class OthelloBoard implements Board {
 	 * @param nodesToBeChanged
 	 * @param occupantPlayerId
 	 */
+
 	public void changeOccupantOnNodes(List<Node> nodesToBeChanged, String occupantPlayerId) { // TODO naming
 		// Change the swapped nodes occupant
 		for (Node n : nodesToBeChanged) {
