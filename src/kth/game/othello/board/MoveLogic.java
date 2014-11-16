@@ -76,7 +76,7 @@ public class MoveLogic {
 			return new ArrayList<Node>();
 		}
 		board.changeOccupantOnNodes(nodes, playerId);
-
+		
 		// Return the nodes that were swapped and the start node
 		nodes.add(0, board.getNode(nodeId));
 		return nodes;
