@@ -48,6 +48,11 @@ public class OthelloNode implements Node {
 		return getOccupantPlayerId() != null;
 	}
 	
+	@Override
+	public String toString(){
+		return getOccupantPlayerId();
+	}
+	
 	private void setId(int x, int y) {
 		this.id = "x" + x + "y" + y;
 	}

@@ -57,6 +57,7 @@ public class OthelloBoard implements Board {
 		return boardOrder;
 	}
 	
+	
 	public void changeOccupantOnNodes(List<Node> nodesToBeChanged, String occupantPlayerId) { // TODO naming
 		// Change the swapped nodes occupant
 		for (Node n : nodesToBeChanged) {
@@ -65,7 +66,19 @@ public class OthelloBoard implements Board {
 			nodes.set(getNodeIndex(x, y), new OthelloNode(x, y, occupantPlayerId));
 		}
 	}
-	
+
+	@Override
+	public String toString() {
+		String s = "";
+		for (int y = 0; y < boardOrder; y++) {
+			for (int x = 0; x < boardOrder; x++) {
+				s += getNodeByCoordinates(x, y) + " ";
+			}
+			s += System.getProperty("line.separator");
+		}
+		return s;
+	}
+
 	private void initializeBoard(String playerOneId, String playerTwoId) {
 		nodes = new ArrayList<Node>(boardOrder * boardOrder); // TODO: I think this is OK?
 		int[] startCoordinate = { boardOrder / 2 - 1, boardOrder / 2 };
@@ -88,5 +101,4 @@ public class OthelloBoard implements Board {
 	private int getNodeIndex(int x, int y) {
 		return x + (boardOrder)*y;
 	}
-	
 }
