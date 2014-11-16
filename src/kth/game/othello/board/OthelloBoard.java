@@ -72,7 +72,7 @@ public class OthelloBoard implements Board {
 		String s = "";
 		for (int y = 0; y < boardOrder; y++) {
 			for (int x = 0; x < boardOrder; x++) {
-				s += getNodeByCoordinates(x, y) + " ";
+				s += getNodeByCoordinates(x, y) + " \t ";
 			}
 			s += System.getProperty("line.separator");
 		}

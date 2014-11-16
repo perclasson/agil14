@@ -46,7 +46,7 @@ public class DemoOthello implements Othello {
 
 	@Override
 	public boolean hasValidMove(String playerId) {
-		return moveLogic.getValidMoves(playerId).size() > 0;
+		return moveLogic.hasValidMove(playerId);
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class DemoOthello implements Othello {
 
 	@Override
 	public boolean isMoveValid(String playerId, String nodeId) {
-		return moveLogic.getValidMoves(playerId, nodeId).size() > 0;
+		return moveLogic.isMoveValid(playerId, nodeId);
 	}
 
 	@Override
@@ -70,18 +70,11 @@ public class DemoOthello implements Othello {
 		if (getPlayerInTurn().getType() != Player.Type.COMPUTER) {
 			throw new IllegalStateException("Player in turn is not a computer.");
 		}
-		
-		// Make a move
-		List<Node> swappedNodes = moveLogic.makeRandomValidMove(getPlayerInTurn().getId(), random);
-
-		// Check if the game is over
-		isGameOver(getPlayerInTurn().getId());
-		
-		// Change player
-		togglePlayerInTurn();
-
-		// Return swapped nodes
-		return swappedNodes;
+		// Make a random move
+		List<Node> nodes = moveLogic.randomMove(getPlayerInTurn().getId(), random);
+		isGameActive();
+		changePlayersTurn();
+		return nodes;
 	}
 
 	@Override
@@ -90,13 +83,13 @@ public class DemoOthello implements Othello {
 			throw new IllegalArgumentException("Given player not in turn.");
 		}
 
-		List<Node> nodes = getNodesToSwap(playerId, nodeId); // TODO
+		List<Node> nodes = moveLogic.move(playerId, nodeId);
+
 		if (nodes.isEmpty()) {
 			throw new IllegalArgumentException("Move is not valid.");
 		} else {
-			board.changeOccupantOnNodes(nodes, playerId);
-			isGameOver(playerId);
-			togglePlayerInTurn();
+			isGameActive();
+			changePlayersTurn();
 			return nodes;
 		}
 	}
@@ -114,20 +107,19 @@ public class DemoOthello implements Othello {
 	}
 	
 	// TODO: better
-	private void isGameOver(String playerId) {
+	private void isGameActive() {
 		// Check if the opponent has any moves left
-		int possibleMoves = 0;
-		if (!white.getId().equals(playerId)) {
-			possibleMoves = moveLogic.getValidMoves(white.getId()).size();
-		} else {
-			possibleMoves = moveLogic.getValidMoves(black.getId()).size();
+		boolean movePossible = false;
+		for (Player p : getPlayers()) {
+			if (p.getId().equals(getPlayerInTurn().getId())) {
+				continue;
+			}
+			movePossible = moveLogic.hasValidMove(p.getId());
 		}
-		if (possibleMoves < 1) {
-			isActive = false;
-		}
+		isActive = movePossible;
 	}
 	
-	private void togglePlayerInTurn() {
+	private void changePlayersTurn() {
 		isBlackTurn = !isBlackTurn;
 	}
 }

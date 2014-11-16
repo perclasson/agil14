@@ -111,10 +111,11 @@ public class OthelloTest {
 	@Test
 	public void testMove() {
 		final OthelloPlayer black = Mockito.mock(OthelloPlayer.class);
+		OthelloPlayer white = Mockito.mock(OthelloPlayer.class);
 		MoveLogic moveLogic = Mockito.mock(MoveLogic.class);
 		Random random = new Random();
 
-		Othello othello = new DemoOthello(null, black, null, moveLogic, random) {
+		Othello othello = new DemoOthello(null, black, white, moveLogic, random) {
 			@Override
 			public Player getPlayerInTurn() {
 				return black;
@@ -124,11 +125,12 @@ public class OthelloTest {
 		String playerId = "black";
 		when(black.getType()).thenReturn(Player.Type.COMPUTER);
 		when(black.getId()).thenReturn(playerId);
+		when(white.getId()).thenReturn("white");
 
 		othello.move();
 
 		// Verify that moveLogic get's called with expected arguments
-		verify(moveLogic).getRandomValidMove(playerId, random);
+		verify(moveLogic).randomMove(playerId, random);
 	}
 
 	@Test

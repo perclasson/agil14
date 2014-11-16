@@ -50,7 +50,7 @@ public class OthelloNode implements Node {
 	
 	@Override
 	public String toString(){
-		return getOccupantPlayerId();
+		return getOccupantPlayerId() != null ? getOccupantPlayerId() : "-1";
 	}
 	
 	private void setId(int x, int y) {

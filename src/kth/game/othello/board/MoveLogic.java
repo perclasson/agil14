@@ -16,37 +16,62 @@ public class MoveLogic {
 		this.board = board;
 	}
 
-	/**
-	 * 
-	 * @param playerId
-	 * @param nodeId
-	 * @return
-	 */
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
-		List<OthelloMove> moves = getValidMoves(playerId, nodeId);
-		List<Node> swapped = new ArrayList<Node>();
-		for (OthelloMove m : moves) {
-			swapped.addAll(m.getIntermediateNodes());
+		List<OthelloMove> moves = getMoves(playerId, nodeId);
+		List<Node> swappedNodes = new ArrayList<Node>();
+		for (OthelloMove move : moves) {
+			swappedNodes.addAll(move.getIntermediateNodes());
 		}
-		return swapped;
-
+		// Add the last node
+		swappedNodes.add(board.getNode(nodeId));
+		return swappedNodes;
 	}
 
-	public List<OthelloMove> getValidMoves(String playerId) {
+	public List<Node> randomMove(String playerId, Random random) {
+		List<OthelloMove> moves = getMoves(playerId);
+		if (moves.isEmpty()) {
+			return new ArrayList<Node>();
+		}
+		
+		// Pick a random move
+		OthelloMove move = moves.get(random.nextInt(moves.size()));
+		
+		return move(playerId, move.getMovedToNode().getId());
+	}
+
+	public List<Node> move(String playerId, String nodeId) {
+		List<Node> nodes = getNodesToSwap(playerId, nodeId);
+		if (nodes.isEmpty()) {
+			return new ArrayList<Node>();
+		}
+		board.changeOccupantOnNodes(nodes, playerId);
+		
+		// Return the nodes that were swapped and the start node
+		nodes.add(0, board.getNode(nodeId));
+		return nodes;
+	}
+
+	public boolean hasValidMove(String playerId) {
 		List<OthelloMove> moves = new ArrayList<OthelloMove>();
 		for (Node node : board.getNodes()) {
-			moves.addAll(getValidMoves(playerId, node.getId()));
+			moves.addAll(getMoves(playerId, node.getId()));
+		}
+		return moves.size() > 0;
+	}
+
+	public boolean isMoveValid(String playerId, String nodeId) {
+		return getMoves(playerId, nodeId).size() > 0;
+	}
+	
+	private List<OthelloMove> getMoves(String playerId) {
+		List<OthelloMove> moves = new ArrayList<OthelloMove>();
+		for (Node node : board.getNodes()) {
+			moves.addAll(getMoves(playerId, node.getId()));
 		}
 		return moves;
 	}
-
-	/**
-	 * 
-	 * @param playerId
-	 * @param nodeId
-	 * @return Return list with all valid moves.
-	 */
-	public List<OthelloMove> getValidMoves(String playerId, String nodeId) {
+	
+	private List<OthelloMove> getMoves(String playerId, String nodeId) {
 		// The valid moves
 		List<OthelloMove> moves = new ArrayList<OthelloMove>();
 
@@ -89,32 +114,6 @@ public class MoveLogic {
 			}
 
 		}
-
 		return moves;
 	}
-
-	public List<Node> makeRandomValidMove(String playerId, Random random) {
-		// Check if any valid move is possible
-		List<OthelloMove> moves = getValidMoves(playerId);
-		
-		if (moves.isEmpty()) {
-			return new ArrayList<Node>();
-		} else {
-			// Make a random move
-			OthelloMove move = moves.get(random.nextInt(moves.size()));
-			
-			List<Node> swappedNodes = getNodesToSwap(playerId, move.getMovedToNode().getId());
-			
-			// The occupied nodes is the swapped nodes and the node move to
-			List<Node> occupiedNodes = new ArrayList<Node>(swappedNodes);
-			occupiedNodes.add(move.getMovedToNode());
-			
-			// Change the board
-			board.changeOccupantOnNodes(occupiedNodes, playerId);
-			
-			// Return the nodes that were swapped
-			return move.getIntermediateNodes();
-		}
-	}
-
 }
