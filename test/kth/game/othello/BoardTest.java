@@ -1,6 +1,12 @@
 package kth.game.othello;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+
 import kth.game.othello.board.Node;
 import kth.game.othello.board.OthelloBoard;
 import kth.game.othello.board.OthelloNode;
@@ -14,11 +20,13 @@ public class BoardTest {
 	@Rule
 	public ExpectedException exception = ExpectedException.none();
 
-	// Test that OthelloBoard.getNodes throw exception and return a start Node
+	// Test that OthelloBoard.getNodes throw exception and get node by id and get node by coordinations give the same
+	// result for the same argument
 	@Test
-	public void testOthelloBoard() {
+	public void testGetNodess() {
 		OthelloBoard board = new OthelloBoard("Black", "White", 8);
-		OthelloNode node = new OthelloNode(3, 4);
+		OthelloNode node = mock(OthelloNode.class);
+		when(node.getId()).thenReturn("x3y4");
 		Node secondNode = board.getNode("x" + 3 + "y" + 4);
 		Node thirdNode = board.getNodeByCoordinates(3, 4);
 		assertEquals("Board should return a node", node.getId(), secondNode.getId());
@@ -31,8 +39,22 @@ public class BoardTest {
 		board.getNode("x -" + 1 + "y -" + 1);
 	}
 
-	private void assertNotEquals(String string, Node secondNode, Node nodeByCoordinates) {
-		// TODO Auto-generated method stub
-
+	// Add some Nodes to board and look if Board.changeOccupantOnNodes() change occupants player on those nodes
+	@Test
+	public void testChangeOccupantOnNodes() {
+		OthelloBoard board = new OthelloBoard("Black", "White", 8);
+		ArrayList<Node> nodes = new ArrayList<Node>();
+		for (int i = 0; i < 8; i++) {
+			Node node = new OthelloNode(i, 3, "Black");
+			nodes.add(node);
+		}
+		board.changeOccupantOnNodes(nodes, "White");
+		for (int i = 0; i < 8; i++) {
+			Node node = board.getNodeByCoordinates(i, 3);
+			assertEquals("The nodes on the board should be changed from black to white", "White",
+					node.getOccupantPlayerId());
+			assertNotEquals("The nodes on the board should be changed from black to white", "Black",
+					node.getOccupantPlayerId());
+		}
 	}
 }
