@@ -131,7 +131,7 @@ public class OthelloBoard implements Board {
 	/**
 	 * @param x
 	 * @param y
-	 * @return The index in the list nodes, that corresponds to the coordinate (x,y) on the table
+	 * @return The index (as Int) in the list nodes, that corresponds to the coordinate (x,y) on the table
 	 */
 	private int getNodeIndex(int x, int y) {
 		return x + (boardOrder) * y;

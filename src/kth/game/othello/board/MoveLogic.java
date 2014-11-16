@@ -15,7 +15,9 @@ public class MoveLogic {
 
 	private OthelloBoard board;
 
-	// ↑ ↗ → ↘ ↓ ↙ ← ↖
+	/**
+	 * List with all directions to move, in following order{up, upright, right, rightdown, down, downleft, left, upleft}
+	 */
 	private static final int[][] directions = { { 0, 1 }, { 1, 1 }, { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 },
 			{ -1, 0 }, { -1, 1 } };
 
@@ -23,6 +25,12 @@ public class MoveLogic {
 		this.board = board;
 	}
 
+	/**
+	 * @param playerId
+	 * @param nodeId
+	 * @return the nodes that where swapped for this move, including the node where the player made the move, for a move
+	 *         to a specific nodeID
+	 */
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
 		List<OthelloMove> moves = getMoves(playerId, nodeId);
 		List<Node> swappedNodes = new ArrayList<Node>();
@@ -36,6 +44,13 @@ public class MoveLogic {
 		return swappedNodes;
 	}
 
+	/**
+	 * @param playerId
+	 * @param random
+	 * @return Empty list, if there doesn't exist a valid move
+	 * @return a list containing the nodes that where swapped for this move, including the node where the player made a
+	 *         random valid move
+	 */
 	public List<Node> randomMove(String playerId, Random random) {
 		List<OthelloMove> moves = getMoves(playerId);
 		if (moves.isEmpty()) {
@@ -47,6 +62,13 @@ public class MoveLogic {
 
 		return move(playerId, move.getMovedToNode().getId());
 	}
+
+	/**
+	 * @param playerId
+	 * @param nodeId
+	 * @return Empty list if the move is invalid
+	 * @return the nodes that where swapped for this move, including the node where the player made the move
+	 */
 
 	public List<Node> move(String playerId, String nodeId) {
 		List<Node> nodes = getNodesToSwap(playerId, nodeId);
@@ -60,6 +82,10 @@ public class MoveLogic {
 		return nodes;
 	}
 
+	/**
+	 * @param playerId
+	 * @return If the player has a valid move to do or not
+	 */
 	public boolean hasValidMove(String playerId) {
 		List<OthelloMove> moves = new ArrayList<OthelloMove>();
 		for (Node node : board.getNodes()) {
@@ -68,10 +94,19 @@ public class MoveLogic {
 		return moves.size() > 0;
 	}
 
+	/**
+	 * @param playerId
+	 * @param nodeId
+	 * @return if it's valid for playerId to move to NodeId or not.
+	 */
 	public boolean isMoveValid(String playerId, String nodeId) {
 		return getMoves(playerId, nodeId).size() > 0;
 	}
 
+	/**
+	 * @param playerId
+	 * @return List with moves to do for playerId
+	 */
 	private List<OthelloMove> getMoves(String playerId) {
 		List<OthelloMove> moves = new ArrayList<OthelloMove>();
 		for (Node node : board.getNodes()) {
@@ -80,6 +115,12 @@ public class MoveLogic {
 		return moves;
 	}
 
+	/**
+	 * 
+	 * @param playerId
+	 * @param nodeId
+	 * @return List with moves, where all move leads to a valid "placement" on the nodeId.
+	 */
 	private List<OthelloMove> getMoves(String playerId, String nodeId) {
 		// The valid moves
 		List<OthelloMove> moves = new ArrayList<OthelloMove>();
