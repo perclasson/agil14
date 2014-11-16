@@ -8,7 +8,6 @@ import kth.game.othello.board.Board;
 import kth.game.othello.board.MoveLogic;
 import kth.game.othello.board.Node;
 import kth.game.othello.board.OthelloBoard;
-import kth.game.othello.board.OthelloNode;
 import kth.game.othello.player.OthelloPlayer;
 import kth.game.othello.player.Player;
 
@@ -71,12 +70,18 @@ public class DemoOthello implements Othello {
 		if (getPlayerInTurn().getType() != Player.Type.COMPUTER) {
 			throw new IllegalStateException("Player in turn is not a computer.");
 		}
+		
+		// Make a move
+		List<Node> swappedNodes = moveLogic.makeRandomValidMove(getPlayerInTurn().getId(), random);
 
-		List<Node> nodes = moveLogic.getRandomValidMove(getPlayerInTurn().getId(), random);
+		// Check if the game is over
 		isGameOver(getPlayerInTurn().getId());
+		
+		// Change player
 		togglePlayerInTurn();
 
-		return nodes;
+		// Return swapped nodes
+		return swappedNodes;
 	}
 
 	@Override
@@ -84,7 +89,8 @@ public class DemoOthello implements Othello {
 		if (!getPlayerInTurn().getId().equals(playerId)) {
 			throw new IllegalArgumentException("Given player not in turn.");
 		}
-		List<Node> nodes = getNodesToSwap(playerId, nodeId);
+
+		List<Node> nodes = getNodesToSwap(playerId, nodeId); // TODO
 		if (nodes.isEmpty()) {
 			throw new IllegalArgumentException("Move is not valid.");
 		} else {

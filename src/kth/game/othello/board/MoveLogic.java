@@ -93,18 +93,27 @@ public class MoveLogic {
 		return moves;
 	}
 
-
-	public List<Node> getRandomValidMove(String playerId, Random random) {
+	public List<Node> makeRandomValidMove(String playerId, Random random) {
+		// Check if any valid move is possible
 		List<OthelloMove> moves = getValidMoves(playerId);
-
+		
 		if (moves.isEmpty()) {
 			return new ArrayList<Node>();
 		} else {
-			// Let the computer make a random move
+			// Make a random move
 			OthelloMove move = moves.get(random.nextInt(moves.size()));
-
-			// Return the number of nodes that were swapped
-			return getNodesToSwap(playerId, move.getMovedToNode().getId());
+			
+			List<Node> swappedNodes = getNodesToSwap(playerId, move.getMovedToNode().getId());
+			
+			// The occupied nodes is the swapped nodes and the node move to
+			List<Node> occupiedNodes = new ArrayList<Node>(swappedNodes);
+			occupiedNodes.add(move.getMovedToNode());
+			
+			// Change the board
+			board.changeOccupantOnNodes(occupiedNodes, playerId);
+			
+			// Return the nodes that were swapped
+			return move.getIntermediateNodes();
 		}
 	}
 
