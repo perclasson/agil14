@@ -17,19 +17,19 @@ public class OthelloBoard implements Board {
 	private int boardOrder;
 
 	/**
+	 * Initializes a Othello board given players and board order.
 	 * @param playerOneId
+	 * 		the first player's id
 	 * @param playerTwoId
+	 * 		the second player's id
 	 * @param boardOrder
-	 *            , Must be an even number.
+	 * 		the board's order, must be an even number
 	 */
 	public OthelloBoard(String playerOneId, String playerTwoId, int boardOrder) {
 		this.boardOrder = boardOrder;
 		initializeBoard(playerOneId, playerTwoId);
 	}
 
-	/**
-	 * @return List of nodes and representing "a square" in board
-	 */
 	@Override
 	public List<Node> getNodes() {
 		return nodes;
@@ -38,9 +38,8 @@ public class OthelloBoard implements Board {
 	/**
 	 * Get node by id from board, throws {@link IllegalArgumentException} if non-existent node.
 	 * 
-	 * @param String
-	 *            nodeId
-	 * @return Node node
+	 * @param the id of the node to be retrieved
+	 * @return the node
 	 * @throws IllegalArgumentException
 	 */
 	public Node getNode(String nodeId) {
@@ -55,8 +54,8 @@ public class OthelloBoard implements Board {
 	/**
 	 * Get node by coordinates.
 	 * 
-	 * @param int x
-	 * @param int y
+	 * @param the x coordinate
+	 * @param the y coordinate
 	 * @return Node node
 	 */
 	public Node getNodeByCoordinates(int x, int y) {
@@ -64,7 +63,9 @@ public class OthelloBoard implements Board {
 	}
 
 	/**
-	 * @return the length of the board
+	 * The order of the board, the number of nodes is the square of the order.
+	 * 
+	 * @return the order of the board
 	 */
 
 	public int getOrder() {
@@ -72,12 +73,13 @@ public class OthelloBoard implements Board {
 	}
 
 	/**
-	 * Update nodes in the list so the nodes now have the occupant player as playerID
+	 * Changes the occupant player of nodes in the board given a list of nodes.
 	 * 
 	 * @param nodesToBeChanged
+	 *            a list of nodes that should be changed in the board
 	 * @param occupantPlayerId
+	 *            the id of the new occupant
 	 */
-
 	public void changeOccupantOnNodes(List<Node> nodesToBeChanged, String occupantPlayerId) { // TODO naming
 		// Change the swapped nodes occupant
 		for (Node n : nodesToBeChanged) {
@@ -88,7 +90,7 @@ public class OthelloBoard implements Board {
 	}
 
 	/**
-	 * Print a matrix representing the board
+	 * A string representing a matrix of the board
 	 */
 	@Override
 	public String toString() {
@@ -101,12 +103,13 @@ public class OthelloBoard implements Board {
 		}
 		return s;
 	}
-
 	/**
 	 * Fill the board with nodes and where the four in the middle have a representing playerId
 	 * 
 	 * @param playerOneId
+	 *            the first player's id
 	 * @param playerTwoId
+	 *            the second player's id
 	 */
 	private void initializeBoard(String playerOneId, String playerTwoId) {
 		nodes = new ArrayList<Node>(boardOrder * boardOrder);
@@ -129,9 +132,11 @@ public class OthelloBoard implements Board {
 	}
 
 	/**
-	 * @param x
-	 * @param y
-	 * @return The index (as Int) in the list nodes, that corresponds to the coordinate (x,y) on the table
+	 * The board is internally a list and this returns the correct index for a node in matrix notation.
+	 *
+	 * @param the x coordinate
+	 * @param the y coordinate
+	 * @return The index in the list nodes, that corresponds to the coordinate (x,y) in the board
 	 */
 	private int getNodeIndex(int x, int y) {
 		return x + (boardOrder) * y;

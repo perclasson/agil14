@@ -1,7 +1,7 @@
 package kth.game.othello.player;
 
 /**
- * Class containts information about the player.
+ * Class contains information about the player.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon
