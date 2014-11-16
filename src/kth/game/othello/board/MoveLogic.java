@@ -60,7 +60,7 @@ public class MoveLogic {
 		// Pick a random move
 		OthelloMove move = moves.get(random.nextInt(moves.size()));
 
-		return move(playerId, move.getMovedToNode().getId());
+		return move(playerId, move.getEndNode().getId());
 	}
 
 	/**
