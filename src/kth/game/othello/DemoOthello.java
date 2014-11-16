@@ -17,7 +17,6 @@ import kth.game.othello.player.Player;
  * @author Ludvig Axelsson, Per Classon & Tommy Roshult
  */
 public class DemoOthello implements Othello {
-
 	private OthelloBoard board;
 	private Player black;
 	private Player white;

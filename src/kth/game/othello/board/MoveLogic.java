@@ -26,6 +26,9 @@ public class MoveLogic {
 	}
 
 	/**
+	 * By first getting all valid moves that leads to nodeId this method return a list with nodes that have to be
+	 * swapped
+	 * 
 	 * @param playerId
 	 * @param nodeId
 	 * @return the nodes that where swapped for this move, including the node where the player made the move, for a move
@@ -45,6 +48,8 @@ public class MoveLogic {
 	}
 
 	/**
+	 * Getting a list with nodes that have to be swapped, for a random move.
+	 * 
 	 * @param playerId
 	 * @param random
 	 * @return Empty list, if there doesn't exist a valid move
@@ -64,6 +69,8 @@ public class MoveLogic {
 	}
 
 	/**
+	 * Swappes all the noted that are needed to be swapped when a move is made
+	 * 
 	 * @param playerId
 	 * @param nodeId
 	 * @return Empty list if the move is invalid
@@ -76,13 +83,15 @@ public class MoveLogic {
 			return new ArrayList<Node>();
 		}
 		board.changeOccupantOnNodes(nodes, playerId);
-		
+
 		// Return the nodes that were swapped and the start node
 		nodes.add(0, board.getNode(nodeId));
 		return nodes;
 	}
 
 	/**
+	 * Method for checking if a player have a valid move to o, or not
+	 * 
 	 * @param playerId
 	 * @return If the player has a valid move to do or not
 	 */
@@ -95,6 +104,8 @@ public class MoveLogic {
 	}
 
 	/**
+	 * Method for controll if a player do a valid move
+	 * 
 	 * @param playerId
 	 * @param nodeId
 	 * @return if it's valid for playerId to move to NodeId or not.
@@ -104,6 +115,8 @@ public class MoveLogic {
 	}
 
 	/**
+	 * Method for getting all the moves that a player could do
+	 * 
 	 * @param playerId
 	 * @return List with moves to do for playerId
 	 */
@@ -116,6 +129,9 @@ public class MoveLogic {
 	}
 
 	/**
+	 * For a specific node, this method return all the moves that could lead to that node. By from the specific node go
+	 * in all directions and looking for a node that have the same playerId. All the nodes between the specific node the
+	 * eventually findings must have the opponents playerId
 	 * 
 	 * @param playerId
 	 * @param nodeId
