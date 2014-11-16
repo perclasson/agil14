@@ -41,6 +41,16 @@ public class MoveLogicTest {
 		return board;
 	}
 
+	private void setNode(int x, int y, OthelloBoard board) {
+		when(board.getNodeByCoordinates(x, y).getOccupantPlayerId()).thenReturn(null);
+		when(board.getNodeByCoordinates(x, y).isMarked()).thenReturn(false);
+	}
+
+	private void setNode(int x, int y, String playerId, OthelloBoard board) {
+		when(board.getNodeByCoordinates(x, y).getOccupantPlayerId()).thenReturn(playerId);
+		when(board.getNodeByCoordinates(x, y).isMarked()).thenReturn(true);
+	}
+
 	@Rule
 	public ExpectedException exception = ExpectedException.none();
 
@@ -57,22 +67,78 @@ public class MoveLogicTest {
 
 	@Test
 	public void testGetNodesToSwap() {
-		OthelloBoard board = mockBoard(8);
+		OthelloBoard board = mockBoard(3);
 		MoveLogic moveLogic = new MoveLogic(board);
 
 		List<Node> swap = null;
 
-		// 1
-		when(board.getNodeByCoordinates(0, 0).getOccupantPlayerId()).thenReturn("white");
-		when(board.getNodeByCoordinates(0, 0).isMarked()).thenReturn(true);
 
-		when(board.getNodeByCoordinates(1, 0).getOccupantPlayerId()).thenReturn("black");
-		when(board.getNodeByCoordinates(1, 0).isMarked()).thenReturn(true);
+		// Scenario:
+		// | white black target |
+		// | empty empty empty |
+		// | empty empty empty |
+		setNode(0, 0, "white", board);
+		setNode(1, 0, "black", board);
 
+		// Should be:
+		// | white white white |
+		// | empty empty empty |
+		// | empty empty empty |
 		swap = moveLogic.getNodesToSwap("white", "x2y0");
 		assertEquals(swap.size(), 2);
 		assertEquals(swap.get(0), board.getNodeByCoordinates(1, 0));
 
+		assertEquals(swap.get(1), board.getNodeByCoordinates(2, 0));
+
+		// Scenario:
+		// | white black empty |
+		// | empty target empty |
+		// | empty empty empty |
+		setNode(0, 0, "white", board);
+		setNode(1, 0, "black", board);
+		swap = moveLogic.getNodesToSwap("white", "x1y1");
+		assertEquals(swap.size(), 0);
+
+		// Scenario:
+		// | white target black |
+		// | empty empty empty |
+		// | empty empty empty |
+		setNode(0, 0, "white", board);
+		setNode(1, 0, null, board);
+		setNode(2, 0, "black", board);
+		swap = moveLogic.getNodesToSwap("white", "x1y0");
+		assertEquals(swap.size(), 0);
+
+		// Scenario:
+		// | white target black |
+		// | empty empty empty |
+		// | empty empty empty |
+		setNode(0, 0, "white", board);
+		setNode(1, 0, null, board);
+		setNode(2, 0, "black", board);
+		swap = moveLogic.getNodesToSwap("white", "x1y0");
+		assertEquals(swap.size(), 0);
+
+		// Scenario:
+		// | white black white |
+		// | black black black |
+		// | target black white |
+		setNode(0, 0, "white", board);
+		setNode(1, 0, "black", board);
+		setNode(2, 0, "white", board);
+		setNode(0, 1, "black", board);
+		setNode(1, 1, "black", board);
+		setNode(2, 1, "black", board);
+		setNode(0, 2, board);
+		setNode(1, 2, "black", board);
+		setNode(2, 2, "white", board);
+
+		// Should be:
+		// | white black white |
+		// | white white black |
+		// | white white white |
+		swap = moveLogic.getNodesToSwap("white", "x0y2");
+		assertEquals(swap.size(), 4);
 	}
 
 	public void testRandomMove() {
