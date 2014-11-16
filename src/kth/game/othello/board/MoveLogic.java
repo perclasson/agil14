@@ -23,7 +23,9 @@ public class MoveLogic {
 			swappedNodes.addAll(move.getIntermediateNodes());
 		}
 		// Add the last node
-		swappedNodes.add(board.getNode(nodeId));
+		if (swappedNodes.size() > 0) {
+			swappedNodes.add(board.getNode(nodeId));
+		}
 		return swappedNodes;
 	}
 
@@ -98,7 +100,7 @@ public class MoveLogic {
 				if ((x < 0 || x >= board.getOrder()) || (y < 0 || y >= board.getOrder())) {
 					break;
 				}
-
+			
 				Node node = board.getNodeByCoordinates(x, y);
 
 				boolean nodeIsOpponent = node.isMarked() && !node.getOccupantPlayerId().equals(playerId);
