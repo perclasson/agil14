@@ -40,6 +40,10 @@ public class OthelloLab1IT {
 		throw new IllegalStateException();
 	}
 
+	/**
+	 * DEMO 2 Integration test which show that the model allows for one computer and one human to play against each
+	 * other for 10 moves.
+	 */
 	@Test
 	public void someMovesBetweenAComputerAndHumanTest() {
 		Othello othello = getOthelloFactory().createHumanVersusComputerGame();
@@ -56,6 +60,9 @@ public class OthelloLab1IT {
 		Assert.assertEquals(totalMoves * 2 + 4, getNumberOfOccupiedNodes(othello));
 	}
 
+	/**
+	 * DEMO 1 Integration test which show that two computer players can start a game and and print out who has won.
+	 */
 	@Test
 	public void twoComputerOnAClassicalBoardTest() {
 		Othello othello = getOthelloFactory().createComputerGame();
