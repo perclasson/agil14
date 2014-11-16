@@ -26,8 +26,7 @@ public class OthelloBoard implements Board {
 	}
 
 	/**
-	 * Get node by id from board, throws {@link IllegalArgumentException} if
-	 * non-existent node.
+	 * Get node by id from board, throws {@link IllegalArgumentException} if non-existent node.
 	 * 
 	 * @param String
 	 *            nodeId
@@ -40,7 +39,7 @@ public class OthelloBoard implements Board {
 				return node;
 			}
 		}
-		throw new IllegalArgumentException();
+		throw new IllegalArgumentException("There is no node with that ID.");
 	}
 
 	/**
@@ -51,17 +50,17 @@ public class OthelloBoard implements Board {
 	 * @return Node node
 	 */
 	public Node getNodeByCoordinates(int x, int y) {
-		return nodes.get(x + (boardOrder - 1)*y);
+		return nodes.get(x + (boardOrder - 1) * y);
 	}
-	
+
 	public void toggleNodeOccupant(int x, int y) {
-		//nodes.get()
+		// nodes.get()
 	}
 
 	public int getOrder() {
 		return boardOrder;
 	}
-	
+
 	private void initializeBoard(String playerOneId, String playerTwoId) {
 		nodes = new ArrayList<Node>(boardOrder * boardOrder); // TODO: I think this is OK?
 		int[] startCoordinate = { boardOrder / 2 - 1, boardOrder / 2 };
@@ -85,7 +84,7 @@ public class OthelloBoard implements Board {
 		Node n = getNode(nodeId);
 		int x = n.getXCoordinate();
 		int y = n.getYCoordinate(); // TODO A LOT BETTER
-		nodes.set(x + (boardOrder - 1)*y, new OthelloNode(x, y, playerId));
+		nodes.set(x + (boardOrder - 1) * y, new OthelloNode(x, y, playerId));
 	}
 
 }
