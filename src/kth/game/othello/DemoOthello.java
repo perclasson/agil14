@@ -112,6 +112,22 @@ public class DemoOthello implements Othello {
 	}
 
 	/**
+	 * Gets the number of nodes player has occupant.
+	 * 
+	 * @param playerId
+	 * @return int of number of nodes
+	 */
+	public int getNodesOfPlayer(String playerId) {
+		int n = 0;
+		for (Node node : getBoard().getNodes()) {
+			if (node.getOccupantPlayerId().equals(playerId)) {
+				n++;
+			}
+		}
+		return n;
+	}
+
+	/**
 	 * Checks if the game is active, and updates the internal state;
 	 */
 	private void updateGameState() {
