@@ -1,9 +1,12 @@
 package kth.game.othello;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import kth.game.othello.board.MoveLogic;
@@ -26,6 +29,7 @@ public class MoveLogicTest {
 
 	private OthelloBoard mockBoard(int order) {
 		OthelloBoard board = mock(OthelloBoard.class);
+		ArrayList<Node> nodes = new ArrayList<Node>();
 		for (int y = 0; y < order; y++) {
 			for (int x = 0; x < order; x++) {
 				Node node = mock(Node.class);
@@ -35,9 +39,11 @@ public class MoveLogicTest {
 				when(node.isMarked()).thenReturn(false);
 				when(board.getNodeByCoordinates(x, y)).thenReturn(node);
 				when(board.getNode(node.getId())).thenReturn(node);
+				nodes.add(node);
 			}
 		}
 		when(board.getOrder()).thenReturn(order);
+		when(board.getNodes()).thenReturn(nodes);
 		return board;
 	}
 
@@ -69,9 +75,7 @@ public class MoveLogicTest {
 	public void testGetNodesToSwap() {
 		OthelloBoard board = mockBoard(3);
 		MoveLogic moveLogic = new MoveLogic(board);
-
 		List<Node> swap = null;
-
 
 		// Scenario:
 		// | white black target |
@@ -87,7 +91,6 @@ public class MoveLogicTest {
 		swap = moveLogic.getNodesToSwap("white", "x2y0");
 		assertEquals(swap.size(), 2);
 		assertEquals(swap.get(0), board.getNodeByCoordinates(1, 0));
-
 		assertEquals(swap.get(1), board.getNodeByCoordinates(2, 0));
 
 		// Scenario:
@@ -141,16 +144,94 @@ public class MoveLogicTest {
 		assertEquals(swap.size(), 4);
 	}
 
-	public void testRandomMove() {
-
-	}
-
+	@Test
 	public void testMove() {
+		OthelloBoard board = mockBoard(3);
+		MoveLogic moveLogic = new MoveLogic(board);
+		List<Node> nodes = null;
+
+		// Scenario:
+		// | white black target |
+		// | empty empty empty |
+		// | empty empty empty |
+		setNode(0, 0, "white", board);
+		setNode(1, 0, "black", board);
+		nodes = moveLogic.move("white", "x2y0");
+		
+		// Should be:
+		// | white white white |
+		// | empty empty empty |
+		// | empty empty empty |
+		assertEquals(nodes.size(), 3);
+		for (Node n : nodes) {
+			assertEquals(n, board.getNodeByCoordinates(n.getXCoordinate(), n.getYCoordinate()));
+		}
+		
+		// Scenario:
+		// | white black white |
+		// | black black black |
+		// | target black white |
+		setNode(0, 0, "white", board);
+		setNode(1, 0, "black", board);
+		setNode(2, 0, "white", board);
+		setNode(0, 1, "black", board);
+		setNode(1, 1, "black", board);
+		setNode(2, 1, "black", board);
+		setNode(0, 2, board);
+		setNode(1, 2, "black", board);
+		setNode(2, 2, "white", board);
+
+		// Should be:
+		// | white black white |
+		// | white white black |
+		// | white white white |
+		nodes = moveLogic.move("white", "x0y2");
+		
+		assertEquals(nodes.size(), 5);
+		for (Node n : nodes) {
+			assertEquals(n, board.getNodeByCoordinates(n.getXCoordinate(), n.getYCoordinate()));
+		}
 	}
 
-	public void testHasValidMove() {
-	}
+	@Test
+	public void testHasAndIsValidMove() {
+		OthelloBoard board = mockBoard(3);
+		MoveLogic moveLogic = new MoveLogic(board);
 
-	public void testIsMoveValid() {
+		// Scenario:
+		// | white white empty |
+		// | empty empty empty |
+		// | empty empty empty |
+		setNode(0, 0, "white", board);
+		setNode(1, 0, "white", board);
+		assertFalse(moveLogic.hasValidMove("white"));
+		for (Node n : board.getNodes()) {
+			assertFalse(moveLogic.isMoveValid("white", n.getId()));
+		}
+		
+		// Scenario:
+		// | white black empty |
+		// | empty empty empty |
+		// | empty empty empty |
+		setNode(0, 0, "white", board);
+		setNode(1, 0, "black", board);
+		assertTrue(moveLogic.hasValidMove("white"));
+		assertTrue(moveLogic.isMoveValid("white", "x2y0"));
+		
+		// Scenario:
+		// | white white black |
+		// | empty white empty |
+		// | empty empty empty |
+		setNode(0, 0, "white", board);
+		setNode(1, 0, "white", board);
+		setNode(2, 0, "black", board);
+		setNode(1, 1, "white", board);
+		assertTrue(moveLogic.hasValidMove("black"));
+		assertFalse(moveLogic.hasValidMove("white"));
+		
+		assertTrue(moveLogic.isMoveValid("black", "x0y2"));
+		assertFalse(moveLogic.isMoveValid("black", "x1y2"));
+		assertFalse(moveLogic.isMoveValid("black", "x0y1"));
+		assertFalse(moveLogic.isMoveValid("black", "x2y1"));
 	}
 }
