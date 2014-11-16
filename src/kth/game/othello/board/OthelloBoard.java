@@ -3,6 +3,11 @@ package kth.game.othello.board;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class containing the nodes, boardOrder and heper functions for the board.
+ * 
+ * @author Ludvig Axelsson, Per Classon & Tommy Roshult
+ */
 public class OthelloBoard implements Board {
 
 	private List<Node> nodes;
@@ -52,12 +57,11 @@ public class OthelloBoard implements Board {
 	public Node getNodeByCoordinates(int x, int y) {
 		return nodes.get(getNodeIndex(x, y));
 	}
-	
+
 	public int getOrder() {
 		return boardOrder;
 	}
-	
-	
+
 	public void changeOccupantOnNodes(List<Node> nodesToBeChanged, String occupantPlayerId) { // TODO naming
 		// Change the swapped nodes occupant
 		for (Node n : nodesToBeChanged) {
@@ -99,6 +103,6 @@ public class OthelloBoard implements Board {
 	}
 
 	private int getNodeIndex(int x, int y) {
-		return x + (boardOrder)*y;
+		return x + (boardOrder) * y;
 	}
 }

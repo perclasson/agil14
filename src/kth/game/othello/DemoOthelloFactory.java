@@ -7,6 +7,11 @@ import kth.game.othello.board.OthelloBoard;
 import kth.game.othello.player.OthelloPlayer;
 import kth.game.othello.player.Player.Type;
 
+/**
+ * This class consists of functions to create Othello games.
+ * 
+ * @author Ludvig Axelsson, Per Classon & Tommy Roshult
+ */
 public class DemoOthelloFactory implements OthelloFactory {
 	private static final int BOARD_ORDER = 8;
 

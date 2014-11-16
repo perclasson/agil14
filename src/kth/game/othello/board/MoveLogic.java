@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * This is a helper class that contains the logic when players make moves.
+ * 
+ * @author Ludvig Axelsson, Per Classon & Tommy Roshult
+ */
 public class MoveLogic {
 
 	private OthelloBoard board;
@@ -34,10 +39,10 @@ public class MoveLogic {
 		if (moves.isEmpty()) {
 			return new ArrayList<Node>();
 		}
-		
+
 		// Pick a random move
 		OthelloMove move = moves.get(random.nextInt(moves.size()));
-		
+
 		return move(playerId, move.getMovedToNode().getId());
 	}
 
@@ -47,7 +52,7 @@ public class MoveLogic {
 			return new ArrayList<Node>();
 		}
 		board.changeOccupantOnNodes(nodes, playerId);
-		
+
 		// Return the nodes that were swapped and the start node
 		nodes.add(0, board.getNode(nodeId));
 		return nodes;
@@ -64,7 +69,7 @@ public class MoveLogic {
 	public boolean isMoveValid(String playerId, String nodeId) {
 		return getMoves(playerId, nodeId).size() > 0;
 	}
-	
+
 	private List<OthelloMove> getMoves(String playerId) {
 		List<OthelloMove> moves = new ArrayList<OthelloMove>();
 		for (Node node : board.getNodes()) {
@@ -72,7 +77,7 @@ public class MoveLogic {
 		}
 		return moves;
 	}
-	
+
 	private List<OthelloMove> getMoves(String playerId, String nodeId) {
 		// The valid moves
 		List<OthelloMove> moves = new ArrayList<OthelloMove>();
@@ -84,7 +89,7 @@ public class MoveLogic {
 		if (targetNode.isMarked()) {
 			return moves;
 		}
-		
+
 		for (int[] direction : directions) {
 			int x = targetNode.getXCoordinate();
 			int y = targetNode.getYCoordinate();
@@ -100,11 +105,11 @@ public class MoveLogic {
 				if ((x < 0 || x >= board.getOrder()) || (y < 0 || y >= board.getOrder())) {
 					break;
 				}
-			
+
 				Node node = board.getNodeByCoordinates(x, y);
 
 				boolean nodeIsOpponent = node.isMarked() && !node.getOccupantPlayerId().equals(playerId);
-				boolean nodeIsMine =  node.isMarked() && node.getOccupantPlayerId().equals(playerId);
+				boolean nodeIsMine = node.isMarked() && node.getOccupantPlayerId().equals(playerId);
 
 				if (nodeIsOpponent) {
 					visitedNodes.add(node);

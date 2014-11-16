@@ -1,5 +1,10 @@
 package kth.game.othello.player;
 
+/**
+ * Class containts information about the player.
+ * 
+ * @author Ludvig Axelsson, Per Classon & Tommy Roshult
+ */
 public class OthelloPlayer implements Player {
 
 	private String id;
