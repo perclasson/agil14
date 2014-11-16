@@ -50,7 +50,7 @@ public class OthelloBoard implements Board {
 	 * @return Node node
 	 */
 	public Node getNodeByCoordinates(int x, int y) {
-		return nodes.get(x + (boardOrder - 1) * y);
+		return nodes.get(x + (boardOrder) * y);
 	}
 
 	public void toggleNodeOccupant(int x, int y) {

@@ -20,10 +20,19 @@ public class BoardTest {
 		OthelloBoard board = new OthelloBoard("Black", "White", 8);
 		OthelloNode node = new OthelloNode(3, 4);
 		Node secondNode = board.getNode("x" + 3 + "y" + 4);
+		Node thirdNode = board.getNodeByCoordinates(3, 4);
 		assertEquals("Board should return a node", node.getId(), secondNode.getId());
+		assertEquals("Get node by ID or coordinates shoulde return same node for same argument", secondNode, thirdNode);
+		assertNotEquals("It should not be the same node on different locations on the board", secondNode,
+				board.getNodeByCoordinates(4, 4));
 		// Expected when there is no Node with that NodeID
 		exception.expect(IllegalArgumentException.class);
 		exception.expectMessage("There is no node with that ID.");
 		board.getNode("x -" + 1 + "y -" + 1);
+	}
+
+	private void assertNotEquals(String string, Node secondNode, Node nodeByCoordinates) {
+		// TODO Auto-generated method stub
+
 	}
 }
