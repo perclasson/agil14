@@ -26,11 +26,12 @@ public class MoveLogic {
 	}
 
 	/**
-	 * By first getting all valid moves that leads to nodeId this method return a list with nodes that have to be
-	 * swapped
+	 * Returns the nodes that will be swapped for a move at the given nodeId.
 	 * 
 	 * @param playerId
+	 * 		the player's id
 	 * @param nodeId
+	 * 		the node's id
 	 * @return the nodes that where swapped for this move, including the node where the player made the move, for a move
 	 *         to a specific nodeID
 	 */
@@ -48,7 +49,7 @@ public class MoveLogic {
 	}
 
 	/**
-	 * Getting a list with nodes that have to be swapped, for a random move.
+	 * Makes a random move given a player and updates the board. 
 	 * 
 	 * @param playerId
 	 * @param random
@@ -69,10 +70,12 @@ public class MoveLogic {
 	}
 
 	/**
-	 * Swappes all the noted that are needed to be swapped when a move is made
+	 * Makes a move given a player, node id and updates the board.
 	 * 
 	 * @param playerId
+	 * 		the player's id
 	 * @param nodeId
+	 * 		the node's id
 	 * @return Empty list if the move is invalid
 	 * @return the nodes that where swapped for this move, including the node where the player made the move
 	 */
@@ -90,10 +93,10 @@ public class MoveLogic {
 	}
 
 	/**
-	 * Method for checking if a player have a valid move to o, or not
+	 * Checks if a player has a valid move.
 	 * 
 	 * @param playerId
-	 * @return If the player has a valid move to do or not
+	 * @return true if the player has a valid move
 	 */
 	public boolean hasValidMove(String playerId) {
 		List<OthelloMove> moves = new ArrayList<OthelloMove>();
@@ -104,7 +107,7 @@ public class MoveLogic {
 	}
 
 	/**
-	 * Method for controll if a player do a valid move
+	 * Checks if a move is valid for a player.
 	 * 
 	 * @param playerId
 	 * @param nodeId
@@ -115,10 +118,10 @@ public class MoveLogic {
 	}
 
 	/**
-	 * Method for getting all the moves that a player could do
+	 * Retrieves all the moves that a player can do.
 	 * 
 	 * @param playerId
-	 * @return List with moves to do for playerId
+	 * @return list of moves for the playerId
 	 */
 	private List<OthelloMove> getMoves(String playerId) {
 		List<OthelloMove> moves = new ArrayList<OthelloMove>();
@@ -135,7 +138,7 @@ public class MoveLogic {
 	 * 
 	 * @param playerId
 	 * @param nodeId
-	 * @return List with moves, where all move leads to a valid "placement" on the nodeId.
+	 * @return list of moves, where every move leads to a valid "placement" on the nodeId.
 	 */
 	private List<OthelloMove> getMoves(String playerId, String nodeId) {
 		// The valid moves
