@@ -114,7 +114,7 @@ public class DemoOthello implements Othello {
 	 * Gets the number of nodes player has occupant.
 	 * 
 	 * @param playerId
-	 * @return int of number of nodes
+	 * @return number of nodes
 	 */
 	public int getNodesOfPlayer(String playerId) {
 		int n = 0;

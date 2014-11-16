@@ -13,19 +13,30 @@ public class OthelloNode implements Node {
 	private String playerId;
 	private int x, y;
 
+	/**
+	 * Initializes a Othello node given coordinates and a player.
+	 */
 	public OthelloNode(int x, int y, String playerId) {
 		this.playerId = playerId;
 		this.x = x;
 		this.y = y;
 		setId(x, y);
 	}
-
+	
+	/**
+	 * Initializes a Othello node given coordinates.
+	 */
 	public OthelloNode(int x, int y) {
 		this.x = x;
 		this.y = y;
 		setId(x, y);
 	}
-
+	
+	/**
+	 * Sets the occupant player of the node
+	 * 
+	 * @param the player's id
+	 */
 	public void setOccupantPlayerId(String playerId) {
 		this.playerId = playerId;
 	}
@@ -60,6 +71,12 @@ public class OthelloNode implements Node {
 		return getOccupantPlayerId() != null ? getOccupantPlayerId() : "-1";
 	}
 
+	/**
+	 * Sets the id for the node given the coordinates.
+	 * 
+	 * @param x coordinate
+	 * @param y coordinate
+	 */
 	private void setId(int x, int y) {
 		this.id = "x" + x + "y" + y;
 	}
