@@ -3,23 +3,31 @@ package kth.game.othello.board;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents the board in a game of Othello.
+ * 
+ * @author Ludvig Axelsson, Per Classon & Tommy Roshult
+ */
+
 public class OthelloBoard implements Board {
 
 	private List<Node> nodes;
 	private int boardOrder;
 
 	/**
-	 * 
 	 * @param playerOneId
 	 * @param playerTwoId
 	 * @param boardOrder
-	 *            Must be an even number.
+	 *            , Must be an even number.
 	 */
 	public OthelloBoard(String playerOneId, String playerTwoId, int boardOrder) {
 		this.boardOrder = boardOrder;
 		initializeBoard(playerOneId, playerTwoId);
 	}
 
+	/**
+	 * @return List of nodes and representing "a square" in board
+	 */
 	@Override
 	public List<Node> getNodes() {
 		return nodes;
@@ -52,12 +60,20 @@ public class OthelloBoard implements Board {
 	public Node getNodeByCoordinates(int x, int y) {
 		return nodes.get(getNodeIndex(x, y));
 	}
-	
+
+	/**
+	 * @return the length of the board
+	 */
 	public int getOrder() {
 		return boardOrder;
 	}
-	
-	
+
+	/**
+	 * Update nodes in the list so the nodes now have the occupant player as playerID
+	 * 
+	 * @param nodesToBeChanged
+	 * @param occupantPlayerId
+	 */
 	public void changeOccupantOnNodes(List<Node> nodesToBeChanged, String occupantPlayerId) { // TODO naming
 		// Change the swapped nodes occupant
 		for (Node n : nodesToBeChanged) {
@@ -67,6 +83,9 @@ public class OthelloBoard implements Board {
 		}
 	}
 
+	/**
+	 * Print a matrix representing the board
+	 */
 	@Override
 	public String toString() {
 		String s = "";
@@ -79,8 +98,15 @@ public class OthelloBoard implements Board {
 		return s;
 	}
 
+	/**
+	 * Fill the board with nodes and where the four in the middle have a representing playerId
+	 * 
+	 * @param playerOneId
+	 * @param playerTwoId
+	 */
 	private void initializeBoard(String playerOneId, String playerTwoId) {
-		nodes = new ArrayList<Node>(boardOrder * boardOrder); // TODO: I think this is OK?
+		nodes = new ArrayList<Node>(boardOrder * boardOrder);
+		// The middle index of table where the nodes should have a playedId
 		int[] startCoordinate = { boardOrder / 2 - 1, boardOrder / 2 };
 		for (int y = 0; y < boardOrder; y++) {
 			for (int x = 0; x < boardOrder; x++) {
@@ -98,7 +124,12 @@ public class OthelloBoard implements Board {
 		}
 	}
 
+	/**
+	 * @param x
+	 * @param y
+	 * @return The index in the list nodes, that corresponds to the coordinate (x,y) on the table
+	 */
 	private int getNodeIndex(int x, int y) {
-		return x + (boardOrder)*y;
+		return x + (boardOrder) * y;
 	}
 }
