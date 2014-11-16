@@ -11,6 +11,11 @@ import kth.game.othello.board.OthelloBoard;
 import kth.game.othello.player.OthelloPlayer;
 import kth.game.othello.player.Player;
 
+/**
+ * This class represents a game of Othello.
+ * 
+ * @author Ludvig Axelsson, Per Classon & Tommy Roshult
+ */
 public class DemoOthello implements Othello {
 
 	private OthelloBoard board;
@@ -72,7 +77,7 @@ public class DemoOthello implements Othello {
 		}
 		// Make a random move
 		List<Node> nodes = moveLogic.randomMove(getPlayerInTurn().getId(), random);
-		isGameActive();
+		updateGameState();
 		changePlayersTurn();
 		return nodes;
 	}
@@ -88,7 +93,7 @@ public class DemoOthello implements Othello {
 		if (nodes.isEmpty()) {
 			throw new IllegalArgumentException("Move is not valid.");
 		} else {
-			isGameActive();
+			updateGameState();
 			changePlayersTurn();
 			return nodes;
 		}
@@ -105,20 +110,21 @@ public class DemoOthello implements Othello {
 		isBlackTurn = black.getId().equals(playerId);
 		isActive = true;
 	}
-	
-	// TODO: better
-	private void isGameActive() {
+
+	/**
+	 * Checks if the game is active, and updates the internal state;
+	 */
+	private void updateGameState() {
 		// Check if the opponent has any moves left
-		boolean movePossible = false;
-		for (Player p : getPlayers()) {
-			if (p.getId().equals(getPlayerInTurn().getId())) {
-				continue;
-			}
-			movePossible = moveLogic.hasValidMove(p.getId());
-		}
-		isActive = movePossible;
+		String playerInTurnId = getPlayerInTurn().getId();
+		String playerNextInTurnId = white.getId().equals(playerInTurnId) ? black.getId() : white.getId();
+		boolean isMovePossible = moveLogic.hasValidMove(playerNextInTurnId);
+		isActive = isMovePossible;
 	}
-	
+
+	/**
+	 * Changes the state of which player is in turn.
+	 */
 	private void changePlayersTurn() {
 		isBlackTurn = !isBlackTurn;
 	}

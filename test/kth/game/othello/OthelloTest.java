@@ -22,30 +22,36 @@ import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 
 public class OthelloTest {
-
-	private List<Node> mockBoardNodes(int n) {
-		List<Node> nodes = new ArrayList<Node>();
-		for (int y = 0; y < n; y++) {
-			for (int x = 0; x < n; x++) {
-				Node node = mock(Node.class);
-				when(node.getId()).thenReturn("x" + x + "y" + y);
-				when(node.getXCoordinate()).thenReturn(x);
-				when(node.getYCoordinate()).thenReturn(y);
-				nodes.add(node);
-			}
-		}
-		return nodes;
-	}
-
 	@Rule
 	public ExpectedException exception = ExpectedException.none();
 
 	@Test
 	public void testHasValidMove() {
+		MoveLogic moveLogic = Mockito.mock(MoveLogic.class);
+		DemoOthello othello = new DemoOthello(null, null, null, moveLogic, null);
+		String playerId = "player";
+		othello.hasValidMove(playerId);
+		verify(moveLogic).hasValidMove(playerId);
 	}
 
 	@Test
 	public void testIsMoveValid() {
+		MoveLogic moveLogic = Mockito.mock(MoveLogic.class);
+		DemoOthello othello = new DemoOthello(null, null, null, moveLogic, null);
+		String playerId = "player";
+		String nodeId = "x0y0";
+		othello.isMoveValid(playerId, nodeId);
+		verify(moveLogic).isMoveValid(playerId, nodeId);
+	}
+	
+	@Test
+	public void testGetMovesToSwap() {
+		MoveLogic moveLogic = Mockito.mock(MoveLogic.class);
+		DemoOthello othello = new DemoOthello(null, null, null, moveLogic, null);
+		String playerId = "player";
+		String nodeId = "x0y0";
+		othello.getNodesToSwap(playerId, nodeId);
+		verify(moveLogic).getNodesToSwap(playerId, nodeId);
 	}
 
 	@Test
