@@ -38,8 +38,9 @@ public class OthelloBoard implements Board {
 	/**
 	 * Get node by id from board, throws {@link IllegalArgumentException} if non-existent node.
 	 * 
-	 * @param the id of the node to be retrieved
-	 * @return the node
+	 * @param nodeId 
+	 * 		id of the node to be retrieved
+	 * @return node that was found
 	 * @throws IllegalArgumentException
 	 */
 	public Node getNode(String nodeId) {
@@ -54,8 +55,8 @@ public class OthelloBoard implements Board {
 	/**
 	 * Get node by coordinates.
 	 * 
-	 * @param the x coordinate
-	 * @param the y coordinate
+	 * @param x coordinate
+	 * @param y coordinate
 	 * @return Node node
 	 */
 	public Node getNodeByCoordinates(int x, int y) {
