@@ -71,9 +71,11 @@ public class DemoOthello implements Othello {
 		if (getPlayerInTurn().getType() != Player.Type.COMPUTER) {
 			throw new IllegalStateException("Player in turn is not a computer.");
 		}
-		togglePlayerInTurn();
+
 		List<Node> nodes = moveLogic.getRandomValidMove(getPlayerInTurn().getId(), random);
-		isGameOver(nodes, getPlayerInTurn().getId());
+		isGameOver(getPlayerInTurn().getId());
+		togglePlayerInTurn();
+
 		return nodes;
 	}
 
@@ -86,8 +88,9 @@ public class DemoOthello implements Othello {
 		if (nodes.isEmpty()) {
 			throw new IllegalArgumentException("Move is not valid.");
 		} else {
+			board.changeOccupantOnNodes(nodes, playerId);
+			isGameOver(playerId);
 			togglePlayerInTurn();
-			isGameOver(nodes, playerId);
 			return nodes;
 		}
 	}
@@ -105,12 +108,7 @@ public class DemoOthello implements Othello {
 	}
 	
 	// TODO: better
-	private void isGameOver(List<Node> nodes, String playerId) {
-		// Change the swapped nodes occupant
-		for (Node n : nodes) {
-			board.setOccupantNode(n.getId(), playerId);
-		}
-
+	private void isGameOver(String playerId) {
 		// Check if the opponent has any moves left
 		int possibleMoves = 0;
 		if (!white.getId().equals(playerId)) {
