@@ -77,6 +77,12 @@ public class MoveLogic {
 
 		// Try every direction from the target node
 		Node targetNode = board.getNode(nodeId);
+
+		// Check that the target node is not already occupant
+		if (targetNode.isMarked()) {
+			return moves;
+		}
+		
 		for (int[] direction : directions) {
 			int x = targetNode.getXCoordinate();
 			int y = targetNode.getYCoordinate();
@@ -96,7 +102,7 @@ public class MoveLogic {
 				Node node = board.getNodeByCoordinates(x, y);
 
 				boolean nodeIsOpponent = node.isMarked() && !node.getOccupantPlayerId().equals(playerId);
-				boolean nodeIsMine = !nodeIsOpponent;
+				boolean nodeIsMine =  node.isMarked() && node.getOccupantPlayerId().equals(playerId);
 
 				if (nodeIsOpponent) {
 					visitedNodes.add(node);
