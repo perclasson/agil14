@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import kth.game.othello.board.Board;
+import kth.game.othello.board.MoveLogic;
 import kth.game.othello.board.Node;
 import kth.game.othello.board.OthelloBoard;
 import kth.game.othello.board.OthelloNode;

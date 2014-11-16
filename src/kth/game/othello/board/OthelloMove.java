@@ -1,17 +1,15 @@
-package kth.game.othello;
+package kth.game.othello.board;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import kth.game.othello.board.Node;
-
-public class Move {
+public class OthelloMove {
 	
 	private ArrayList<Node> visitedNodes;
 	private Node fromNode;
 	private Node toNode;
 	
-	public Move(Node from, Node to, ArrayList<Node> visitedNodes) {
+	public OthelloMove(Node from, Node to, ArrayList<Node> visitedNodes) {
 		this.visitedNodes = visitedNodes;
 		this.fromNode = from;
 		this.toNode = to;

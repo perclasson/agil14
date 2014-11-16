@@ -1,11 +1,8 @@
-package kth.game.othello;
+package kth.game.othello.board;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import kth.game.othello.board.Node;
-import kth.game.othello.board.OthelloBoard;
 
 public class MoveLogic {
 
@@ -26,17 +23,17 @@ public class MoveLogic {
 	 * @return
 	 */
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
-		List<Move> moves = getValidMoves(playerId, nodeId);
+		List<OthelloMove> moves = getValidMoves(playerId, nodeId);
 		List<Node> swapped = new ArrayList<Node>();
-		for (Move m : moves) {
+		for (OthelloMove m : moves) {
 			swapped.addAll(m.getIntermediateNodes());
 		}
 		return swapped;
 
 	}
 
-	public List<Move> getValidMoves(String playerId) {
-		List<Move> moves = new ArrayList<Move>();
+	public List<OthelloMove> getValidMoves(String playerId) {
+		List<OthelloMove> moves = new ArrayList<OthelloMove>();
 		for (Node node : board.getNodes()) {
 			moves.addAll(getValidMoves(playerId, node.getId()));
 		}
@@ -49,9 +46,9 @@ public class MoveLogic {
 	 * @param nodeId
 	 * @return Return list with all valid moves.
 	 */
-	public List<Move> getValidMoves(String playerId, String nodeId) {
+	public List<OthelloMove> getValidMoves(String playerId, String nodeId) {
 		// The valid moves
-		List<Move> moves = new ArrayList<Move>();
+		List<OthelloMove> moves = new ArrayList<OthelloMove>();
 
 		// Try every direction from the target node
 		Node targetNode = board.getNode(nodeId);
@@ -62,7 +59,7 @@ public class MoveLogic {
 			ArrayList<Node> visitedNodes = new ArrayList<Node>();
 
 			// Follow the direction
-			Move currentMove = null;
+			OthelloMove currentMove = null;
 			while (true) {
 				x += direction[0];
 				y += direction[1];
@@ -80,7 +77,7 @@ public class MoveLogic {
 					visitedNodes.add(node);
 				} else if (visitedNodes.size() > 0 && nodeIsMine) {
 					// The move was valid
-					currentMove = new Move(node, targetNode, visitedNodes);
+					currentMove = new OthelloMove(node, targetNode, visitedNodes);
 					break;
 				} else {
 					break;
@@ -98,13 +95,13 @@ public class MoveLogic {
 
 
 	public List<Node> getRandomValidMove(String playerId, Random random) {
-		List<Move> moves = getValidMoves(playerId);
+		List<OthelloMove> moves = getValidMoves(playerId);
 
 		if (moves.isEmpty()) {
 			return new ArrayList<Node>();
 		} else {
 			// Let the computer make a random move
-			Move move = moves.get(random.nextInt(moves.size()));
+			OthelloMove move = moves.get(random.nextInt(moves.size()));
 
 			// Return the number of nodes that were swapped
 			return getNodesToSwap(playerId, move.getMovedToNode().getId());
