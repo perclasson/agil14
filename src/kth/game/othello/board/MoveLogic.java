@@ -7,7 +7,9 @@ import java.util.Random;
 /**
  * This is a helper class that contains the logic when players make moves.
  * 
- * @author Ludvig Axelsson, Per Classon & Tommy Roshult
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
  */
 public class MoveLogic {
 

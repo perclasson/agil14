@@ -6,7 +6,9 @@ import java.util.List;
 /**
  * Class containing the nodes, boardOrder and heper functions for the board.
  * 
- * @author Ludvig Axelsson, Per Classon & Tommy Roshult
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
  */
 public class OthelloBoard implements Board {
 

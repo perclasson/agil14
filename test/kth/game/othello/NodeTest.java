@@ -9,6 +9,13 @@ import kth.game.othello.board.OthelloNode;
 
 import org.junit.Test;
 
+/**
+ * Unit tests of class OthelloNode.
+ * 
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ */
 public class NodeTest {
 
 	@Test

@@ -14,7 +14,9 @@ import kth.game.othello.player.Player;
 /**
  * This class represents a game of Othello.
  * 
- * @author Ludvig Axelsson, Per Classon & Tommy Roshult
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
  */
 public class DemoOthello implements Othello {
 

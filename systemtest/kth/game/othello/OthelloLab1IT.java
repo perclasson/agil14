@@ -7,6 +7,13 @@ import kth.game.othello.player.Player.Type;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * Integrations tests.
+ * 
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ */
 public class OthelloLab1IT {
 
 	private Object getNumberOfOccupiedNodes(Othello othello) {

@@ -6,7 +6,9 @@ import java.util.List;
 /**
  * Class of contains nodes that represents a move in Othello.
  * 
- * @author Ludvig Axelsson, Per Classon & Tommy Roshult
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
  */
 public class OthelloMove {
 

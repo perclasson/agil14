@@ -2,12 +2,10 @@ package kth.game.othello;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import kth.game.othello.board.MoveLogic;
@@ -21,6 +19,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 
+/**
+ * Unit tests of class DemoOthello.
+ * 
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ */
 public class OthelloTest {
 	@Rule
 	public ExpectedException exception = ExpectedException.none();
@@ -43,7 +48,7 @@ public class OthelloTest {
 		othello.isMoveValid(playerId, nodeId);
 		verify(moveLogic).isMoveValid(playerId, nodeId);
 	}
-	
+
 	@Test
 	public void testGetMovesToSwap() {
 		MoveLogic moveLogic = Mockito.mock(MoveLogic.class);

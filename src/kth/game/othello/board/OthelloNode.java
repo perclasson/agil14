@@ -3,7 +3,9 @@ package kth.game.othello.board;
 /**
  * This is a node on the board, which containts information about it's coordinates and who holds the node.
  * 
- * @author Ludvig Axelsson, Per Classon & Tommy Roshult
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
  */
 public class OthelloNode implements Node {
 
