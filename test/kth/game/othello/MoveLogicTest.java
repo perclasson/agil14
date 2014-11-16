@@ -3,33 +3,37 @@ package kth.game.othello;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import org.mockito.Matchers;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import kth.game.othello.board.MoveLogic;
 import kth.game.othello.board.Node;
 import kth.game.othello.board.OthelloBoard;
-import kth.game.othello.player.OthelloPlayer;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mockito.Mockito;
 
 public class MoveLogicTest {
 
-	private List<Node> mockBoardNodes(int order) {
-		List<Node> nodes = new ArrayList<Node>();
+	private OthelloBoard mockBoard(int order) {
+		OthelloBoard board = mock(OthelloBoard.class);
 		for (int y = 0; y < order; y++) {
 			for (int x = 0; x < order; x++) {
-				Node node = Mockito.mock(Node.class);
+				Node node = mock(Node.class);
 				when(node.getId()).thenReturn("x" + x + "y" + y);
 				when(node.getXCoordinate()).thenReturn(x);
 				when(node.getYCoordinate()).thenReturn(y);
-				nodes.add(node);
+				when(node.isMarked()).thenReturn(false);
+				when(board.getNodeByCoordinates(x, y)).thenReturn(node);
+				when(board.getNode(node.getId())).thenReturn(node);	
 			}
 		}
-		return nodes;
+		when(board.getOrder()).thenReturn(order);
+		return board;
 	}
 
 	@Rule
@@ -39,10 +43,7 @@ public class MoveLogicTest {
 	public void testGetNodesToSwapException() {
 		OthelloBoard board = mock(OthelloBoard.class);
 		MoveLogic moveLogic = new MoveLogic(board);
-
-		// Create empty node list
-		List<Node> nodes = mockBoardNodes(0);
-		when(board.getNodes()).thenReturn(nodes);
+		when(board.getNode(Matchers.anyString())).thenThrow(new IllegalArgumentException());
 
 		// Empty board should not have any nodes to swap
 		exception.expect(IllegalArgumentException.class);
@@ -51,17 +52,34 @@ public class MoveLogicTest {
 
 	@Test
 	public void testGetNodesToSwap() {
-		OthelloBoard board = mock(OthelloBoard.class);
-		OthelloPlayer black = mock(OthelloPlayer.class);
-		OthelloPlayer white = mock(OthelloPlayer.class);
+		OthelloBoard board = mockBoard(8);
 		MoveLogic moveLogic = new MoveLogic(board);
+		
+		List<Node> swap = null;
+			
+		// 1
+		when(board.getNodeByCoordinates(0, 0).getOccupantPlayerId()).thenReturn("white");
+		when(board.getNodeByCoordinates(0, 0).isMarked()).thenReturn(true);
+		
+		when(board.getNodeByCoordinates(1, 0).getOccupantPlayerId()).thenReturn("black");
+		when(board.getNodeByCoordinates(1, 0).isMarked()).thenReturn(true);
 
-		// Create a list of mocked board nodes
-		List<Node> nodes = mockBoardNodes(8);
-		when(board.getNodes()).thenReturn(nodes);
+		swap = moveLogic.getNodesToSwap("white", "x2y0");
+		assertEquals(swap.size(), 2);
+		assertEquals(swap.get(0), board.getNodeByCoordinates(1, 0));
+		
+	}
 
-		// TODO
-		List<Node> toSwap = moveLogic.getNodesToSwap("black", "x0y0");
-		// assertEquals(intermediate, toSwap);
+	public void testRandomMove() {
+	 
+	}
+
+	public void testMove() {
+	}
+
+	public void testHasValidMove() {
+	}
+
+	public void testIsMoveValid() {
 	}
 }
