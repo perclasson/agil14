@@ -1,8 +1,12 @@
-package kth.game.othello.board;
+package kth.game.othello.player;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import kth.game.othello.board.Node;
+import kth.game.othello.board.OthelloBoard;
+import kth.game.othello.board.OthelloMove;
 
 /**
  * This is a helper class that contains the logic when players make moves.

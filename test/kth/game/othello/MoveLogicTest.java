@@ -9,9 +9,9 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
-import kth.game.othello.board.MoveLogic;
 import kth.game.othello.board.Node;
 import kth.game.othello.board.OthelloBoard;
+import kth.game.othello.player.MoveLogic;
 
 import org.junit.Rule;
 import org.junit.Test;
