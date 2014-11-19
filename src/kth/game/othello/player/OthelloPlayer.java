@@ -1,5 +1,7 @@
 package kth.game.othello.player;
 
+import kth.game.othello.player.movestrategy.MoveStrategy;
+
 /**
  * Class contains information about the player.
  * 
@@ -32,6 +34,18 @@ public class OthelloPlayer implements Player {
 	@Override
 	public Type getType() {
 		return type;
+	}
+
+	@Override
+	public MoveStrategy getMoveStrategy() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setMoveStrategy(MoveStrategy moveStrategy) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
