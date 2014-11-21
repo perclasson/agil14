@@ -138,7 +138,7 @@ public class BoardImpl implements Board {
 
 	/**
 	 * The board is internally a list and this returns the correct index for a node in matrix notation.
-	 *
+	 * 
 	 * @param the
 	 *            x coordinate
 	 * @param the
@@ -151,7 +151,11 @@ public class BoardImpl implements Board {
 
 	@Override
 	public Node getNode(int x, int y) {
-		// TODO Auto-generated method stub
-		return null;
+		for (Node node : nodes) {
+			if (node.getXCoordinate() == x && node.getYCoordinate() == y) {
+				return node;
+			}
+		}
+		throw new IllegalArgumentException("There is no node with that coordinates");
 	}
 }
