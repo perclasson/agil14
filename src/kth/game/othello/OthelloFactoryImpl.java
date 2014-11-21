@@ -6,10 +6,10 @@ import java.util.Set;
 
 import kth.game.othello.board.BoardImpl;
 import kth.game.othello.board.factory.NodeData;
-import kth.game.othello.player.Player;
 import kth.game.othello.move.Handler;
-import kth.game.othello.player.PlayerImpl;
+import kth.game.othello.player.Player;
 import kth.game.othello.player.Player.Type;
+import kth.game.othello.player.PlayerImpl;
 
 /**
  * This class consists of functions to create Othello games.
