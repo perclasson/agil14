@@ -7,7 +7,7 @@ package kth.game.othello.board;
  * @author Per Classon
  * @author Tommy Roshult
  */
-public class OthelloNode implements Node {
+public class NodeImpl implements Node {
 
 	private String id;
 	private String playerId;
@@ -16,7 +16,7 @@ public class OthelloNode implements Node {
 	/**
 	 * Initializes a Othello node given coordinates and a player.
 	 */
-	public OthelloNode(int x, int y, String playerId) {
+	public NodeImpl(int x, int y, String playerId) {
 		this.playerId = playerId;
 		this.x = x;
 		this.y = y;
@@ -26,7 +26,7 @@ public class OthelloNode implements Node {
 	/**
 	 * Initializes a Othello node given coordinates.
 	 */
-	public OthelloNode(int x, int y) {
+	public NodeImpl(int x, int y) {
 		this.x = x;
 		this.y = y;
 		setId(x, y);

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kth.game.othello.board.Node;
-import kth.game.othello.board.OthelloBoard;
+import kth.game.othello.board.BoardImpl;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -26,8 +26,8 @@ import org.mockito.Matchers;
  */
 public class MoveLogicTest {
 
-	private OthelloBoard mockBoard(int order) {
-		OthelloBoard board = mock(OthelloBoard.class);
+	private BoardImpl mockBoard(int order) {
+		BoardImpl board = mock(BoardImpl.class);
 		ArrayList<Node> nodes = new ArrayList<Node>();
 		for (int y = 0; y < order; y++) {
 			for (int x = 0; x < order; x++) {
@@ -46,12 +46,12 @@ public class MoveLogicTest {
 		return board;
 	}
 
-	private void setNode(int x, int y, OthelloBoard board) {
+	private void setNode(int x, int y, BoardImpl board) {
 		when(board.getNodeByCoordinates(x, y).getOccupantPlayerId()).thenReturn(null);
 		when(board.getNodeByCoordinates(x, y).isMarked()).thenReturn(false);
 	}
 
-	private void setNode(int x, int y, String playerId, OthelloBoard board) {
+	private void setNode(int x, int y, String playerId, BoardImpl board) {
 		when(board.getNodeByCoordinates(x, y).getOccupantPlayerId()).thenReturn(playerId);
 		when(board.getNodeByCoordinates(x, y).isMarked()).thenReturn(true);
 	}
@@ -61,7 +61,7 @@ public class MoveLogicTest {
 
 	@Test
 	public void testGetNodesToSwapException() {
-		OthelloBoard board = mock(OthelloBoard.class);
+		BoardImpl board = mock(BoardImpl.class);
 		MoveHandler moveLogic = new MoveHandler(board);
 		when(board.getNode(Matchers.anyString())).thenThrow(new IllegalArgumentException());
 
@@ -72,7 +72,7 @@ public class MoveLogicTest {
 
 	@Test
 	public void testGetNodesToSwap() {
-		OthelloBoard board = mockBoard(3);
+		BoardImpl board = mockBoard(3);
 		MoveHandler moveLogic = new MoveHandler(board);
 		List<Node> swap = null;
 
@@ -145,7 +145,7 @@ public class MoveLogicTest {
 
 	@Test
 	public void testMove() {
-		OthelloBoard board = mockBoard(3);
+		BoardImpl board = mockBoard(3);
 		MoveHandler moveLogic = new MoveHandler(board);
 		List<Node> nodes = null;
 
@@ -194,7 +194,7 @@ public class MoveLogicTest {
 
 	@Test
 	public void testHasAndIsValidMove() {
-		OthelloBoard board = mockBoard(3);
+		BoardImpl board = mockBoard(3);
 		MoveHandler moveLogic = new MoveHandler(board);
 
 		// Scenario:

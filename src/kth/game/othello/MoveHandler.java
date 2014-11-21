@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Random;
 
 import kth.game.othello.board.Node;
-import kth.game.othello.board.OthelloBoard;
-import kth.game.othello.board.OthelloMove;
+import kth.game.othello.board.BoardImpl;
+import kth.game.othello.board.Move;
 import kth.game.othello.player.Player;
 
 /**
@@ -18,7 +18,7 @@ import kth.game.othello.player.Player;
  */
 public class MoveHandler {
 
-	private OthelloBoard board;
+	private BoardImpl board;
 	private Random random;
 	private PlayerWrapper playerWrapper;
 
@@ -28,7 +28,7 @@ public class MoveHandler {
 	private static final int[][] directions = { { 0, 1 }, { 1, 1 }, { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 },
 			{ -1, 0 }, { -1, 1 } };
 
-	public MoveHandler(OthelloBoard board, PlayerWrapper playerWrapper, Random random) {
+	public MoveHandler(BoardImpl board, PlayerWrapper playerWrapper, Random random) {
 		this.board = board;
 		this.random = random;
 		this.playerWrapper = playerWrapper;
@@ -42,12 +42,12 @@ public class MoveHandler {
 		String playerId = playerWrapper.getPlayerInTurn().getId();
 
 		// Make a random move
-		List<OthelloMove> moves = getMoves(playerId);
+		List<Move> moves = getMoves(playerId);
 		if (moves.isEmpty()) {
 			return new ArrayList<Node>();
 		}
 		// Pick a random move
-		OthelloMove move = moves.get(random.nextInt(moves.size()));
+		Move move = moves.get(random.nextInt(moves.size()));
 
 		return move(playerId, move.getEndNode().getId());
 	}
@@ -91,9 +91,9 @@ public class MoveHandler {
 	 *         to a specific nodeID
 	 */
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
-		List<OthelloMove> moves = getMoves(playerId, nodeId);
+		List<Move> moves = getMoves(playerId, nodeId);
 		List<Node> swappedNodes = new ArrayList<Node>();
-		for (OthelloMove move : moves) {
+		for (Move move : moves) {
 			swappedNodes.addAll(move.getIntermediateNodes());
 		}
 		// Add the last node
@@ -110,7 +110,7 @@ public class MoveHandler {
 	 * @return true if the player has a valid move
 	 */
 	public boolean hasValidMove(String playerId) {
-		List<OthelloMove> moves = new ArrayList<OthelloMove>();
+		List<Move> moves = new ArrayList<Move>();
 		for (Node node : board.getNodes()) {
 			moves.addAll(getMoves(playerId, node.getId()));
 		}
@@ -134,8 +134,8 @@ public class MoveHandler {
 	 * @param playerId
 	 * @return list of moves for the playerId
 	 */
-	private List<OthelloMove> getMoves(String playerId) {
-		List<OthelloMove> moves = new ArrayList<OthelloMove>();
+	private List<Move> getMoves(String playerId) {
+		List<Move> moves = new ArrayList<Move>();
 		for (Node node : board.getNodes()) {
 			moves.addAll(getMoves(playerId, node.getId()));
 		}
@@ -151,9 +151,9 @@ public class MoveHandler {
 	 * @param nodeId
 	 * @return list of moves, where every move leads to a valid "placement" on the nodeId.
 	 */
-	private List<OthelloMove> getMoves(String playerId, String nodeId) {
+	private List<Move> getMoves(String playerId, String nodeId) {
 		// The valid moves
-		List<OthelloMove> moves = new ArrayList<OthelloMove>();
+		List<Move> moves = new ArrayList<Move>();
 
 		// Try every direction from the target node
 		Node targetNode = board.getNode(nodeId);
@@ -170,7 +170,7 @@ public class MoveHandler {
 			ArrayList<Node> visitedNodes = new ArrayList<Node>();
 
 			// Follow the direction
-			OthelloMove currentMove = null;
+			Move currentMove = null;
 			while (true) {
 				x += direction[0];
 				y += direction[1];
@@ -188,7 +188,7 @@ public class MoveHandler {
 					visitedNodes.add(node);
 				} else if (visitedNodes.size() > 0 && nodeIsMine) {
 					// The move was valid
-					currentMove = new OthelloMove(node, targetNode, visitedNodes);
+					currentMove = new Move(node, targetNode, visitedNodes);
 					break;
 				} else {
 					break;

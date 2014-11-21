@@ -10,7 +10,7 @@ import java.util.List;
  * @author Per Classon
  * @author Tommy Roshult
  */
-public class OthelloMove {
+public class Move {
 
 	private ArrayList<Node> visitedNodes;
 	private Node fromNode;
@@ -20,7 +20,7 @@ public class OthelloMove {
 	 * Initializes a Othello move given a "start"  node, "end" node,
 	 * and a list of visited nodes between the start and end node.
 	 */
-	public OthelloMove(Node start, Node end, ArrayList<Node> visitedNodes) {
+	public Move(Node start, Node end, ArrayList<Node> visitedNodes) {
 		this.visitedNodes = visitedNodes;
 		this.fromNode = start;
 		this.toNode = end;

@@ -8,8 +8,8 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 
 import kth.game.othello.board.Node;
-import kth.game.othello.board.OthelloBoard;
-import kth.game.othello.board.OthelloNode;
+import kth.game.othello.board.BoardImpl;
+import kth.game.othello.board.NodeImpl;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -31,8 +31,8 @@ public class BoardTest {
 	// result for the same argument
 	@Test
 	public void testGetNodess() {
-		OthelloBoard board = new OthelloBoard("Black", "White", 8);
-		OthelloNode node = mock(OthelloNode.class);
+		BoardImpl board = new BoardImpl("Black", "White", 8);
+		NodeImpl node = mock(NodeImpl.class);
 		when(node.getId()).thenReturn("x3y4");
 		Node secondNode = board.getNode("x" + 3 + "y" + 4);
 		Node thirdNode = board.getNodeByCoordinates(3, 4);
@@ -49,10 +49,10 @@ public class BoardTest {
 	// Add some Nodes to board and look if Board.changeOccupantOnNodes() change occupants player on those nodes
 	@Test
 	public void testChangeOccupantOnNodes() {
-		OthelloBoard board = new OthelloBoard("Black", "White", 8);
+		BoardImpl board = new BoardImpl("Black", "White", 8);
 		ArrayList<Node> nodes = new ArrayList<Node>();
 		for (int i = 0; i < 8; i++) {
-			Node node = new OthelloNode(i, 3, "Black");
+			Node node = new NodeImpl(i, 3, "Black");
 			nodes.add(node);
 		}
 		board.changeOccupantOnNodes(nodes, "White");

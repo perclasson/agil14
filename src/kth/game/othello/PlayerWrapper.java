@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import kth.game.othello.player.OthelloPlayer;
+import kth.game.othello.player.PlayerImpl;
 import kth.game.othello.player.Player;
 
 public class PlayerWrapper {
@@ -13,7 +13,7 @@ public class PlayerWrapper {
 	private boolean isBlackTurn;
 	private Random random;
 	
-	public PlayerWrapper(OthelloPlayer black, OthelloPlayer white, Random random) {
+	public PlayerWrapper(PlayerImpl black, PlayerImpl white, Random random) {
 		this.black = black;
 		this.white = white;
 		this.random = random;

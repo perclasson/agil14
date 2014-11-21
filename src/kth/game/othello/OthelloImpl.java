@@ -5,7 +5,7 @@ import java.util.Random;
 
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
-import kth.game.othello.board.OthelloBoard;
+import kth.game.othello.board.BoardImpl;
 import kth.game.othello.player.Player;
 
 /**
@@ -13,12 +13,12 @@ import kth.game.othello.player.Player;
  * 
  * @author Ludvig Axelsson, Per Classon & Tommy Roshult
  */
-public class DemoOthello implements Othello {
-	private OthelloBoard board;
+public class OthelloImpl implements Othello {
+	private BoardImpl board;
 	private MoveHandler moveHandler;
 	private PlayerWrapper playerWrapper;
 
-	public DemoOthello(OthelloBoard board, PlayerWrapper playerWrapper, MoveHandler moveLogic, Random random) {
+	public OthelloImpl(BoardImpl board, PlayerWrapper playerWrapper, MoveHandler moveLogic, Random random) {
 		this.board = board;
 		this.moveHandler = moveLogic;
 		this.playerWrapper = playerWrapper;

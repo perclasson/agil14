@@ -11,7 +11,7 @@ import java.util.List;
  * @author Tommy Roshult
  */
 
-public class OthelloBoard implements Board {
+public class BoardImpl implements Board {
 
 	private List<Node> nodes;
 	private int boardOrder;
@@ -25,7 +25,7 @@ public class OthelloBoard implements Board {
 	 * @param boardOrder
 	 * 		the board's order, must be an even number
 	 */
-	public OthelloBoard(String playerOneId, String playerTwoId, int boardOrder) {
+	public BoardImpl(String playerOneId, String playerTwoId, int boardOrder) {
 		this.boardOrder = boardOrder;
 		initializeBoard(playerOneId, playerTwoId);
 	}
@@ -86,7 +86,7 @@ public class OthelloBoard implements Board {
 		for (Node n : nodesToBeChanged) {
 			int x = n.getXCoordinate();
 			int y = n.getYCoordinate();
-			nodes.set(getNodeIndex(x, y), new OthelloNode(x, y, occupantPlayerId));
+			nodes.set(getNodeIndex(x, y), new NodeImpl(x, y, occupantPlayerId));
 		}
 	}
 
@@ -122,11 +122,11 @@ public class OthelloBoard implements Board {
 				boolean isMarkedByPlayerTwo = ((x == startCoordinate[1] && y == startCoordinate[0]) || (x == startCoordinate[0] && y == startCoordinate[1]));
 
 				if (isMarkedByPlayerOne) {
-					nodes.add(new OthelloNode(x, y, playerOneId));
+					nodes.add(new NodeImpl(x, y, playerOneId));
 				} else if (isMarkedByPlayerTwo) {
-					nodes.add(new OthelloNode(x, y, playerTwoId));
+					nodes.add(new NodeImpl(x, y, playerTwoId));
 				} else {
-					nodes.add(new OthelloNode(x, y));
+					nodes.add(new NodeImpl(x, y));
 				}
 			}
 		}
