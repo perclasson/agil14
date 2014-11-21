@@ -1,5 +1,6 @@
 package kth.game.othello;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -10,6 +11,8 @@ import kth.game.othello.move.Handler;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.Player.Type;
 import kth.game.othello.player.PlayerImpl;
+import kth.game.othello.player.movestrategy.MoveRandomStrategy;
+import kth.game.othello.player.movestrategy.MoveStrategy;
 
 /**
  * This class consists of functions to create Othello games.
@@ -23,33 +26,36 @@ public class OthelloFactoryImpl implements OthelloFactory {
 
 	@Override
 	public Othello createComputerGame() {
-		PlayerImpl black = new PlayerImpl(Type.COMPUTER, "black", "0");
-		PlayerImpl white = new PlayerImpl(Type.COMPUTER, "white", "1");
+		MoveStrategy movestrategy = new MoveRandomStrategy();
+		PlayerImpl black = new PlayerImpl(Type.COMPUTER, "black", "0", movestrategy);
+		PlayerImpl white = new PlayerImpl(Type.COMPUTER, "white", "1", movestrategy);
 		BoardImpl board = new BoardImpl(black.getId(), white.getId(), BOARD_ORDER);
 		Random random = new Random();
-		PlayerWrapper playerWrapper = new PlayerWrapper(black, white, random);
+		PlayerWrapper playerWrapper = new PlayerWrapper(Arrays.asList(black, white), 0, random);
 		Handler moveHandler = new Handler(board, playerWrapper);
-		return new OthelloImpl(board, playerWrapper, moveHandler);
+		return new OthelloImpl(board, playerWrapper, moveHandler, );
 	}
 
 	@Override
 	public Othello createHumanGame() {
-		PlayerImpl black = new PlayerImpl(Type.HUMAN, "black", "0");
-		PlayerImpl white = new PlayerImpl(Type.HUMAN, "white", "1");
+		MoveStrategy movestrategy = new MoveRandomStrategy();
+		PlayerImpl black = new PlayerImpl(Type.COMPUTER, "black", "0", movestrategy);
+		PlayerImpl white = new PlayerImpl(Type.COMPUTER, "white", "1", movestrategy);
 		BoardImpl board = new BoardImpl(black.getId(), white.getId(), BOARD_ORDER);
 		Random random = new Random();
-		PlayerWrapper playerWrapper = new PlayerWrapper(black, white, random);
+		PlayerWrapper playerWrapper = new PlayerWrapper(Arrays.asList(black, white), 0, random);
 		Handler moveHandler = new Handler(board, playerWrapper);
 		return new OthelloImpl(board, playerWrapper, moveHandler);
 	}
 
 	@Override
 	public Othello createHumanVersusComputerGame() {
-		PlayerImpl black = new PlayerImpl(Type.COMPUTER, "black", "0");
-		PlayerImpl white = new PlayerImpl(Type.HUMAN, "white", "1");
+		MoveStrategy movestrategy = new MoveRandomStrategy();
+		PlayerImpl black = new PlayerImpl(Type.COMPUTER, "black", "0", movestrategy);
+		PlayerImpl white = new PlayerImpl(Type.COMPUTER, "white", "1", movestrategy);
 		BoardImpl board = new BoardImpl(black.getId(), white.getId(), BOARD_ORDER);
 		Random random = new Random();
-		PlayerWrapper playerWrapper = new PlayerWrapper(black, white, random);
+		PlayerWrapper playerWrapper = new PlayerWrapper(Arrays.asList(black, white), 0, random);
 		Handler moveHandler = new Handler(board, playerWrapper);
 		return new OthelloImpl(board, playerWrapper, moveHandler);
 	}
