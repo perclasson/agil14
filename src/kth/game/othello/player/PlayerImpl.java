@@ -45,7 +45,7 @@ public class PlayerImpl implements Player {
 	@Override
 	public void setMoveStrategy(MoveStrategy moveStrategy) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

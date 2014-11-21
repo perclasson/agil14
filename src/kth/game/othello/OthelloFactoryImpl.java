@@ -1,10 +1,14 @@
 package kth.game.othello;
 
+import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import kth.game.othello.board.BoardImpl;
-import kth.game.othello.player.PlayerImpl;
+import kth.game.othello.board.factory.NodeData;
+import kth.game.othello.player.Player;
 import kth.game.othello.player.Player.Type;
+import kth.game.othello.player.PlayerImpl;
 
 /**
  * This class consists of functions to create Othello games.
@@ -47,6 +51,11 @@ public class OthelloFactoryImpl implements OthelloFactory {
 		PlayerWrapper playerWrapper = new PlayerWrapper(black, white, random);
 		MoveHandler moveHandler = new MoveHandler(board, playerWrapper, random);
 		return new OthelloImpl(board, playerWrapper, moveHandler, random);
+	}
+
+	@Override
+	public Othello createGame(Set<NodeData> nodesData, List<Player> players) {
+		return null;
 	}
 
 }

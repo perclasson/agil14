@@ -1,5 +1,11 @@
 package kth.game.othello;
 
+import java.util.List;
+import java.util.Set;
+
+import kth.game.othello.board.factory.NodeData;
+import kth.game.othello.player.Player;
+
 /**
  * A factory for producing othello games.
  * 
@@ -28,4 +34,14 @@ public interface OthelloFactory {
 	 */
 	public Othello createHumanVersusComputerGame();
 
+	/**
+	 * Creates an Othello game with the given players on a board that contains the given nodes
+	 *
+	 * @param nodesData
+	 *            the nodes of the board
+	 * @param players
+	 *            the players
+	 * @return An Othello game
+	 */
+	public Othello createGame(Set<NodeData> nodesData, List<Player> players);
 }
