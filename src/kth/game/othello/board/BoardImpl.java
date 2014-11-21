@@ -18,12 +18,13 @@ public class BoardImpl implements Board {
 
 	/**
 	 * Initializes a Othello board given players and board order.
+	 * 
 	 * @param playerOneId
-	 * 		the first player's id
+	 *            the first player's id
 	 * @param playerTwoId
-	 * 		the second player's id
+	 *            the second player's id
 	 * @param boardOrder
-	 * 		the board's order, must be an even number
+	 *            the board's order, must be an even number
 	 */
 	public BoardImpl(String playerOneId, String playerTwoId, int boardOrder) {
 		this.boardOrder = boardOrder;
@@ -38,8 +39,8 @@ public class BoardImpl implements Board {
 	/**
 	 * Get node by id from board, throws {@link IllegalArgumentException} if non-existent node.
 	 * 
-	 * @param nodeId 
-	 * 		id of the node to be retrieved
+	 * @param nodeId
+	 *            id of the node to be retrieved
 	 * @return node that was found
 	 * @throws IllegalArgumentException
 	 */
@@ -55,8 +56,10 @@ public class BoardImpl implements Board {
 	/**
 	 * Get node by coordinates.
 	 * 
-	 * @param x coordinate
-	 * @param y coordinate
+	 * @param x
+	 *            coordinate
+	 * @param y
+	 *            coordinate
 	 * @return Node node
 	 */
 	public Node getNodeByCoordinates(int x, int y) {
@@ -104,6 +107,7 @@ public class BoardImpl implements Board {
 		}
 		return s;
 	}
+
 	/**
 	 * Fill the board with nodes and where the four in the middle have a representing playerId
 	 * 
@@ -135,11 +139,19 @@ public class BoardImpl implements Board {
 	/**
 	 * The board is internally a list and this returns the correct index for a node in matrix notation.
 	 *
-	 * @param the x coordinate
-	 * @param the y coordinate
+	 * @param the
+	 *            x coordinate
+	 * @param the
+	 *            y coordinate
 	 * @return The index in the list nodes, that corresponds to the coordinate (x,y) in the board
 	 */
 	private int getNodeIndex(int x, int y) {
 		return x + (boardOrder) * y;
+	}
+
+	@Override
+	public Node getNode(int x, int y) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

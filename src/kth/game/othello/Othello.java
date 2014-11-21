@@ -5,6 +5,7 @@ import java.util.List;
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
+import kth.game.othello.score.Score;
 
 /**
  * This class represents an Othello game.
@@ -44,6 +45,13 @@ public interface Othello {
 	 * @return the list of players
 	 */
 	public List<Player> getPlayers();
+
+	/**
+	 * The score of the game
+	 *
+	 * @return the score
+	 */
+	public Score getScore();
 
 	/**
 	 * Determines if a player has any valid move.

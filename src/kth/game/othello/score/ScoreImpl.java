@@ -3,11 +3,17 @@ package kth.game.othello.score;
 import java.util.List;
 import java.util.Observer;
 
-public class ScoreImp implements Score {
+import kth.game.othello.player.Player;
+
+public class ScoreImpl implements Score {
+	List<Player> players;
+
+	public ScoreImpl(List<Player> players) {
+		this.players = players;
+	}
 
 	@Override
 	public void addObserver(Observer observer) {
-		// TODO Auto-generated method stub
 
 	}
 

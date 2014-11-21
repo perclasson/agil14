@@ -8,28 +8,28 @@ import kth.game.othello.player.Player;
 
 /**
  * A factory for producing othello games.
- * 
+ *
  * @author Tomas Ekholm
  */
 public interface OthelloFactory {
 
 	/**
 	 * Creates an Othello game with two computer.
-	 * 
+	 *
 	 * @return An Othello game
 	 */
 	public Othello createComputerGame();
 
 	/**
 	 * Creates an Othello game with two humans.
-	 * 
+	 *
 	 * @return An Othello game
 	 */
 	public Othello createHumanGame();
 
 	/**
 	 * Creates an Othello game with one computer playing against one human.
-	 * 
+	 *
 	 * @return An Othello game
 	 */
 	public Othello createHumanVersusComputerGame();
@@ -44,4 +44,5 @@ public interface OthelloFactory {
 	 * @return An Othello game
 	 */
 	public Othello createGame(Set<NodeData> nodesData, List<Player> players);
+
 }

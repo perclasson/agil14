@@ -4,9 +4,10 @@ import java.util.List;
 import java.util.Random;
 
 import kth.game.othello.board.Board;
-import kth.game.othello.board.Node;
 import kth.game.othello.board.BoardImpl;
+import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
+import kth.game.othello.score.Score;
 
 /**
  * This class represents a game of Othello.
@@ -93,6 +94,12 @@ public class OthelloImpl implements Othello {
 			}
 		}
 		return n;
+	}
+
+	@Override
+	public Score getScore() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

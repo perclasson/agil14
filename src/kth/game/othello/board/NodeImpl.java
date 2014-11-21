@@ -1,5 +1,7 @@
 package kth.game.othello.board;
 
+import java.util.Observer;
+
 /**
  * This is a node on the board, which containts information about it's coordinates and who holds the node.
  * 
@@ -22,7 +24,7 @@ public class NodeImpl implements Node {
 		this.y = y;
 		setId(x, y);
 	}
-	
+
 	/**
 	 * Initializes a Othello node given coordinates.
 	 */
@@ -31,11 +33,12 @@ public class NodeImpl implements Node {
 		this.y = y;
 		setId(x, y);
 	}
-	
+
 	/**
 	 * Sets the occupant player of the node
 	 * 
-	 * @param the player's id
+	 * @param the
+	 *            player's id
 	 */
 	public void setOccupantPlayerId(String playerId) {
 		this.playerId = playerId;
@@ -74,10 +77,18 @@ public class NodeImpl implements Node {
 	/**
 	 * Sets the id for the node given the coordinates.
 	 * 
-	 * @param x coordinate
-	 * @param y coordinate
+	 * @param x
+	 *            coordinate
+	 * @param y
+	 *            coordinate
 	 */
 	private void setId(int x, int y) {
 		this.id = "x" + x + "y" + y;
+	}
+
+	@Override
+	public void addObserver(Observer observer) {
+		// TODO Auto-generated method stub
+
 	}
 }
