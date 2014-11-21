@@ -1,20 +1,19 @@
 package kth.game.othello.score;
 
 import java.util.List;
+import java.util.Observable;
 import java.util.Observer;
 
-import kth.game.othello.player.Player;
+import kth.game.othello.board.NodeImpl;
 
-public class ScoreImpl implements Score {
-	List<Player> players;
+public class ScoreImpl extends Observable implements Score, Observer {
+	List<NodeImpl> nodes;
 
-	public ScoreImpl(List<Player> players) {
-		this.players = players;
-	}
-
-	@Override
-	public void addObserver(Observer observer) {
-
+	public ScoreImpl(List<NodeImpl> nodes) {
+		this.nodes = nodes;
+		for (NodeImpl node : nodes) {
+			node.addObserver(this);
+		}
 	}
 
 	@Override
@@ -27,6 +26,12 @@ public class ScoreImpl implements Score {
 	public int getPoints(String playerId) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// we get updates of nodes that are updated....
+
 	}
 
 }

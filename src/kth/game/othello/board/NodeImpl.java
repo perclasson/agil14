@@ -1,6 +1,6 @@
 package kth.game.othello.board;
 
-import java.util.Observer;
+import java.util.Observable;
 
 /**
  * This is a node on the board, which containts information about it's coordinates and who holds the node.
@@ -9,7 +9,7 @@ import java.util.Observer;
  * @author Per Classon
  * @author Tommy Roshult
  */
-public class NodeImpl implements Node {
+public class NodeImpl extends Observable implements Node {
 
 	private String id;
 	private String playerId;
@@ -84,11 +84,5 @@ public class NodeImpl implements Node {
 	 */
 	private void setId(int x, int y) {
 		this.id = "x" + x + "y" + y;
-	}
-
-	@Override
-	public void addObserver(Observer observer) {
-		// TODO Auto-generated method stub
-
 	}
 }

@@ -1,6 +1,8 @@
 package kth.game.othello;
 
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import kth.game.othello.board.Board;
 import kth.game.othello.board.BoardImpl;
@@ -16,7 +18,7 @@ import kth.game.othello.score.Score;
  * @author Per Classon
  * @author Tommy Roshult
  */
-public class OthelloImpl implements Othello {
+public class OthelloImpl implements Othello, Observer {
 	private BoardImpl board;
 	private Handler moveHandler;
 	private PlayerWrapper playerWrapper;
@@ -27,6 +29,7 @@ public class OthelloImpl implements Othello {
 		this.moveHandler = moveHandler;
 		this.playerWrapper = playerWrapper;
 		this.score = score;
+		score.addObserver(this);
 	}
 
 	@Override
@@ -103,6 +106,12 @@ public class OthelloImpl implements Othello {
 	@Override
 	public Score getScore() {
 		return score;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// score is updated...
+
 	}
 
 }
