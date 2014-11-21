@@ -21,6 +21,7 @@ public class DemoOthello implements Othello {
 	public DemoOthello(OthelloBoard board, PlayerWrapper playerWrapper, MoveHandler moveLogic, Random random) {
 		this.board = board;
 		this.moveHandler = moveLogic;
+		this.playerWrapper = playerWrapper;
 	}
 
 	@Override
