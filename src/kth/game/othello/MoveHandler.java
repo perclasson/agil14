@@ -7,9 +7,7 @@ import java.util.Random;
 import kth.game.othello.board.Node;
 import kth.game.othello.board.OthelloBoard;
 import kth.game.othello.board.OthelloMove;
-import kth.game.othello.player.OthelloPlayer;
 import kth.game.othello.player.Player;
-import kth.game.othello.player.Player.Type;
 
 /**
  * This is a helper class that contains the logic when players make moves.
@@ -21,10 +19,8 @@ import kth.game.othello.player.Player.Type;
 public class MoveHandler {
 
 	private OthelloBoard board;
-	private Player black;
-	private Player white;
-	private boolean isBlackTurn;
 	private Random random;
+	private PlayerWrapper playerWrapper;
 
 	/**
 	 * List with all directions to move, in following order{up, upright, right, rightdown, down, downleft, left, upleft}
@@ -32,19 +28,18 @@ public class MoveHandler {
 	private static final int[][] directions = { { 0, 1 }, { 1, 1 }, { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 },
 			{ -1, 0 }, { -1, 1 } };
 
-	public MoveHandler(OthelloBoard board, OthelloPlayer black, OthelloPlayer white, Random random) {
+	public MoveHandler(OthelloBoard board, PlayerWrapper playerWrapper, Random random) {
 		this.board = board;
-		this.black = black;
-		this.white = white;
 		this.random = random;
+		this.playerWrapper = playerWrapper;
 	}
 
 	public List<Node> move() {
 		// If the current player is not a computer
-		if (getPlayerInTurn().getType() != Player.Type.COMPUTER) {
+		if (playerWrapper.getPlayerInTurn().getType() != Player.Type.COMPUTER) {
 			throw new IllegalStateException("Player in turn is not a computer.");
 		}
-		String playerId = getPlayerInTurn().getId();
+		String playerId = playerWrapper.getPlayerInTurn().getId();
 
 		// Make a random move
 		List<OthelloMove> moves = getMoves(playerId);
@@ -68,7 +63,7 @@ public class MoveHandler {
 	 * @return the nodes that where swapped for this move, including the node where the player made the move
 	 */
 	public List<Node> move(String playerId, String nodeId) {
-		if (!getPlayerInTurn().getId().equals(playerId)) {
+		if (!playerWrapper.getPlayerInTurn().getId().equals(playerId)) {
 			throw new IllegalArgumentException("Given player not in turn.");
 		}
 	
@@ -77,7 +72,7 @@ public class MoveHandler {
 			throw new IllegalArgumentException("Move is not valid.");
 		}
 		
-		changePlayersTurn();
+		playerWrapper.changePlayersTurn();
 		board.changeOccupantOnNodes(nodes, playerId);
 
 		// Return the nodes that were swapped and the start node
@@ -207,17 +202,4 @@ public class MoveHandler {
 		}
 		return moves;
 	}
-
-	public Player getPlayerInTurn() {
-		return isBlackTurn ? black : white;
-	}
-
-	public void setPlayerInTurn(String playerId) {
-		isBlackTurn = black.getId().equals(playerId);
-	}
-
-	private void changePlayersTurn() {
-		isBlackTurn = !isBlackTurn;
-	}
-
 }

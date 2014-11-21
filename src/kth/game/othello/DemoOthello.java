@@ -1,13 +1,11 @@
 package kth.game.othello;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 import kth.game.othello.board.OthelloBoard;
-import kth.game.othello.player.OthelloPlayer;
 import kth.game.othello.player.Player;
 
 /**
@@ -17,15 +15,11 @@ import kth.game.othello.player.Player;
  */
 public class DemoOthello implements Othello {
 	private OthelloBoard board;
-	private Player black;
-	private Player white;
-	private Random random;
 	private MoveHandler moveHandler;
+	private PlayerWrapper playerWrapper;
 
-	public DemoOthello(OthelloBoard board, OthelloPlayer black, OthelloPlayer white, MoveHandler moveLogic, Random random) {
+	public DemoOthello(OthelloBoard board, PlayerWrapper playerWrapper, MoveHandler moveLogic, Random random) {
 		this.board = board;
-		this.black = black;
-		this.white = white;
 		this.moveHandler = moveLogic;
 	}
 
@@ -36,12 +30,12 @@ public class DemoOthello implements Othello {
 
 	@Override
 	public Player getPlayerInTurn() {
-		return moveHandler.getPlayerInTurn();
+		return playerWrapper.getPlayerInTurn();
 	}
 
 	@Override
 	public List<Player> getPlayers() {
-		return Arrays.asList(white, black);
+		return playerWrapper.getPlayers();
 	}
 
 	@Override
@@ -51,7 +45,7 @@ public class DemoOthello implements Othello {
 
 	@Override
 	public boolean isActive() {
-		return moveHandler.hasValidMove(moveHandler.getPlayerInTurn().getId());
+		return moveHandler.hasValidMove(playerWrapper.getPlayerInTurn().getId());
 	}
 
 	@Override
@@ -76,12 +70,12 @@ public class DemoOthello implements Othello {
 
 	@Override
 	public void start() {
-		moveHandler.setPlayerInTurn(random.nextBoolean() ? black.getId() : white.getId());
+		playerWrapper.setRandomPlayerInTurn();
 	}
 
 	@Override
 	public void start(String playerId) {
-		moveHandler.setPlayerInTurn(playerId);
+		playerWrapper.setPlayerInTurn(playerId);
 	}
 
 	/**
