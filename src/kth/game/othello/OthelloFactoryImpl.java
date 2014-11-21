@@ -7,8 +7,9 @@ import java.util.Set;
 import kth.game.othello.board.BoardImpl;
 import kth.game.othello.board.factory.NodeData;
 import kth.game.othello.player.Player;
-import kth.game.othello.player.Player.Type;
+import kth.game.othello.move.Handler;
 import kth.game.othello.player.PlayerImpl;
+import kth.game.othello.player.Player.Type;
 
 /**
  * This class consists of functions to create Othello games.
@@ -27,8 +28,8 @@ public class OthelloFactoryImpl implements OthelloFactory {
 		BoardImpl board = new BoardImpl(black.getId(), white.getId(), BOARD_ORDER);
 		Random random = new Random();
 		PlayerWrapper playerWrapper = new PlayerWrapper(black, white, random);
-		MoveHandler moveHandler = new MoveHandler(board, playerWrapper, random);
-		return new OthelloImpl(board, playerWrapper, moveHandler, random);
+		Handler moveHandler = new Handler(board, playerWrapper);
+		return new OthelloImpl(board, playerWrapper, moveHandler);
 	}
 
 	@Override
@@ -38,8 +39,8 @@ public class OthelloFactoryImpl implements OthelloFactory {
 		BoardImpl board = new BoardImpl(black.getId(), white.getId(), BOARD_ORDER);
 		Random random = new Random();
 		PlayerWrapper playerWrapper = new PlayerWrapper(black, white, random);
-		MoveHandler moveHandler = new MoveHandler(board, playerWrapper, random);
-		return new OthelloImpl(board, playerWrapper, moveHandler, random);
+		Handler moveHandler = new Handler(board, playerWrapper);
+		return new OthelloImpl(board, playerWrapper, moveHandler);
 	}
 
 	@Override
@@ -49,8 +50,8 @@ public class OthelloFactoryImpl implements OthelloFactory {
 		BoardImpl board = new BoardImpl(black.getId(), white.getId(), BOARD_ORDER);
 		Random random = new Random();
 		PlayerWrapper playerWrapper = new PlayerWrapper(black, white, random);
-		MoveHandler moveHandler = new MoveHandler(board, playerWrapper, random);
-		return new OthelloImpl(board, playerWrapper, moveHandler, random);
+		Handler moveHandler = new Handler(board, playerWrapper);
+		return new OthelloImpl(board, playerWrapper, moveHandler);
 	}
 
 	@Override

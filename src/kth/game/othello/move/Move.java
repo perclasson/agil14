@@ -1,7 +1,9 @@
-package kth.game.othello.board;
+package kth.game.othello.move;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import kth.game.othello.board.Node;
 
 /**
  * Class of contains nodes that represents a move in Othello.

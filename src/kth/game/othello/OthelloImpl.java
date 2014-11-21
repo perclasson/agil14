@@ -1,11 +1,11 @@
 package kth.game.othello;
 
 import java.util.List;
-import java.util.Random;
 
 import kth.game.othello.board.Board;
 import kth.game.othello.board.BoardImpl;
 import kth.game.othello.board.Node;
+import kth.game.othello.move.Handler;
 import kth.game.othello.player.Player;
 import kth.game.othello.score.Score;
 
@@ -18,11 +18,11 @@ import kth.game.othello.score.Score;
  */
 public class OthelloImpl implements Othello {
 	private BoardImpl board;
-	private MoveHandler moveHandler;
+	private Handler moveHandler;
 	private PlayerWrapper playerWrapper;
 	private Score score;
 
-	public OthelloImpl(BoardImpl board, PlayerWrapper playerWrapper, MoveHandler moveHandler, Score score, Random random) {
+	public OthelloImpl(BoardImpl board, PlayerWrapper playerWrapper, Handler moveHandler, Score score) {
 		this.board = board;
 		this.moveHandler = moveHandler;
 		this.playerWrapper = playerWrapper;
@@ -66,7 +66,7 @@ public class OthelloImpl implements Othello {
 
 	@Override
 	public List<Node> move() {
-		return moveHandler.move();
+		return moveHandler.move(this);
 	}
 
 	@Override

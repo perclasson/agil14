@@ -32,7 +32,7 @@ public class PlayerWrapper {
 		}
 	}
 
-	void changePlayersTurn() {
+	public void changePlayersTurn() {
 		playerIndexInTurn = (playerIndexInTurn + 1) % players.size();
 	}
 

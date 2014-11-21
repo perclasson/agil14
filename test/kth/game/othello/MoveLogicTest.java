@@ -11,6 +11,7 @@ import java.util.List;
 
 import kth.game.othello.board.Node;
 import kth.game.othello.board.BoardImpl;
+import kth.game.othello.move.Handler;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -62,7 +63,7 @@ public class MoveLogicTest {
 	@Test
 	public void testGetNodesToSwapException() {
 		BoardImpl board = mock(BoardImpl.class);
-		MoveHandler moveLogic = new MoveHandler(board);
+		Handler moveLogic = new Handler(board);
 		when(board.getNode(Matchers.anyString())).thenThrow(new IllegalArgumentException());
 
 		// Empty board should not have any nodes to swap
@@ -73,7 +74,7 @@ public class MoveLogicTest {
 	@Test
 	public void testGetNodesToSwap() {
 		BoardImpl board = mockBoard(3);
-		MoveHandler moveLogic = new MoveHandler(board);
+		Handler moveLogic = new Handler(board);
 		List<Node> swap = null;
 
 		// Scenario:
@@ -146,7 +147,7 @@ public class MoveLogicTest {
 	@Test
 	public void testMove() {
 		BoardImpl board = mockBoard(3);
-		MoveHandler moveLogic = new MoveHandler(board);
+		Handler moveLogic = new Handler(board);
 		List<Node> nodes = null;
 
 		// Scenario:
@@ -195,7 +196,7 @@ public class MoveLogicTest {
 	@Test
 	public void testHasAndIsValidMove() {
 		BoardImpl board = mockBoard(3);
-		MoveHandler moveLogic = new MoveHandler(board);
+		Handler moveLogic = new Handler(board);
 
 		// Scenario:
 		// | white white empty |
