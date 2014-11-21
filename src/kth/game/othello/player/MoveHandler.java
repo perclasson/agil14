@@ -18,6 +18,10 @@ import kth.game.othello.board.OthelloMove;
 public class MoveHandler {
 
 	private OthelloBoard board;
+	private Player black;
+	private Player white;
+	private boolean isBlackTurn;
+	private Random random;
 
 	/**
 	 * List with all directions to move, in following order{up, upright, right, rightdown, down, downleft, left, upleft}
@@ -25,8 +29,57 @@ public class MoveHandler {
 	private static final int[][] directions = { { 0, 1 }, { 1, 1 }, { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 },
 			{ -1, 0 }, { -1, 1 } };
 
-	public MoveHandler(OthelloBoard board) {
+	public MoveHandler(OthelloBoard board, OthelloPlayer black, OthelloPlayer white, Random random) {
 		this.board = board;
+		this.black = black;
+		this.white = white;
+		this.random = random;
+	}
+
+	public List<Node> move() {
+		// If the current player is not a computer
+		if (getPlayerInTurn().getType() != Player.Type.COMPUTER) {
+			throw new IllegalStateException("Player in turn is not a computer.");
+		}
+		String playerId = getPlayerInTurn().getId();
+
+		// Make a random move
+		List<OthelloMove> moves = getMoves(playerId);
+		if (moves.isEmpty()) {
+			return new ArrayList<Node>();
+		}
+		// Pick a random move
+		OthelloMove move = moves.get(random.nextInt(moves.size()));
+
+		return move(playerId, move.getEndNode().getId());
+	}
+	
+	/**
+	 * Makes a move given a player, node id and updates the board.
+	 * 
+	 * @param playerId
+	 * 		the player's id
+	 * @param nodeId
+	 * 		the node's id
+	 * @return Empty list if the move is invalid
+	 * @return the nodes that where swapped for this move, including the node where the player made the move
+	 */
+	public List<Node> move(String playerId, String nodeId) {
+		if (!getPlayerInTurn().getId().equals(playerId)) {
+			throw new IllegalArgumentException("Given player not in turn.");
+		}
+	
+		List<Node> nodes = getNodesToSwap(playerId, nodeId);
+		if (nodes.isEmpty()) {
+			throw new IllegalArgumentException("Move is not valid.");
+		}
+		
+		changePlayersTurn();
+		board.changeOccupantOnNodes(nodes, playerId);
+
+		// Return the nodes that were swapped and the start node
+		nodes.add(0, board.getNode(nodeId));
+		return nodes;
 	}
 
 	/**
@@ -51,51 +104,7 @@ public class MoveHandler {
 		}
 		return swappedNodes;
 	}
-
-	/**
-	 * Makes a random move given a player and updates the board. 
-	 * 
-	 * @param playerId
-	 * @param random
-	 * @return Empty list, if there doesn't exist a valid move
-	 * @return a list containing the nodes that where swapped for this move, including the node where the player made a
-	 *         random valid move
-	 */
-	public List<Node> randomMove(String playerId, Random random) {
-		List<OthelloMove> moves = getMoves(playerId);
-		if (moves.isEmpty()) {
-			return new ArrayList<Node>();
-		}
-
-		// Pick a random move
-		OthelloMove move = moves.get(random.nextInt(moves.size()));
-
-		return move(playerId, move.getEndNode().getId());
-	}
-
-	/**
-	 * Makes a move given a player, node id and updates the board.
-	 * 
-	 * @param playerId
-	 * 		the player's id
-	 * @param nodeId
-	 * 		the node's id
-	 * @return Empty list if the move is invalid
-	 * @return the nodes that where swapped for this move, including the node where the player made the move
-	 */
-
-	public List<Node> move(String playerId, String nodeId) {
-		List<Node> nodes = getNodesToSwap(playerId, nodeId);
-		if (nodes.isEmpty()) {
-			return new ArrayList<Node>();
-		}
-		board.changeOccupantOnNodes(nodes, playerId);
-
-		// Return the nodes that were swapped and the start node
-		nodes.add(0, board.getNode(nodeId));
-		return nodes;
-	}
-
+	
 	/**
 	 * Checks if a player has a valid move.
 	 * 
@@ -195,4 +204,20 @@ public class MoveHandler {
 		}
 		return moves;
 	}
+
+	/**
+	 * Changes the state of which player is in turn.
+	 */
+	public Player getPlayerInTurn() {
+		return isBlackTurn ? black : white;
+	}
+
+	public void setPlayerInTurn(String playerId) {
+		isBlackTurn = black.getId().equals(playerId);
+	}
+
+	private void changePlayersTurn() {
+		isBlackTurn = !isBlackTurn;
+	}
+
 }

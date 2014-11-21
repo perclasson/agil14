@@ -20,8 +20,6 @@ public class DemoOthello implements Othello {
 	private OthelloBoard board;
 	private Player black;
 	private Player white;
-	private boolean isBlackTurn;
-	private boolean isActive;
 	private Random random;
 	private MoveHandler moveHandler;
 
@@ -30,7 +28,6 @@ public class DemoOthello implements Othello {
 		this.black = black;
 		this.white = white;
 		this.moveHandler = moveLogic;
-		this.random = random;
 	}
 
 	@Override
@@ -40,7 +37,7 @@ public class DemoOthello implements Othello {
 
 	@Override
 	public Player getPlayerInTurn() {
-		return isBlackTurn ? black : white;
+		return moveHandler.getPlayerInTurn();
 	}
 
 	@Override
@@ -55,7 +52,7 @@ public class DemoOthello implements Othello {
 
 	@Override
 	public boolean isActive() {
-		return isActive;
+		return moveHandler.hasValidMove(moveHandler.getPlayerInTurn().getId());
 	}
 
 	@Override
@@ -70,44 +67,22 @@ public class DemoOthello implements Othello {
 
 	@Override
 	public List<Node> move() {
-		// If the current player is not a computer
-		if (getPlayerInTurn().getType() != Player.Type.COMPUTER) {
-			throw new IllegalStateException("Player in turn is not a computer.");
-		}
-		// Make a random move
-		List<Node> nodes = moveHandler.randomMove(getPlayerInTurn().getId(), random);
-		updateGameState();
-		changePlayersTurn();
-		return nodes;
+		return moveHandler.move();
 	}
 
 	@Override
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
-		if (!getPlayerInTurn().getId().equals(playerId)) {
-			throw new IllegalArgumentException("Given player not in turn.");
-		}
-
-		List<Node> nodes = moveHandler.move(playerId, nodeId);
-
-		if (nodes.isEmpty()) {
-			throw new IllegalArgumentException("Move is not valid.");
-		} else {
-			updateGameState();
-			changePlayersTurn();
-			return nodes;
-		}
+		return moveHandler.move(playerId, nodeId);
 	}
 
 	@Override
 	public void start() {
-		isBlackTurn = random.nextBoolean();
-		isActive = true;
+		moveHandler.setPlayerInTurn(random.nextBoolean() ? black.getId() : white.getId());
 	}
 
 	@Override
 	public void start(String playerId) {
-		isBlackTurn = black.getId().equals(playerId);
-		isActive = true;
+		moveHandler.setPlayerInTurn(playerId);
 	}
 
 	/**
@@ -126,21 +101,4 @@ public class DemoOthello implements Othello {
 		return n;
 	}
 
-	/**
-	 * Checks if the game is active, and updates the internal state;
-	 */
-	private void updateGameState() {
-		// Check if the opponent has any moves left
-		String playerInTurnId = getPlayerInTurn().getId();
-		String playerNextInTurnId = white.getId().equals(playerInTurnId) ? black.getId() : white.getId();
-		boolean isMovePossible = moveHandler.hasValidMove(playerNextInTurnId);
-		isActive = isMovePossible;
-	}
-
-	/**
-	 * Changes the state of which player is in turn.
-	 */
-	private void changePlayersTurn() {
-		isBlackTurn = !isBlackTurn;
-	}
 }

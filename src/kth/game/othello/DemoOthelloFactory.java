@@ -22,9 +22,9 @@ public class DemoOthelloFactory implements OthelloFactory {
 		OthelloPlayer black = new OthelloPlayer(Type.COMPUTER, "black", "0");
 		OthelloPlayer white = new OthelloPlayer(Type.COMPUTER, "white", "1");
 		OthelloBoard board = new OthelloBoard(black.getId(), white.getId(), BOARD_ORDER);
-		MoveHandler moveLogic = new MoveHandler(board);
 		Random random = new Random();
-		return new DemoOthello(board, black, white, moveLogic, random);
+		MoveHandler moveHandler = new MoveHandler(board, black, white, random);
+		return new DemoOthello(board, black, white, moveHandler, random);
 	}
 
 	@Override
@@ -32,9 +32,9 @@ public class DemoOthelloFactory implements OthelloFactory {
 		OthelloPlayer black = new OthelloPlayer(Type.HUMAN, "black", "0");
 		OthelloPlayer white = new OthelloPlayer(Type.HUMAN, "white", "1");
 		OthelloBoard board = new OthelloBoard(black.getId(), white.getId(), BOARD_ORDER);
-		MoveHandler moveLogic = new MoveHandler(board);
 		Random random = new Random();
-		return new DemoOthello(board, black, white, moveLogic, random);
+		MoveHandler moveHandler = new MoveHandler(board, black, white, random);
+		return new DemoOthello(board, black, white, moveHandler, random);
 	}
 
 	@Override
@@ -42,9 +42,9 @@ public class DemoOthelloFactory implements OthelloFactory {
 		OthelloPlayer black = new OthelloPlayer(Type.COMPUTER, "black", "0");
 		OthelloPlayer white = new OthelloPlayer(Type.HUMAN, "white", "1");
 		OthelloBoard board = new OthelloBoard(black.getId(), white.getId(), BOARD_ORDER);
-		MoveHandler moveLogic = new MoveHandler(board);
 		Random random = new Random();
-		return new DemoOthello(board, black, white, moveLogic, random);
+		MoveHandler moveHandler = new MoveHandler(board, black, white, random);
+		return new DemoOthello(board, black, white, moveHandler, random);
 	}
 
 }
