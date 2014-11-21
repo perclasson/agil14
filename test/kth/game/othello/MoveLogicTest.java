@@ -11,7 +11,6 @@ import java.util.List;
 
 import kth.game.othello.board.Node;
 import kth.game.othello.board.OthelloBoard;
-import kth.game.othello.player.MoveHandler;
 
 import org.junit.Rule;
 import org.junit.Test;

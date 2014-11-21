@@ -1,4 +1,4 @@
-package kth.game.othello.player;
+package kth.game.othello;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,9 @@ import java.util.Random;
 import kth.game.othello.board.Node;
 import kth.game.othello.board.OthelloBoard;
 import kth.game.othello.board.OthelloMove;
+import kth.game.othello.player.OthelloPlayer;
+import kth.game.othello.player.Player;
+import kth.game.othello.player.Player.Type;
 
 /**
  * This is a helper class that contains the logic when players make moves.
@@ -205,9 +208,6 @@ public class MoveHandler {
 		return moves;
 	}
 
-	/**
-	 * Changes the state of which player is in turn.
-	 */
 	public Player getPlayerInTurn() {
 		return isBlackTurn ? black : white;
 	}

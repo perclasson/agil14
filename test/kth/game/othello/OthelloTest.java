@@ -10,7 +10,6 @@ import java.util.Random;
 
 import kth.game.othello.board.Node;
 import kth.game.othello.board.OthelloBoard;
-import kth.game.othello.player.MoveHandler;
 import kth.game.othello.player.OthelloPlayer;
 import kth.game.othello.player.Player;
 
