@@ -12,17 +12,21 @@ import kth.game.othello.score.Score;
 /**
  * This class represents a game of Othello.
  * 
- * @author Ludvig Axelsson, Per Classon & Tommy Roshult
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
  */
 public class OthelloImpl implements Othello {
 	private BoardImpl board;
 	private MoveHandler moveHandler;
 	private PlayerWrapper playerWrapper;
+	private Score score;
 
-	public OthelloImpl(BoardImpl board, PlayerWrapper playerWrapper, MoveHandler moveLogic, Random random) {
+	public OthelloImpl(BoardImpl board, PlayerWrapper playerWrapper, MoveHandler moveHandler, Score score, Random random) {
 		this.board = board;
-		this.moveHandler = moveLogic;
+		this.moveHandler = moveHandler;
 		this.playerWrapper = playerWrapper;
+		this.score = score;
 	}
 
 	@Override
@@ -98,8 +102,7 @@ public class OthelloImpl implements Othello {
 
 	@Override
 	public Score getScore() {
-		// TODO Auto-generated method stub
-		return null;
+		return score;
 	}
 
 }

@@ -1,41 +1,46 @@
 package kth.game.othello;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import kth.game.othello.player.PlayerImpl;
 import kth.game.othello.player.Player;
 
 public class PlayerWrapper {
-	private Player black;
-	private Player white;
-	private boolean isBlackTurn;
+	private int playerIndexInTurn;
+	private List<Player> players;
 	private Random random;
-	
-	public PlayerWrapper(PlayerImpl black, PlayerImpl white, Random random) {
-		this.black = black;
-		this.white = white;
+
+	public PlayerWrapper(List<Player> players, int playerIndexInTurn, Random random) {
+		if (playerIndexInTurn < 0 || playerIndexInTurn >= players.size()) {
+			throw new IllegalArgumentException("PlayerIndexInTurn must be between 0 and " + (players.size() - 1) + ".");
+		}
+		this.players = players;
 		this.random = random;
+		this.playerIndexInTurn = playerIndexInTurn;
 	}
-	
+
 	public Player getPlayerInTurn() {
-		return isBlackTurn ? black : white;
+		return players.get(playerIndexInTurn);
 	}
 
 	public void setPlayerInTurn(String playerId) {
-		isBlackTurn = black.getId().equals(playerId);
+		for (int i = 0; i < players.size(); i++) {
+			if (players.get(i).getId().equals(playerId)) {
+				playerIndexInTurn = i;
+				return;
+			}
+		}
 	}
 
 	void changePlayersTurn() {
-		isBlackTurn = !isBlackTurn;
+		playerIndexInTurn = (playerIndexInTurn + 1) % players.size();
 	}
 
 	public List<Player> getPlayers() {
-		return Arrays.asList(white, black);
+		return players;
 	}
 
 	public void setRandomPlayerInTurn() {
-		isBlackTurn = random.nextBoolean();
+		playerIndexInTurn = random.nextInt(players.size());
 	}
 }
