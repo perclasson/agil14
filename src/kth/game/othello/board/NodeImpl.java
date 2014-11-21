@@ -41,10 +41,11 @@ public class NodeImpl extends Observable implements Node {
 	 *            player's id
 	 */
 	public void setOccupantPlayerId(String playerId) {
-		if (this.playerId != playerId) {
+		String oldPlayerId = this.playerId;
+		if (oldPlayerId != playerId) {
 			setChanged();
 			this.playerId = playerId;
-			notifyObservers(playerId);
+			notifyObservers(new NodeNotification(oldPlayerId, playerId));
 		}
 	}
 
