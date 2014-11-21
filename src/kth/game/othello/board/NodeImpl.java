@@ -41,7 +41,11 @@ public class NodeImpl extends Observable implements Node {
 	 *            player's id
 	 */
 	public void setOccupantPlayerId(String playerId) {
-		this.playerId = playerId;
+		if (this.playerId != playerId) {
+			setChanged();
+			this.playerId = playerId;
+			notifyObservers(playerId);
+		}
 	}
 
 	@Override

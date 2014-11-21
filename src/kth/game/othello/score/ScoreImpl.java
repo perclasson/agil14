@@ -30,7 +30,7 @@ public class ScoreImpl extends Observable implements Score, Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// we get updates of nodes that are updated....
+		String playerId = (String) arg;
 
 	}
 
