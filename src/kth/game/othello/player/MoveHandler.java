@@ -15,7 +15,7 @@ import kth.game.othello.board.OthelloMove;
  * @author Per Classon
  * @author Tommy Roshult
  */
-public class MoveLogic {
+public class MoveHandler {
 
 	private OthelloBoard board;
 
@@ -25,7 +25,7 @@ public class MoveLogic {
 	private static final int[][] directions = { { 0, 1 }, { 1, 1 }, { 1, 0 }, { 1, -1 }, { 0, -1 }, { -1, -1 },
 			{ -1, 0 }, { -1, 1 } };
 
-	public MoveLogic(OthelloBoard board) {
+	public MoveHandler(OthelloBoard board) {
 		this.board = board;
 	}
 

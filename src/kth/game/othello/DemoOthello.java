@@ -7,7 +7,7 @@ import java.util.Random;
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 import kth.game.othello.board.OthelloBoard;
-import kth.game.othello.player.MoveLogic;
+import kth.game.othello.player.MoveHandler;
 import kth.game.othello.player.OthelloPlayer;
 import kth.game.othello.player.Player;
 
@@ -23,13 +23,13 @@ public class DemoOthello implements Othello {
 	private boolean isBlackTurn;
 	private boolean isActive;
 	private Random random;
-	private MoveLogic moveLogic;
+	private MoveHandler moveHandler;
 
-	public DemoOthello(OthelloBoard board, OthelloPlayer black, OthelloPlayer white, MoveLogic moveLogic, Random random) {
+	public DemoOthello(OthelloBoard board, OthelloPlayer black, OthelloPlayer white, MoveHandler moveLogic, Random random) {
 		this.board = board;
 		this.black = black;
 		this.white = white;
-		this.moveLogic = moveLogic;
+		this.moveHandler = moveLogic;
 		this.random = random;
 	}
 
@@ -50,7 +50,7 @@ public class DemoOthello implements Othello {
 
 	@Override
 	public boolean hasValidMove(String playerId) {
-		return moveLogic.hasValidMove(playerId);
+		return moveHandler.hasValidMove(playerId);
 	}
 
 	@Override
@@ -60,12 +60,12 @@ public class DemoOthello implements Othello {
 
 	@Override
 	public boolean isMoveValid(String playerId, String nodeId) {
-		return moveLogic.isMoveValid(playerId, nodeId);
+		return moveHandler.isMoveValid(playerId, nodeId);
 	}
 
 	@Override
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
-		return moveLogic.getNodesToSwap(playerId, nodeId);
+		return moveHandler.getNodesToSwap(playerId, nodeId);
 	}
 
 	@Override
@@ -75,7 +75,7 @@ public class DemoOthello implements Othello {
 			throw new IllegalStateException("Player in turn is not a computer.");
 		}
 		// Make a random move
-		List<Node> nodes = moveLogic.randomMove(getPlayerInTurn().getId(), random);
+		List<Node> nodes = moveHandler.randomMove(getPlayerInTurn().getId(), random);
 		updateGameState();
 		changePlayersTurn();
 		return nodes;
@@ -87,7 +87,7 @@ public class DemoOthello implements Othello {
 			throw new IllegalArgumentException("Given player not in turn.");
 		}
 
-		List<Node> nodes = moveLogic.move(playerId, nodeId);
+		List<Node> nodes = moveHandler.move(playerId, nodeId);
 
 		if (nodes.isEmpty()) {
 			throw new IllegalArgumentException("Move is not valid.");
@@ -133,7 +133,7 @@ public class DemoOthello implements Othello {
 		// Check if the opponent has any moves left
 		String playerInTurnId = getPlayerInTurn().getId();
 		String playerNextInTurnId = white.getId().equals(playerInTurnId) ? black.getId() : white.getId();
-		boolean isMovePossible = moveLogic.hasValidMove(playerNextInTurnId);
+		boolean isMovePossible = moveHandler.hasValidMove(playerNextInTurnId);
 		isActive = isMovePossible;
 	}
 
