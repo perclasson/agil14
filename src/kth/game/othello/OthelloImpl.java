@@ -1,14 +1,13 @@
 package kth.game.othello;
 
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 import kth.game.othello.board.Board;
-import kth.game.othello.board.BoardImpl;
+import kth.game.othello.board.BoardHandler;
 import kth.game.othello.board.Node;
-import kth.game.othello.move.Handler;
+import kth.game.othello.move.MoveHandler;
 import kth.game.othello.player.Player;
+import kth.game.othello.player.PlayerHandler;
 import kth.game.othello.score.Score;
 
 /**
@@ -18,33 +17,32 @@ import kth.game.othello.score.Score;
  * @author Per Classon
  * @author Tommy Roshult
  */
-public class OthelloImpl implements Othello, Observer {
-	private BoardImpl board;
-	private Handler moveHandler;
-	private PlayerWrapper playerWrapper;
+public class OthelloImpl implements Othello {
+	private BoardHandler boardHandler;
+	private MoveHandler moveHandler;
+	private PlayerHandler playerHandler;
 	private Score score;
 
-	public OthelloImpl(BoardImpl board, PlayerWrapper playerWrapper, Handler moveHandler, Score score) {
-		this.board = board;
+	public OthelloImpl(BoardHandler boardHandler, PlayerHandler playerHandler, MoveHandler moveHandler, Score score) {
+		this.boardHandler = boardHandler;
 		this.moveHandler = moveHandler;
-		this.playerWrapper = playerWrapper;
+		this.playerHandler = playerHandler;
 		this.score = score;
-		score.addObserver(this);
 	}
 
 	@Override
 	public Board getBoard() {
-		return board;
+		return boardHandler.getBoard();
 	}
 
 	@Override
 	public Player getPlayerInTurn() {
-		return playerWrapper.getPlayerInTurn();
+		return playerHandler.getPlayerInTurn();
 	}
 
 	@Override
 	public List<Player> getPlayers() {
-		return playerWrapper.getPlayers();
+		return playerHandler.getPlayers();
 	}
 
 	@Override
@@ -54,7 +52,7 @@ public class OthelloImpl implements Othello, Observer {
 
 	@Override
 	public boolean isActive() {
-		return moveHandler.hasValidMove(playerWrapper.getPlayerInTurn().getId());
+		return playerHandler.getPlayerInTurn() != null;
 	}
 
 	@Override
@@ -79,39 +77,17 @@ public class OthelloImpl implements Othello, Observer {
 
 	@Override
 	public void start() {
-		playerWrapper.setRandomPlayerInTurn();
+		playerHandler.setRandomPlayerInTurn();
 	}
 
 	@Override
 	public void start(String playerId) {
-		playerWrapper.setPlayerInTurn(playerId);
-	}
-
-	/**
-	 * Gets the number of nodes player has occupant.
-	 * 
-	 * @param playerId
-	 * @return number of nodes
-	 */
-	public int getNodesOfPlayer(String playerId) {
-		int n = 0;
-		for (Node node : getBoard().getNodes()) {
-			if (node.getOccupantPlayerId().equals(playerId)) {
-				n++;
-			}
-		}
-		return n;
+		playerHandler.setPlayerInTurn(playerId);
 	}
 
 	@Override
 	public Score getScore() {
 		return score;
-	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-		// score is updated...
-
 	}
 
 }

@@ -1,41 +1,67 @@
 package kth.game.othello.score;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import kth.game.othello.board.NodeImpl;
+import kth.game.othello.board.Node;
 import kth.game.othello.board.NodeNotification;
+import kth.game.othello.player.Player;
 
-public class ScoreImpl extends Observable implements Score, Observer {
-	private List<NodeImpl> nodes;
-	private List<ScoreItem> scoreItems;
+public class ScoreImpl implements Observer, Score {
+	private HashMap<String, ScoreItem> scores;
 
-	public ScoreImpl(List<NodeImpl> nodes, List<ScoreItem> scoreItems) {
-		this.nodes = nodes;
-		this.scoreItems = scoreItems;
-		for (NodeImpl node : nodes) {
+	public ScoreImpl(List<Player> players, List<Node> nodes) {
+		scores = new HashMap<String, ScoreItem>();
+		for (Player player : players) {
+			scores.put(player.getId(), new ScoreItem(player.getId(), 0));
+		}
+		for (Node node : nodes) {
 			node.addObserver(this);
+			String playerOnNode = node.getOccupantPlayerId();
+			if (playerOnNode != null) {
+				incrementScore(playerOnNode);
+			}
 		}
 	}
 
 	@Override
 	public List<ScoreItem> getPlayersScore() {
-		// TODO: Sort
-		return scoreItems;
+		return new ArrayList<ScoreItem>(scores.values()); // TODO sort
 	}
 
 	@Override
 	public int getPoints(String playerId) {
-		// TODO Auto-generated method stub
-		return 0;
+		return scores.get(playerId).getScore();
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
 		NodeNotification notification = (NodeNotification) arg;
-		// TODO
-		// notification.prevPlayerId
-
+		incrementScore(notification.newPlayerId);
+		if (notification.oldPlayerId != null) {
+			decrementScore(notification.oldPlayerId);
+		}
 	}
+
+	private void incrementScore(String playerId) {
+		changeScore(playerId, 1);
+	}
+
+	private void decrementScore(String playerId) {
+		changeScore(playerId, -1);
+	}
+
+	private void changeScore(String playerId, int value) {
+		ScoreItem oldScore = scores.get(playerId);
+		scores.put(playerId, new ScoreItem(playerId, oldScore.getScore() + value));
+	}
+
+	@Override
+	public void addObserver(Observer observer) {
+		// TODO ?????????
+	}
+
 }

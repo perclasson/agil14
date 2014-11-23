@@ -19,8 +19,8 @@ public class Move {
 	private Node toNode;
 
 	/**
-	 * Initializes a Othello move given a "start"  node, "end" node,
-	 * and a list of visited nodes between the start and end node.
+	 * Initializes a Othello move given a "start" node, "end" node, and a list
+	 * of visited nodes between the start and end node.
 	 */
 	public Move(Node start, Node end, ArrayList<Node> visitedNodes) {
 		this.visitedNodes = visitedNodes;
@@ -31,7 +31,7 @@ public class Move {
 	/**
 	 * The first node of the move.
 	 * 
-	 * @return the "from" node 
+	 * @return the "from" node
 	 */
 	public Node getStartNode() {
 		return fromNode;
@@ -40,7 +40,7 @@ public class Move {
 	/**
 	 * The last node of the move.
 	 * 
-	 * @return the "to" node 
+	 * @return the "to" node
 	 */
 	public Node getEndNode() {
 		return toNode;
@@ -53,6 +53,17 @@ public class Move {
 	 */
 	public List<Node> getIntermediateNodes() {
 		return visitedNodes;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("{move: " + getStartNode());
+		for (Node n : getIntermediateNodes()) {
+			sb.append(" -> " + n);
+		}
+		sb.append(" -> " + getEndNode() + " }");
+		return sb.toString();
 	}
 
 }

@@ -27,7 +27,8 @@ public class BoardTest {
 	@Rule
 	public ExpectedException exception = ExpectedException.none();
 
-	// Test that OthelloBoard.getNodes throw exception and get node by id and get node by coordinations give the same
+	// Test that OthelloBoard.getNodes throw exception and get node by id and
+	// get node by coordinations give the same
 	// result for the same argument
 	@Test
 	public void testGetNodess() {
@@ -46,7 +47,8 @@ public class BoardTest {
 		board.getNode("x -" + 1 + "y -" + 1);
 	}
 
-	// Add some Nodes to board and look if Board.changeOccupantOnNodes() change occupants player on those nodes
+	// Add some Nodes to board and look if Board.changeOccupantOnNodes() change
+	// occupants player on those nodes
 	@Test
 	public void testChangeOccupantOnNodes() {
 		BoardImpl board = new BoardImpl("Black", "White", 8);

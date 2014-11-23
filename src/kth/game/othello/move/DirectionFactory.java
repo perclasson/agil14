@@ -37,11 +37,9 @@ public class DirectionFactory {
 		return new Direction(-1, 1);
 	}
 
-	public List<Direction> createAllDirections() {
-		Direction[] list = { createDirectionNorth(),
-				createDirectionNorthEast(), createDirectionEast(),
-				createDirectionSouthEast(), createDirectionSouth(),
-				createDirectionSouthWest(), createDirectionWest(),
+	public List<Direction> getAllDirections() {
+		Direction[] list = { createDirectionNorth(), createDirectionNorthEast(), createDirectionEast(),
+				createDirectionSouthEast(), createDirectionSouth(), createDirectionSouthWest(), createDirectionWest(),
 				createDirectionNorthWest() };
 		return Arrays.asList(list);
 	}

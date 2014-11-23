@@ -1,10 +1,10 @@
 package kth.game.othello.board.factory;
 
-import kth.game.othello.player.Player;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import kth.game.othello.player.Player;
 
 public class Diamond {
 
@@ -16,8 +16,8 @@ public class Diamond {
 		// middle index for the node coordinates
 		int middleIndex = (size - 1) / 2;
 
-        Set<NodeData> nodes = new HashSet<NodeData>();
-        
+		Set<NodeData> nodes = new HashSet<NodeData>();
+
 		nodes.add(new NodeData(middleIndex - 1, middleIndex - 1, player1Id));
 		nodes.add(new NodeData(middleIndex - 1, middleIndex, player2Id));
 		nodes.add(new NodeData(middleIndex - 1, middleIndex + 1, player3Id));
@@ -30,14 +30,16 @@ public class Diamond {
 		nodes.add(new NodeData(middleIndex + 1, middleIndex, player1Id));
 		nodes.add(new NodeData(middleIndex + 1, middleIndex + 1, player2Id));
 
-        return nodes;
+		return nodes;
 	}
 
 	/**
 	 * This board has a shape of a diamond and can be played by three players.
 	 * 
-	 * @param players The list of players, that must be three
-	 * @param size an odd number being the size of the board
+	 * @param players
+	 *            The list of players, that must be three
+	 * @param size
+	 *            an odd number being the size of the board
 	 * @return the nodes of the board
 	 */
 	public Set<NodeData> getNodes(int size, List<Player> players) {

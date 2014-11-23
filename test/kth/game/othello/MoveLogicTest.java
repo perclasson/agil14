@@ -11,7 +11,7 @@ import java.util.List;
 
 import kth.game.othello.board.Node;
 import kth.game.othello.board.BoardImpl;
-import kth.game.othello.move.Handler;
+import kth.game.othello.move.MoveHandler;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -63,7 +63,7 @@ public class MoveLogicTest {
 	@Test
 	public void testGetNodesToSwapException() {
 		BoardImpl board = mock(BoardImpl.class);
-		Handler moveLogic = new Handler(board);
+		MoveHandler moveLogic = new MoveHandler(board);
 		when(board.getNode(Matchers.anyString())).thenThrow(new IllegalArgumentException());
 
 		// Empty board should not have any nodes to swap
@@ -74,7 +74,7 @@ public class MoveLogicTest {
 	@Test
 	public void testGetNodesToSwap() {
 		BoardImpl board = mockBoard(3);
-		Handler moveLogic = new Handler(board);
+		MoveHandler moveLogic = new MoveHandler(board);
 		List<Node> swap = null;
 
 		// Scenario:
@@ -147,7 +147,7 @@ public class MoveLogicTest {
 	@Test
 	public void testMove() {
 		BoardImpl board = mockBoard(3);
-		Handler moveLogic = new Handler(board);
+		MoveHandler moveLogic = new MoveHandler(board);
 		List<Node> nodes = null;
 
 		// Scenario:
@@ -157,7 +157,7 @@ public class MoveLogicTest {
 		setNode(0, 0, "white", board);
 		setNode(1, 0, "black", board);
 		nodes = moveLogic.move("white", "x2y0");
-		
+
 		// Should be:
 		// | white white white |
 		// | empty empty empty |
@@ -166,7 +166,7 @@ public class MoveLogicTest {
 		for (Node n : nodes) {
 			assertEquals(n, board.getNodeByCoordinates(n.getXCoordinate(), n.getYCoordinate()));
 		}
-		
+
 		// Scenario:
 		// | white black white |
 		// | black black black |
@@ -186,7 +186,7 @@ public class MoveLogicTest {
 		// | white white black |
 		// | white white white |
 		nodes = moveLogic.move("white", "x0y2");
-		
+
 		assertEquals(nodes.size(), 5);
 		for (Node n : nodes) {
 			assertEquals(n, board.getNodeByCoordinates(n.getXCoordinate(), n.getYCoordinate()));
@@ -196,7 +196,7 @@ public class MoveLogicTest {
 	@Test
 	public void testHasAndIsValidMove() {
 		BoardImpl board = mockBoard(3);
-		Handler moveLogic = new Handler(board);
+		MoveHandler moveLogic = new MoveHandler(board);
 
 		// Scenario:
 		// | white white empty |
@@ -208,7 +208,7 @@ public class MoveLogicTest {
 		for (Node n : board.getNodes()) {
 			assertFalse(moveLogic.isMoveValid("white", n.getId()));
 		}
-		
+
 		// Scenario:
 		// | white black empty |
 		// | empty empty empty |
@@ -217,7 +217,7 @@ public class MoveLogicTest {
 		setNode(1, 0, "black", board);
 		assertTrue(moveLogic.hasValidMove("white"));
 		assertTrue(moveLogic.isMoveValid("white", "x2y0"));
-		
+
 		// Scenario:
 		// | white white black |
 		// | empty white empty |
@@ -228,7 +228,7 @@ public class MoveLogicTest {
 		setNode(1, 1, "white", board);
 		assertTrue(moveLogic.hasValidMove("black"));
 		assertFalse(moveLogic.hasValidMove("white"));
-		
+
 		assertTrue(moveLogic.isMoveValid("black", "x0y2"));
 		assertFalse(moveLogic.isMoveValid("black", "x1y2"));
 		assertFalse(moveLogic.isMoveValid("black", "x0y1"));

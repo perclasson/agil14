@@ -7,13 +7,53 @@ import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 
 public class MoveCalculator {
+	private final List<Direction> directions;
+	private final Board board;
 
-	private Board board;
-	private DirectionFactory directionFactory;
+	public MoveCalculator(List<Direction> directions, Board board) {
+		this.directions = directions;
+		this.board = board;
+	}
 
 	public MoveCalculator(Board board) {
+		this.directions = new DirectionFactory().getAllDirections();
 		this.board = board;
-		this.directionFactory = new DirectionFactory();
+	}
+
+	/**
+	 * Returns the nodes that will be swapped for a move at the given nodeId.
+	 * 
+	 * @param playerId
+	 *            the player's id
+	 * @param nodeId
+	 *            the node's id
+	 * @param boardHandler2
+	 * @return the nodes that where swapped for this move, including the node
+	 *         where the player made the move, for a move to a specific nodeID
+	 */
+	public List<Node> getNodesToSwap(String playerId, String nodeId) {
+		List<Move> moves = getMoves(playerId, nodeId);
+		List<Node> swappedNodes = new ArrayList<Node>();
+		if (moves.size() > 0) {
+			Move firstMove = moves.get(0);
+			swappedNodes.add(firstMove.getStartNode());
+			for (Move move : moves) {
+				swappedNodes.addAll(move.getIntermediateNodes());
+			}
+			swappedNodes.add(firstMove.getEndNode());
+		}
+		return swappedNodes;
+	}
+
+	public List<Move> getAllPossibleMoves(String playerId) {
+		List<Move> moves = new ArrayList<Move>();
+		for (Node node : board.getNodes()) {
+			List<Move> move = getMoves(playerId, node.getId());
+			if (move.size() > 0) {
+				moves.addAll(move);
+			}
+		}
+		return moves;
 	}
 
 	/**
@@ -32,24 +72,30 @@ public class MoveCalculator {
 		List<Move> moves = new ArrayList<Move>();
 
 		// Try every direction from the target node
-		Node targetNode = getNode(nodeId);
+		Node targetNode = null;
+		for (Node node : board.getNodes()) {
+			if (node.getId().equals(nodeId)) {
+				targetNode = node;
+				break;
+			}
+		}
 
 		// Check that the target node is not already occupant
 		if (targetNode.isMarked()) {
 			return moves;
 		}
 
-		for (Direction direction : directionFactory.createAllDirections()) {
+		for (Direction direction : directions) {
 			Move move = getMoveInDirection(targetNode, direction, playerId);
 			if (move != null) {
 				moves.add(move);
 			}
 		}
+
 		return moves;
 	}
 
-	public Move getMoveInDirection(Node targetNode, Direction direction,
-			String playerId) {
+	private Move getMoveInDirection(Node targetNode, Direction direction, String playerId) {
 		ArrayList<Node> visitedNodes = new ArrayList<Node>();
 
 		// Follow the direction
@@ -61,10 +107,8 @@ public class MoveCalculator {
 			if (currentNode == null) {
 				break;
 			}
-			boolean nodeIsOpponent = currentNode.isMarked()
-					&& !currentNode.getOccupantPlayerId().equals(playerId);
-			boolean nodeIsMine = currentNode.isMarked()
-					&& currentNode.getOccupantPlayerId().equals(playerId);
+			boolean nodeIsOpponent = currentNode.isMarked() && !currentNode.getOccupantPlayerId().equals(playerId);
+			boolean nodeIsMine = currentNode.isMarked() && currentNode.getOccupantPlayerId().equals(playerId);
 
 			if (nodeIsOpponent) {
 				visitedNodes.add(currentNode);
@@ -80,58 +124,14 @@ public class MoveCalculator {
 		return currentMove;
 	}
 
-	/**
-	 * Returns the nodes that will be swapped for a move at the given nodeId.
-	 * 
-	 * @param playerId
-	 *            the player's id
-	 * @param nodeId
-	 *            the node's id
-	 * @return the nodes that where swapped for this move, including the node
-	 *         where the player made the move, for a move to a specific nodeID
-	 */
-	public List<Node> getNodesToSwap(String playerId, String nodeId) {
-		List<Move> moves = getMoves(playerId, nodeId);
-		List<Node> swappedNodes = new ArrayList<Node>();
-		for (Move move : moves) {
-			swappedNodes.addAll(move.getIntermediateNodes());
-		}
-		// Add the last node
-		if (swappedNodes.size() > 0) {
-			swappedNodes.add(getNode(nodeId));
-		}
-
-		return swappedNodes;
-	}
-
-	/**
-	 * Retrieves all the moves that a player can do.
-	 * 
-	 * @param playerId
-	 * @return list of moves for the playerId
-	 */
-	public List<Move> getMoves(String playerId) {
-		List<Move> moves = new ArrayList<Move>();
-		for (Node node : board.getNodes()) {
-			moves.addAll(getMoves(playerId, node.getId()));
-		}
-		return moves;
-	}
-
 	private Node getNextNode(Node currentNode, Direction direction) {
 		int x = currentNode.getXCoordinate() + direction.getX();
 		int y = currentNode.getYCoordinate() + direction.getY();
-		return board.getNode(x, y);
-	}
-
-	// TODO should not be here
-	private Node getNode(String nodeId) {
-		for (Node n : board.getNodes()) {
-			if (n.getId().equals(nodeId)) {
-				return n;
-			}
+		try {
+			return board.getNode(x, y);
+		} catch (Exception e) {
+			return null;
 		}
-		return null;
 	}
 
 }

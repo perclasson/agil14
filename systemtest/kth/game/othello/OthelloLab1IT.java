@@ -1,9 +1,11 @@
 package kth.game.othello;
 
+import kth.game.othello.Othello;
+import kth.game.othello.factory.OthelloFactoryImpl;
 import kth.game.othello.board.Node;
+import kth.game.othello.factory.OthelloFactory;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.Player.Type;
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -27,7 +29,7 @@ public class OthelloLab1IT {
 	}
 
 	private OthelloFactory getOthelloFactory() {
-		return new DemoOthelloFactory();
+		return new OthelloFactoryImpl();
 	}
 
 	private void makeAHumanMove(Othello othello, Player human) {
@@ -41,8 +43,8 @@ public class OthelloLab1IT {
 	}
 
 	/**
-	 * DEMO 2 Integration test which show that the model allows for one computer and one human to play against each
-	 * other for 10 moves.
+	 * DEMO 2 Integration test which show that the model allows for one computer
+	 * and one human to play against each other for 10 moves.
 	 */
 	@Test
 	public void someMovesBetweenAComputerAndHumanTest() {
@@ -61,7 +63,8 @@ public class OthelloLab1IT {
 	}
 
 	/**
-	 * DEMO 1 Integration test which show that two computer players can start a game and and print out who has won.
+	 * DEMO 1 Integration test which show that two computer players can start a
+	 * game and and print out who has won.
 	 */
 	@Test
 	public void twoComputerOnAClassicalBoardTest() {

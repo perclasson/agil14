@@ -2,8 +2,11 @@ package kth.game.othello.board;
 
 import java.util.Observable;
 
+import kth.game.othello.board.factory.NodeData;
+
 /**
- * This is a node on the board, which containts information about it's coordinates and who holds the node.
+ * This is a node on the board, which containts information about it's
+ * coordinates and who holds the node.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon
@@ -34,6 +37,23 @@ public class NodeImpl extends Observable implements Node {
 		setId(x, y);
 	}
 
+	public NodeImpl(NodeData nodeData) {
+		this.x = nodeData.getXCoordinate();
+		this.y = nodeData.getYCoordinate();
+		this.playerId = nodeData.getOccupantPlayerId();
+		setId(this.x, this.y);
+	}
+
+	@Override
+	public String getId() {
+		return id;
+	}
+
+	@Override
+	public String getOccupantPlayerId() {
+		return playerId;
+	}
+
 	/**
 	 * Sets the occupant player of the node
 	 * 
@@ -47,16 +67,6 @@ public class NodeImpl extends Observable implements Node {
 			this.playerId = playerId;
 			notifyObservers(new NodeNotification(oldPlayerId, playerId));
 		}
-	}
-
-	@Override
-	public String getId() {
-		return id;
-	}
-
-	@Override
-	public String getOccupantPlayerId() {
-		return playerId;
 	}
 
 	@Override
@@ -76,7 +86,8 @@ public class NodeImpl extends Observable implements Node {
 
 	@Override
 	public String toString() {
-		return getOccupantPlayerId() != null ? getOccupantPlayerId() : "-1";
+		return "(x: " + x + ", y: " + y + ", playerId: "
+				+ (getOccupantPlayerId() != null ? getOccupantPlayerId() : "n/a") + ")";
 	}
 
 	/**

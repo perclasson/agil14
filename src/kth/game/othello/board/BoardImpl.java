@@ -1,96 +1,41 @@
 package kth.game.othello.board;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
-/**
- * Class containing the nodes, boardOrder and helper functions for the board.
- * 
- * @author Ludvig Axelsson
- * @author Per Classon
- * @author Tommy Roshult
- */
+import kth.game.othello.board.factory.NodeData;
 
 public class BoardImpl implements Board {
+	private HashMap<String, NodeImpl> board;
 
-	private List<Node> nodes;
-	private int boardOrder;
+	public BoardImpl(Set<NodeData> nodeData) {
+		this.board = new HashMap<String, NodeImpl>();
+		// Create an array of the node data set
+		for (NodeData n : nodeData) {
+			NodeImpl node = new NodeImpl(n);
+			board.put(node.getId(), node);
+		}
+	}
 
-	/**
-	 * Initializes a Othello board given players and board order.
-	 * 
-	 * @param playerOneId
-	 *            the first player's id
-	 * @param playerTwoId
-	 *            the second player's id
-	 * @param boardOrder
-	 *            the board's order, must be an even number
-	 */
-	public BoardImpl(String playerOneId, String playerTwoId, int boardOrder) {
-		this.boardOrder = boardOrder;
-		initializeBoard(playerOneId, playerTwoId);
+	@Override
+	public Node getNode(int x, int y) {
+		for (Node node : board.values()) {
+			if (node.getXCoordinate() == x && node.getYCoordinate() == y) {
+				return node;
+			}
+		}
+		throw new IllegalArgumentException("There is no node with that coordinates");
 	}
 
 	@Override
 	public List<Node> getNodes() {
-		return nodes;
+		return new ArrayList<Node>(board.values());
 	}
 
-	/**
-	 * Get node by id from board, throws {@link IllegalArgumentException} if non-existent node.
-	 * 
-	 * @param nodeId
-	 *            id of the node to be retrieved
-	 * @return node that was found
-	 * @throws IllegalArgumentException
-	 */
-	public Node getNode(String nodeId) {
-		for (Node node : nodes) {
-			if (node.getId().equals(nodeId)) {
-				return node;
-			}
-		}
-		throw new IllegalArgumentException("There is no node with that ID.");
-	}
-
-	/**
-	 * Get node by coordinates.
-	 * 
-	 * @param x
-	 *            coordinate
-	 * @param y
-	 *            coordinate
-	 * @return Node node
-	 */
-	public Node getNodeByCoordinates(int x, int y) {
-		return nodes.get(getNodeIndex(x, y));
-	}
-
-	/**
-	 * The order of the board, the number of nodes is the square of the order.
-	 * 
-	 * @return the order of the board
-	 */
-
-	public int getOrder() {
-		return boardOrder;
-	}
-
-	/**
-	 * Changes the occupant player of nodes in the board given a list of nodes.
-	 * 
-	 * @param nodesToBeChanged
-	 *            a list of nodes that should be changed in the board
-	 * @param occupantPlayerId
-	 *            the id of the new occupant
-	 */
-	public void changeOccupantOnNodes(List<Node> nodesToBeChanged, String occupantPlayerId) { // TODO naming
-		// Change the swapped nodes occupant
-		for (Node n : nodesToBeChanged) {
-			int x = n.getXCoordinate();
-			int y = n.getYCoordinate();
-			nodes.set(getNodeIndex(x, y), new NodeImpl(x, y, occupantPlayerId));
-		}
+	public void changeOccupantOnNode(Node node, String playerId) {
+		board.get(node.getId()).setOccupantPlayerId(playerId);
 	}
 
 	/**
@@ -98,64 +43,31 @@ public class BoardImpl implements Board {
 	 */
 	@Override
 	public String toString() {
-		String s = "";
-		for (int y = 0; y < boardOrder; y++) {
-			for (int x = 0; x < boardOrder; x++) {
-				s += getNodeByCoordinates(x, y) + " \t ";
+		int xMax = 0;
+		int yMax = 0;
+		for (Node node : board.values()) {
+			if (node.getXCoordinate() > xMax) {
+				xMax = node.getXCoordinate();
 			}
-			s += System.getProperty("line.separator");
+			if (node.getYCoordinate() > yMax) {
+				yMax = node.getYCoordinate();
+			}
 		}
-		return s;
-	}
-
-	/**
-	 * Fill the board with nodes and where the four in the middle have a representing playerId
-	 * 
-	 * @param playerOneId
-	 *            the first player's id
-	 * @param playerTwoId
-	 *            the second player's id
-	 */
-	private void initializeBoard(String playerOneId, String playerTwoId) {
-		nodes = new ArrayList<Node>(boardOrder * boardOrder);
-		// The middle index of table where the nodes should have a playedId
-		int[] startCoordinate = { boardOrder / 2 - 1, boardOrder / 2 };
-		for (int y = 0; y < boardOrder; y++) {
-			for (int x = 0; x < boardOrder; x++) {
-				boolean isMarkedByPlayerOne = ((x == startCoordinate[0] && y == startCoordinate[0]) || (x == startCoordinate[1] && y == startCoordinate[1]));
-				boolean isMarkedByPlayerTwo = ((x == startCoordinate[1] && y == startCoordinate[0]) || (x == startCoordinate[0] && y == startCoordinate[1]));
-
-				if (isMarkedByPlayerOne) {
-					nodes.add(new NodeImpl(x, y, playerOneId));
-				} else if (isMarkedByPlayerTwo) {
-					nodes.add(new NodeImpl(x, y, playerTwoId));
-				} else {
-					nodes.add(new NodeImpl(x, y));
+		int max = Math.max(xMax, yMax);
+		StringBuilder sb = new StringBuilder();
+		for (int y = 0; y < max; y++) {
+			for (int x = 0; x < max; x++) {
+				if (x < xMax && y < yMax) {
+					try {
+						sb.append(getNode(x, y) + " \t ");
+					} catch (Exception e) {
+						sb.append(". \t ");
+					}
 				}
+				sb.append(". \t ");
 			}
+			sb.append(System.getProperty("line.separator"));
 		}
-	}
-
-	/**
-	 * The board is internally a list and this returns the correct index for a node in matrix notation.
-	 * 
-	 * @param the
-	 *            x coordinate
-	 * @param the
-	 *            y coordinate
-	 * @return The index in the list nodes, that corresponds to the coordinate (x,y) in the board
-	 */
-	private int getNodeIndex(int x, int y) {
-		return x + (boardOrder) * y;
-	}
-
-	@Override
-	public Node getNode(int x, int y) {
-		for (Node node : nodes) {
-			if (node.getXCoordinate() == x && node.getYCoordinate() == y) {
-				return node;
-			}
-		}
-		throw new IllegalArgumentException("There is no node with that coordinates");
+		return sb.toString();
 	}
 }

@@ -16,6 +16,12 @@ public class PlayerImpl implements Player {
 	private Type type;
 	private MoveStrategy moveStrategy;
 
+	public PlayerImpl(Type type, String name, String id) {
+		this.type = type;
+		this.name = name;
+		this.id = id;
+	}
+
 	public PlayerImpl(Type type, String name, String id, MoveStrategy moveStrategy) {
 		this.type = type;
 		this.name = name;

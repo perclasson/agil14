@@ -2,10 +2,17 @@ package kth.game.othello;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import kth.game.othello.Othello;
 import kth.game.othello.board.factory.Diamond;
+import kth.game.othello.factory.OthelloFactory;
+import kth.game.othello.factory.OthelloFactoryImpl;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.Player.Type;
+import kth.game.othello.player.PlayerFactory;
+import kth.game.othello.player.movestrategy.MoveMaxSwappedStrategy;
+import kth.game.othello.player.movestrategy.MoveRandomStrategy;
 import kth.game.othello.player.movestrategy.MoveStrategy;
 
 import org.junit.Assert;
@@ -13,8 +20,16 @@ import org.junit.Test;
 
 public class OthelloLab2IT {
 
+	private PlayerFactory playerFactory;
+	private Random random;
+
+	public OthelloLab2IT() {
+		this.random = new Random();
+		this.playerFactory = new PlayerFactory();
+	}
+
 	private MoveStrategy getNewMoveStrategy() {
-		return null;
+		return new MoveMaxSwappedStrategy();
 	}
 
 	private OthelloFactory getOthelloFactory() {
@@ -22,11 +37,11 @@ public class OthelloLab2IT {
 	}
 
 	private Player createComputer(String name) {
-		return null;
+		return playerFactory.createComputerPlayer(name, new MoveRandomStrategy(random));
 	}
 
 	private Player createHuman(String name) {
-		return null;
+		return playerFactory.createHumanPlayer(name);
 	}
 
 	private void makeNumberOfComputerMoves(int numberOfMoves, Othello othello) {

@@ -1,11 +1,12 @@
 package kth.game.othello.move;
 
 import java.util.List;
+
 import kth.game.othello.OthelloImpl;
-import kth.game.othello.PlayerWrapper;
+import kth.game.othello.board.BoardHandler;
 import kth.game.othello.board.Node;
-import kth.game.othello.board.BoardImpl;
 import kth.game.othello.player.Player;
+import kth.game.othello.player.PlayerHandler;
 import kth.game.othello.player.movestrategy.MoveStrategy;
 
 /**
@@ -15,59 +16,61 @@ import kth.game.othello.player.movestrategy.MoveStrategy;
  * @author Per Classon
  * @author Tommy Roshult
  */
-public class Handler {
+public class MoveHandler {
 
-	private BoardImpl board;
-	private PlayerWrapper playerWrapper;
+	private BoardHandler boardHandler;
+	private PlayerHandler playerHandler;
 	private MoveCalculator moveCalculator;
 
-	public Handler(BoardImpl board, PlayerWrapper playerWrapper) {
-		this.board = board;
-		this.playerWrapper = playerWrapper;
-		
-		this.moveCalculator = new MoveCalculator(board); // TODO
+	public MoveHandler(BoardHandler boardHandler, PlayerHandler playerHandler, MoveCalculator moveCalculator) {
+		this.boardHandler = boardHandler;
+		this.playerHandler = playerHandler;
+		this.moveCalculator = moveCalculator;
 	}
 
 	public List<Node> move(OthelloImpl othello) {
 		// If the current player is not a computer
-		if (playerWrapper.getPlayerInTurn().getType() != Player.Type.COMPUTER) {
+		if (playerHandler.getPlayerInTurn().getType() != Player.Type.COMPUTER) {
 			throw new IllegalStateException("Player in turn is not a computer.");
 		}
-
-		Player player = playerWrapper.getPlayerInTurn();
-		
-		MoveStrategy moveStrategy = player.getMoveStrategy();
-		Node node = moveStrategy.move(player.getId(), othello); // TODO wtf?
-		
-		return move(player.getId(), node.getId());
+		Player currentComputer = playerHandler.getPlayerInTurn();
+		MoveStrategy moveStrategy = currentComputer.getMoveStrategy();
+		Node node = moveStrategy.move(currentComputer.getId(), othello);
+		return move(currentComputer.getId(), node.getId());
 	}
-	
+
 	/**
 	 * Makes a move given a player, node id and updates the board.
 	 * 
 	 * @param playerId
-	 * 		the player's id
+	 *            the player's id
 	 * @param nodeId
-	 * 		the node's id
+	 *            the node's id
 	 * @return Empty list if the move is invalid
-	 * @return the nodes that where swapped for this move, including the node where the player made the move
+	 * @return the nodes that where swapped for this move, including the node
+	 *         where the player made the move
 	 */
 	public List<Node> move(String playerId, String nodeId) {
-		if (!playerWrapper.getPlayerInTurn().getId().equals(playerId)) {
+		if (!playerHandler.getPlayerInTurn().getId().equals(playerId)) {
 			throw new IllegalArgumentException("Given player not in turn.");
 		}
-	
+
 		List<Node> nodes = moveCalculator.getNodesToSwap(playerId, nodeId);
+
 		if (nodes.isEmpty()) {
 			throw new IllegalArgumentException("Move is not valid.");
 		}
 
-		playerWrapper.changePlayersTurn();
-		board.changeOccupantOnNodes(nodes, playerId);
+		boardHandler.changeOccupantOnNodes(nodes, playerId);
+
+		playerHandler.changePlayersTurn();
+		if (!hasValidMove(playerHandler.getPlayerInTurn().getId())) {
+			playerHandler.setPlayerInTurn(null);
+		}
 
 		return nodes;
 	}
-	
+
 	/**
 	 * Checks if a player has a valid move.
 	 * 
@@ -75,13 +78,7 @@ public class Handler {
 	 * @return true if the player has a valid move
 	 */
 	public boolean hasValidMove(String playerId) {
-		for (Node node : board.getNodes()) {
-			List<Move> moves = moveCalculator.getMoves(playerId, node.getId());
-			if (moves.size() > 0) {
-				return true;
-			}
-		}
-		return false;
+		return moveCalculator.getAllPossibleMoves(playerId).size() > 0;
 	}
 
 	/**
