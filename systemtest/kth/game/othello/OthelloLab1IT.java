@@ -1,9 +1,7 @@
 package kth.game.othello;
 
 import kth.game.othello.Othello;
-import kth.game.othello.factory.OthelloFactoryImpl;
 import kth.game.othello.board.Node;
-import kth.game.othello.factory.OthelloFactory;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.Player.Type;
 import org.junit.Assert;
@@ -16,31 +14,7 @@ import org.junit.Test;
  * @author Per Classon
  * @author Tommy Roshult
  */
-public class OthelloLab1IT {
-
-	private Object getNumberOfOccupiedNodes(Othello othello) {
-		int occupiedNodesCounter = 0;
-		for (Node node : othello.getBoard().getNodes()) {
-			if (node.isMarked()) {
-				occupiedNodesCounter++;
-			}
-		}
-		return occupiedNodesCounter;
-	}
-
-	private OthelloFactory getOthelloFactory() {
-		return new OthelloFactoryImpl();
-	}
-
-	private void makeAHumanMove(Othello othello, Player human) {
-		for (Node node : othello.getBoard().getNodes()) {
-			if (othello.isMoveValid(human.getId(), node.getId())) {
-				othello.move(human.getId(), node.getId());
-				return;
-			}
-		}
-		throw new IllegalStateException();
-	}
+public class OthelloLab1IT extends AbstractTest {
 
 	/**
 	 * DEMO 2 Integration test which show that the model allows for one computer

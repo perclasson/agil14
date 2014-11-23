@@ -63,7 +63,19 @@ public class OthelloFactoryImpl implements OthelloFactory {
 
 	@Override
 	public Othello createHumanGame() {
-		return null;
+		Random random = new Random();
+		List<Player> players = new ArrayList<Player>();
+		players.add(playerFactory.createHumanPlayer("Player 1"));
+		players.add(playerFactory.createHumanPlayer("Player 2"));
+
+		BoardImpl board = boardFactory.createSquareBoard(BOARD_ORDER, players);
+		MoveCalculator moveCalculator = new MoveCalculator(directionFactory.getAllDirections(), board);
+		BoardHandler boardHandler = new BoardHandler(board);
+		PlayerHandler playerHandler = new PlayerHandler(players, random);
+		MoveHandler moveHandler = new MoveHandler(boardHandler, playerHandler, moveCalculator);
+		ScoreImpl score = new ScoreImpl(players, board.getNodes());
+
+		return new OthelloImpl(boardHandler, playerHandler, moveHandler, score);
 	}
 
 	@Override
