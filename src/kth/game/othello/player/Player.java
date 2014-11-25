@@ -57,6 +57,6 @@ public interface Player {
 	 * @throws UnsupportedOperationException
 	 *             if the player is of {@link Type} HUMAN
 	 */
-	public void setMoveStrategy(MoveStrategy moveStrategy);;
+	public void setMoveStrategy(MoveStrategy moveStrategy);
 
 }
