@@ -37,6 +37,11 @@ public class DirectionFactory {
 		return new Direction(-1, 1);
 	}
 
+	/**
+	 * Creates a list with all valid directions.
+	 * 
+	 * @return the valid directions
+	 */
 	public List<Direction> getAllDirections() {
 		Direction[] list = { createDirectionNorth(), createDirectionNorthEast(), createDirectionEast(),
 				createDirectionSouthEast(), createDirectionSouth(), createDirectionSouthWest(), createDirectionWest(),

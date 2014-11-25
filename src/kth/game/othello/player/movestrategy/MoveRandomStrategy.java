@@ -15,11 +15,15 @@ public class MoveRandomStrategy implements MoveStrategy {
 	public MoveRandomStrategy(Random random) {
 		this.random = random;
 	}
-	
+
 	@Override
 	public String getName() {
 		return "move random strategy";
 	}
+
+	/**
+	 * Strategy where the move is random
+	 */
 
 	@Override
 	public Node move(String playerId, Othello othello) {

@@ -2,10 +2,10 @@ package kth.game.othello.score;
 
 /**
  * An instance of this class contains the score of a player.
- *
+ * 
  * @author Tomas Ekholm
  */
-public class ScoreItem implements Comparable<ScoreItem>{
+public class ScoreItem implements Comparable<ScoreItem> {
 
 	private String playerId;
 	private int score;
@@ -33,5 +33,4 @@ public class ScoreItem implements Comparable<ScoreItem>{
 	public int compareTo(ScoreItem other) {
 		return Integer.compare(getScore(), other.getScore());
 	}
-
 }

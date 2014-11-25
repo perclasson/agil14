@@ -14,6 +14,9 @@ public class MoveMaxSwappedStrategy implements MoveStrategy {
 		return "move max swapped strategy";
 	}
 
+	/**
+	 * Strategy where the move that leads to most changes of occupantplayer will be swapped.
+	 */
 	@Override
 	public Node move(String playerId, Othello othello) {
 		// FIXME

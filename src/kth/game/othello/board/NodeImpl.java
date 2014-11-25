@@ -5,8 +5,7 @@ import java.util.Observable;
 import kth.game.othello.board.factory.NodeData;
 
 /**
- * This is a node on the board, which containts information about it's
- * coordinates and who holds the node.
+ * This is a node on the board, which containts information about it's coordinates and who holds the node.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon
@@ -37,6 +36,9 @@ public class NodeImpl extends Observable implements Node {
 		setId(x, y);
 	}
 
+	/**
+	 * Initializes a Othello node given nodeData
+	 */
 	public NodeImpl(NodeData nodeData) {
 		this.x = nodeData.getXCoordinate();
 		this.y = nodeData.getYCoordinate();
@@ -57,8 +59,8 @@ public class NodeImpl extends Observable implements Node {
 	/**
 	 * Sets the occupant player of the node
 	 * 
-	 * @param the
-	 *            player's id
+	 * @param playerID
+	 *            one player's id
 	 */
 	public void setOccupantPlayerId(String playerId) {
 		String oldPlayerId = this.playerId;
@@ -94,9 +96,9 @@ public class NodeImpl extends Observable implements Node {
 	 * Sets the id for the node given the coordinates.
 	 * 
 	 * @param x
-	 *            coordinate
+	 *            X-coordinate
 	 * @param y
-	 *            coordinate
+	 *            Y-coordinate
 	 */
 	private void setId(int x, int y) {
 		this.id = "x" + x + "y" + y;

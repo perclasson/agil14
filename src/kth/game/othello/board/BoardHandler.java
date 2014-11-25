@@ -14,6 +14,12 @@ public class BoardHandler {
 		return board;
 	}
 
+	/**
+	 * Calling board.changeOccupantOnNode fore all nodes in the list
+	 * 
+	 * @param nodesToBeChanged
+	 * @param playerId
+	 */
 	public void changeOccupantOnNodes(List<Node> nodesToBeChanged, String playerId) {
 		for (Node n : nodesToBeChanged) {
 			board.changeOccupantOnNode(n, playerId);

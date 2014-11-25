@@ -8,6 +8,13 @@ public class PlayerHandler {
 	private List<Player> players;
 	private Random random;
 
+	/**
+	 * Initializes a PlayerHandler, who take cares of the players.
+	 * 
+	 * @param players
+	 * @param random
+	 * @throw IllegalArgumentException if one of the players index is negative or bigger than the amount of players.
+	 */
 	public PlayerHandler(List<Player> players, Random random) {
 		if (currentPlayerIndex < 0 || currentPlayerIndex >= players.size()) {
 			throw new IllegalArgumentException("Player index must be between 0 and " + (players.size() - 1) + ".");
@@ -17,6 +24,10 @@ public class PlayerHandler {
 		this.random = random;
 	}
 
+	/**
+	 * @return return player with currentPlayerIndex, it is that player in turn.
+	 * @return null if currentPlayerIndex is -1.
+	 */
 	public Player getPlayerInTurn() {
 		if (currentPlayerIndex == -1) {
 			return null;
@@ -25,6 +36,12 @@ public class PlayerHandler {
 		}
 	}
 
+	/**
+	 * Sets the currentPlayerIndex to -1, if playerID is null, else switch currentPlayerIndex to the one that
+	 * corresponds to playerID
+	 * 
+	 * @param playerId
+	 */
 	public void setPlayerInTurn(String playerId) {
 		if (playerId == null) {
 			currentPlayerIndex = -1;

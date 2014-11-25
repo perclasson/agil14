@@ -10,6 +10,11 @@ import kth.game.othello.board.factory.NodeData;
 public class BoardImpl implements Board {
 	private HashMap<String, NodeImpl> board;
 
+	/**
+	 * Create a board, representing as hashmap, where the nodeID is the key, and the node itself is the value
+	 * 
+	 * @param nodeData
+	 */
 	public BoardImpl(Set<NodeData> nodeData) {
 		this.board = new HashMap<String, NodeImpl>();
 		// Create an array of the node data set
@@ -19,6 +24,11 @@ public class BoardImpl implements Board {
 		}
 	}
 
+	/**
+	 * Return the node corresponding to the coordinates given by the x and y value.
+	 * 
+	 * @throw IllegalArgumentException if no node is find.
+	 */
 	@Override
 	public Node getNode(int x, int y) {
 		for (Node node : board.values()) {

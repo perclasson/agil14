@@ -28,6 +28,12 @@ public class MoveHandler {
 		this.moveCalculator = moveCalculator;
 	}
 
+	/**
+	 * If the player is a computer, this function do a move for that player
+	 * 
+	 * @param othello
+	 * @return List<Node> Corresponding to that move.
+	 */
 	public List<Node> move(OthelloImpl othello) {
 		// If the current player is not a computer
 		if (playerHandler.getPlayerInTurn().getType() != Player.Type.COMPUTER) {
@@ -47,8 +53,7 @@ public class MoveHandler {
 	 * @param nodeId
 	 *            the node's id
 	 * @return Empty list if the move is invalid
-	 * @return the nodes that where swapped for this move, including the node
-	 *         where the player made the move
+	 * @return the nodes that where swapped for this move, including the node where the player made the move
 	 */
 	public List<Node> move(String playerId, String nodeId) {
 		if (!playerHandler.getPlayerInTurn().getId().equals(playerId)) {

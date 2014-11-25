@@ -21,15 +21,12 @@ public class MoveCalculator {
 	}
 
 	/**
-	 * Returns the nodes that will be swapped for a move at the given nodeId.
+	 * Given a playerID and a nodeID to move to, this method checks which nodes needs to be change occupant player
 	 * 
 	 * @param playerId
-	 *            the player's id
 	 * @param nodeId
-	 *            the node's id
-	 * @param boardHandler2
-	 * @return the nodes that where swapped for this move, including the node
-	 *         where the player made the move, for a move to a specific nodeID
+	 * @return the nodes that where swapped for this move, including the node where the player made the move, for a move
+	 *         to a specific nodeID
 	 */
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
 		List<Move> moves = getMoves(playerId, nodeId);
@@ -45,6 +42,12 @@ public class MoveCalculator {
 		return swappedNodes;
 	}
 
+	/**
+	 * This function looks for all valid moves a player could do
+	 * 
+	 * @param playerId
+	 * @return List<Move> All valid moves.
+	 */
 	public List<Move> getAllPossibleMoves(String playerId) {
 		List<Move> moves = new ArrayList<Move>();
 		for (Node node : board.getNodes()) {
@@ -57,15 +60,13 @@ public class MoveCalculator {
 	}
 
 	/**
-	 * For a specific node, this method return all the moves that could lead to
-	 * that node. By from the specific node go in all directions and looking for
-	 * a node that have the same playerId. All the nodes between the specific
-	 * node the eventually findings must have the opponents playerId
+	 * For a specific node, this method return all the moves that could lead to that node. By from the specific node go
+	 * in all directions and looking for a node that have the same playerId. All the nodes between the specific node the
+	 * eventually findings must have the opponents playerId
 	 * 
 	 * @param playerId
 	 * @param nodeId
-	 * @return list of moves, where every move leads to a valid "placement" on
-	 *         the nodeId.
+	 * @return list of moves, where every move leads to a valid "placement" on the nodeId.
 	 */
 	public List<Move> getMoves(String playerId, String nodeId) {
 		// The valid moves
@@ -95,6 +96,16 @@ public class MoveCalculator {
 		return moves;
 	}
 
+	/**
+	 * Given the node one player want to move to, this methods checks if the move is valid for one direction of the
+	 * board and then return the move. If the is no such move to do, this method return null.
+	 * 
+	 * @param targetNode
+	 * @param direction
+	 * @param playerId
+	 * @return Move
+	 * 
+	 */
 	private Move getMoveInDirection(Node targetNode, Direction direction, String playerId) {
 		ArrayList<Node> visitedNodes = new ArrayList<Node>();
 
@@ -124,6 +135,14 @@ public class MoveCalculator {
 		return currentMove;
 	}
 
+	/**
+	 * Given node and direction, this function get the next node in that direction.
+	 * 
+	 * @param currentNode
+	 * @param direction
+	 * @return Node
+	 * @return null if there is no more nodes in that direction
+	 */
 	private Node getNextNode(Node currentNode, Direction direction) {
 		int x = currentNode.getXCoordinate() + direction.getX();
 		int y = currentNode.getYCoordinate() + direction.getY();
