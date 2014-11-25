@@ -7,7 +7,6 @@ import java.util.Set;
 
 import kth.game.othello.Othello;
 import kth.game.othello.Game;
-import kth.game.othello.board.BoardFactory;
 import kth.game.othello.board.GameBoard;
 import kth.game.othello.board.factory.NodeData;
 import kth.game.othello.board.factory.Square;
