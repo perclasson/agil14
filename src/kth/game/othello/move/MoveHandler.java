@@ -2,8 +2,8 @@ package kth.game.othello.move;
 
 import java.util.List;
 
-import kth.game.othello.OthelloImpl;
-import kth.game.othello.board.BoardHandler;
+import kth.game.othello.Game;
+import kth.game.othello.board.GameBoard;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.PlayerHandler;
@@ -18,12 +18,12 @@ import kth.game.othello.player.movestrategy.MoveStrategy;
  */
 public class MoveHandler {
 
-	private BoardHandler boardHandler;
+	private GameBoard gameBoard;
 	private PlayerHandler playerHandler;
 	private MoveCalculator moveCalculator;
 
-	public MoveHandler(BoardHandler boardHandler, PlayerHandler playerHandler, MoveCalculator moveCalculator) {
-		this.boardHandler = boardHandler;
+	public MoveHandler(GameBoard gameBoard, PlayerHandler playerHandler, MoveCalculator moveCalculator) {
+		this.gameBoard = gameBoard;
 		this.playerHandler = playerHandler;
 		this.moveCalculator = moveCalculator;
 	}
@@ -34,7 +34,8 @@ public class MoveHandler {
 	 * @param othello
 	 * @return List<Node> Corresponding to that move.
 	 */
-	public List<Node> move(OthelloImpl othello) {
+
+	public List<Node> move(Game othello) {
 		// If the current player is not a computer
 		if (playerHandler.getPlayerInTurn().getType() != Player.Type.COMPUTER) {
 			throw new IllegalStateException("Player in turn is not a computer.");
@@ -66,7 +67,7 @@ public class MoveHandler {
 			throw new IllegalArgumentException("Move is not valid.");
 		}
 
-		boardHandler.changeOccupantOnNodes(nodes, playerId);
+		gameBoard.changeOccupantOnNodes(nodes, playerId);
 
 		playerHandler.changePlayersTurn();
 		if (!hasValidMove(playerHandler.getPlayerInTurn().getId())) {

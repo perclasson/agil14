@@ -3,7 +3,7 @@ package kth.game.othello;
 import java.util.List;
 
 import kth.game.othello.board.Board;
-import kth.game.othello.board.BoardHandler;
+import kth.game.othello.board.GameBoard;
 import kth.game.othello.board.Node;
 import kth.game.othello.move.MoveHandler;
 import kth.game.othello.player.Player;
@@ -17,14 +17,14 @@ import kth.game.othello.score.Score;
  * @author Per Classon
  * @author Tommy Roshult
  */
-public class OthelloImpl implements Othello {
-	private BoardHandler boardHandler;
+public class Game implements Othello {
+	private GameBoard boardHandler;
 	private MoveHandler moveHandler;
 	private PlayerHandler playerHandler;
 	private Score score;
 
-	public OthelloImpl(BoardHandler boardHandler, PlayerHandler playerHandler, MoveHandler moveHandler, Score score) {
-		this.boardHandler = boardHandler;
+	public Game(GameBoard board, PlayerHandler playerHandler, MoveHandler moveHandler, Score score) {
+		this.boardHandler = board;
 		this.moveHandler = moveHandler;
 		this.playerHandler = playerHandler;
 		this.score = score;
@@ -32,7 +32,7 @@ public class OthelloImpl implements Othello {
 
 	@Override
 	public Board getBoard() {
-		return boardHandler.getBoard();
+		return boardHandler;
 	}
 
 	@Override

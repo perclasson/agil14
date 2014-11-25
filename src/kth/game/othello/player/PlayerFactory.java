@@ -8,11 +8,11 @@ public class PlayerFactory {
 	private int id = 0;
 
 	public Player createComputerPlayer(String name, MoveStrategy moveStrategy) {
-		return new PlayerImpl(Type.COMPUTER, name, generatePlayerId(), moveStrategy);
+		return new DefaultPlayer(Type.COMPUTER, name, generatePlayerId(), moveStrategy);
 	}
 
 	public Player createHumanPlayer(String name) {
-		return new PlayerImpl(Type.HUMAN, name, generatePlayerId());
+		return new DefaultPlayer(Type.HUMAN, name, generatePlayerId());
 	}
 
 	private String generatePlayerId() {

@@ -7,7 +7,15 @@ import kth.game.othello.board.Node;
 import kth.game.othello.move.Move;
 import kth.game.othello.move.MoveCalculator;
 
-public class MoveMaxSwappedStrategy implements MoveStrategy {
+/**
+ * The responsibility of this class is to choose moves. This one chooses moves that maximises swaps.
+ * 
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ *
+ */
+public class MaxSwappedStrategy implements MoveStrategy {
 
 	@Override
 	public String getName() {
@@ -19,7 +27,6 @@ public class MoveMaxSwappedStrategy implements MoveStrategy {
 	 */
 	@Override
 	public Node move(String playerId, Othello othello) {
-		// FIXME
 		MoveCalculator moveCalculator = new MoveCalculator(othello.getBoard());
 		List<Move> moves = moveCalculator.getAllPossibleMoves(playerId);
 		Move maxMove = null;

@@ -8,7 +8,7 @@ import kth.game.othello.board.factory.Diamond;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.Player.Type;
 import kth.game.othello.player.PlayerFactory;
-import kth.game.othello.player.movestrategy.MoveMaxSwappedStrategy;
+import kth.game.othello.player.movestrategy.MaxSwappedStrategy;
 import kth.game.othello.player.movestrategy.MoveRandomStrategy;
 import kth.game.othello.player.movestrategy.MoveStrategy;
 
@@ -26,7 +26,7 @@ public class OthelloLab2IT extends AbstractTest {
 	}
 
 	private MoveStrategy getNewMoveStrategy() {
-		return new MoveMaxSwappedStrategy();
+		return new MaxSwappedStrategy();
 	}
 
 	private void makeNumberOfComputerMoves(int numberOfMoves, Othello othello) {

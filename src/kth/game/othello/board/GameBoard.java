@@ -7,19 +7,21 @@ import java.util.Set;
 
 import kth.game.othello.board.factory.NodeData;
 
-public class BoardImpl implements Board {
-	private HashMap<String, NodeImpl> board;
+public class GameBoard implements Board {
+	private HashMap<String, BoardNode> board;
 
 	/**
 	 * Create a board, representing as hashmap, where the nodeID is the key, and the node itself is the value
 	 * 
 	 * @param nodeData
 	 */
-	public BoardImpl(Set<NodeData> nodeData) {
-		this.board = new HashMap<String, NodeImpl>();
+
+	public GameBoard(Set<NodeData> nodeData) {
+		this.board = new HashMap<String, BoardNode>();
+
 		// Create an array of the node data set
 		for (NodeData n : nodeData) {
-			NodeImpl node = new NodeImpl(n);
+			BoardNode node = new BoardNode(n);
 			board.put(node.getId(), node);
 		}
 	}
@@ -46,6 +48,12 @@ public class BoardImpl implements Board {
 
 	public void changeOccupantOnNode(Node node, String playerId) {
 		board.get(node.getId()).setOccupantPlayerId(playerId);
+	}
+
+	public void changeOccupantOnNodes(List<Node> nodesToBeChanged, String playerId) {
+		for (Node n : nodesToBeChanged) {
+			changeOccupantOnNode(n, playerId);
+		}
 	}
 
 	/**
@@ -80,4 +88,5 @@ public class BoardImpl implements Board {
 		}
 		return sb.toString();
 	}
+
 }

@@ -11,7 +11,7 @@ import kth.game.othello.board.factory.NodeData;
  * @author Per Classon
  * @author Tommy Roshult
  */
-public class NodeImpl extends Observable implements Node {
+public class BoardNode extends Observable implements Node {
 
 	private String id;
 	private String playerId;
@@ -20,7 +20,7 @@ public class NodeImpl extends Observable implements Node {
 	/**
 	 * Initializes a Othello node given coordinates and a player.
 	 */
-	public NodeImpl(int x, int y, String playerId) {
+	public BoardNode(int x, int y, String playerId) {
 		this.playerId = playerId;
 		this.x = x;
 		this.y = y;
@@ -30,7 +30,7 @@ public class NodeImpl extends Observable implements Node {
 	/**
 	 * Initializes a Othello node given coordinates.
 	 */
-	public NodeImpl(int x, int y) {
+	public BoardNode(int x, int y) {
 		this.x = x;
 		this.y = y;
 		setId(x, y);
@@ -39,7 +39,8 @@ public class NodeImpl extends Observable implements Node {
 	/**
 	 * Initializes a Othello node given nodeData
 	 */
-	public NodeImpl(NodeData nodeData) {
+
+	public BoardNode(NodeData nodeData) {
 		this.x = nodeData.getXCoordinate();
 		this.y = nodeData.getYCoordinate();
 		this.playerId = nodeData.getOccupantPlayerId();
