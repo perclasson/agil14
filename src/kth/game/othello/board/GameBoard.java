@@ -38,6 +38,12 @@ public class GameBoard implements Board {
 		board.get(node.getId()).setOccupantPlayerId(playerId);
 	}
 
+	public void changeOccupantOnNodes(List<Node> nodesToBeChanged, String playerId) {
+		for (Node n : nodesToBeChanged) {
+			changeOccupantOnNode(n, playerId);
+		}
+	}
+
 	/**
 	 * A string representing a matrix of the board
 	 */
@@ -69,12 +75,6 @@ public class GameBoard implements Board {
 			sb.append(System.getProperty("line.separator"));
 		}
 		return sb.toString();
-	}
-
-	public void changeOccupantOnNodes(List<Node> nodesToBeChanged, String playerId) {
-		for (Node n : nodesToBeChanged) {
-			changeOccupantOnNode(n, playerId);
-		}
 	}
 
 }

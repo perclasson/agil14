@@ -10,6 +10,7 @@ import kth.game.othello.Game;
 import kth.game.othello.board.BoardFactory;
 import kth.game.othello.board.GameBoard;
 import kth.game.othello.board.factory.NodeData;
+import kth.game.othello.board.factory.Square;
 import kth.game.othello.move.DirectionFactory;
 import kth.game.othello.move.MoveCalculator;
 import kth.game.othello.move.MoveHandler;
@@ -31,12 +32,10 @@ public class OthelloGameFactor implements OthelloFactory {
 	private static final int BOARD_ORDER = 8;
 
 	private PlayerFactory playerFactory;
-	private BoardFactory boardFactory;
 	private DirectionFactory directionFactory;
 
 	public OthelloGameFactor() {
 		this.playerFactory = new PlayerFactory();
-		this.boardFactory = new BoardFactory();
 		this.directionFactory = new DirectionFactory();
 	}
 
@@ -50,7 +49,7 @@ public class OthelloGameFactor implements OthelloFactory {
 		players.add(playerFactory.createComputerPlayer("Computer 1", moveStrategy));
 		players.add(playerFactory.createComputerPlayer("Computer 2", moveStrategy));
 
-		GameBoard board = boardFactory.createSquareBoard(BOARD_ORDER, players);
+		GameBoard board = new GameBoard(new Square().getNodes(BOARD_ORDER, players));
 		MoveCalculator moveCalculator = new MoveCalculator(directionFactory.getAllDirections(), board);
 		PlayerHandler playerHandler = new PlayerHandler(players, random);
 		MoveHandler moveHandler = new MoveHandler(board, playerHandler, moveCalculator);
@@ -66,7 +65,7 @@ public class OthelloGameFactor implements OthelloFactory {
 		players.add(playerFactory.createHumanPlayer("Player 1"));
 		players.add(playerFactory.createHumanPlayer("Player 2"));
 
-		GameBoard board = boardFactory.createSquareBoard(BOARD_ORDER, players);
+		GameBoard board = new GameBoard(new Square().getNodes(BOARD_ORDER, players));
 		MoveCalculator moveCalculator = new MoveCalculator(directionFactory.getAllDirections(), board);
 		PlayerHandler playerHandler = new PlayerHandler(players, random);
 		MoveHandler moveHandler = new MoveHandler(board, playerHandler, moveCalculator);
@@ -84,7 +83,7 @@ public class OthelloGameFactor implements OthelloFactory {
 		players.add(playerFactory.createComputerPlayer("Computer", moveStrategy));
 		players.add(playerFactory.createHumanPlayer("Human"));
 
-		GameBoard board = boardFactory.createSquareBoard(BOARD_ORDER, players);
+		GameBoard board = new GameBoard(new Square().getNodes(BOARD_ORDER, players));
 		MoveCalculator moveCalculator = new MoveCalculator(directionFactory.getAllDirections(), board);
 		PlayerHandler playerHandler = new PlayerHandler(players, random);
 		MoveHandler moveHandler = new MoveHandler(board, playerHandler, moveCalculator);
