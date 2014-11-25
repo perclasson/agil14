@@ -4,23 +4,19 @@ import java.util.List;
 import java.util.Random;
 
 public class PlayerHandler {
-	private int currentPlayerIndex;
+	private Player playerInTurn;
 	private List<Player> players;
 	private Random random;
 
 	/**
-	 * Initializes a PlayerHandler, who take cares of the players.
+	 * Sets the player in turn to null.
 	 * 
 	 * @param players
 	 * @param random
-	 * @throw IllegalArgumentException if one of the players index is negative or bigger than the amount of players.
 	 */
 	public PlayerHandler(List<Player> players, Random random) {
-		if (currentPlayerIndex < 0 || currentPlayerIndex >= players.size()) {
-			throw new IllegalArgumentException("Player index must be between 0 and " + (players.size() - 1) + ".");
-		}
 		this.players = players;
-		this.currentPlayerIndex = 0;
+		this.playerInTurn = null;
 		this.random = random;
 	}
 
@@ -29,41 +25,45 @@ public class PlayerHandler {
 	 * @return null if currentPlayerIndex is -1.
 	 */
 	public Player getPlayerInTurn() {
-		if (currentPlayerIndex == -1) {
-			return null;
-		} else {
-			return players.get(currentPlayerIndex);
-		}
+		return playerInTurn;
 	}
 
 	/**
-	 * Sets the currentPlayerIndex to -1, if playerID is null, else switch currentPlayerIndex to the one that
-	 * corresponds to playerID
+	 * Sets the current player in turn to given playerId.
 	 * 
 	 * @param playerId
 	 */
 	public void setPlayerInTurn(String playerId) {
-		if (playerId == null) {
-			currentPlayerIndex = -1;
-		} else {
-			for (int i = 0; i < players.size(); i++) {
-				if (players.get(i).getId().equals(playerId)) {
-					currentPlayerIndex = i;
-					return;
-				}
+		for (Player player : players) {
+			if (player.getId().equals(playerId)) {
+				playerInTurn = player;
+				return;
 			}
 		}
+		throw new IllegalArgumentException("The playerId is not in player list.");
 	}
 
+	/**
+	 * Change the player in turn to the next one given in our list of players.
+	 */
 	public void changePlayersTurn() {
-		currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+		for (int i = 0; i < players.size(); i++) {
+			if (players.get(i).equals(playerInTurn)) {
+				playerInTurn = players.get((i + 1) % players.size());
+				break;
+			}
+		}
 	}
 
 	public List<Player> getPlayers() {
 		return players;
 	}
 
+	/**
+	 * Puts a random player in turn.
+	 */
 	public void setRandomPlayerInTurn() {
-		currentPlayerIndex = random.nextInt(players.size());
+		int playerInTurnIndex = random.nextInt(players.size());
+		playerInTurn = players.get(playerInTurnIndex);
 	}
 }
