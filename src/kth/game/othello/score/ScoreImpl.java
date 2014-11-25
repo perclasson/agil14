@@ -1,6 +1,7 @@
 package kth.game.othello.score;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Observable;
@@ -29,7 +30,9 @@ public class ScoreImpl implements Observer, Score {
 
 	@Override
 	public List<ScoreItem> getPlayersScore() {
-		return new ArrayList<ScoreItem>(scores.values()); // TODO sort
+		ArrayList<ScoreItem> scores = new ArrayList<ScoreItem>();
+		Collections.sort(scores);
+		return scores;
 	}
 
 	@Override
