@@ -7,9 +7,9 @@ import kth.game.othello.player.Player;
 
 public class BoardFactory {
 
-	public BoardImpl createSquareBoard(int size, List<Player> players) {
+	public GameBoard createSquareBoard(int size, List<Player> players) {
 		Square square = new Square();
-		BoardImpl board = new BoardImpl(square.getNodes(size, players));
+		GameBoard board = new GameBoard(square.getNodes(size, players));
 		return board;
 	}
 

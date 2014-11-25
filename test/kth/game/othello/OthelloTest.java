@@ -8,12 +8,12 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.Random;
 
-import kth.game.othello.OthelloImpl;
+import kth.game.othello.Game;
 import kth.game.othello.Othello;
 import kth.game.othello.board.Node;
-import kth.game.othello.board.BoardImpl;
+import kth.game.othello.board.GameBoard;
 import kth.game.othello.move.MoveHandler;
-import kth.game.othello.player.PlayerImpl;
+import kth.game.othello.player.DefaultPlayer;
 import kth.game.othello.player.Player;
 
 import org.junit.Rule;
@@ -35,7 +35,7 @@ public class OthelloTest {
 	@Test
 	public void testHasValidMove() {
 		MoveHandler moveLogic = Mockito.mock(MoveHandler.class);
-		OthelloImpl othello = new OthelloImpl(null, null, null, moveLogic, null);
+		Game othello = new Game(null, null, null, moveLogic, null);
 		String playerId = "player";
 		othello.hasValidMove(playerId);
 		verify(moveLogic).hasValidMove(playerId);
@@ -44,7 +44,7 @@ public class OthelloTest {
 	@Test
 	public void testIsMoveValid() {
 		MoveHandler moveLogic = Mockito.mock(MoveHandler.class);
-		OthelloImpl othello = new OthelloImpl(null, null, null, moveLogic, null);
+		Game othello = new Game(null, null, null, moveLogic, null);
 		String playerId = "player";
 		String nodeId = "x0y0";
 		othello.isMoveValid(playerId, nodeId);
@@ -54,7 +54,7 @@ public class OthelloTest {
 	@Test
 	public void testGetMovesToSwap() {
 		MoveHandler moveLogic = Mockito.mock(MoveHandler.class);
-		OthelloImpl othello = new OthelloImpl(null, null, null, moveLogic, null);
+		Game othello = new Game(null, null, null, moveLogic, null);
 		String playerId = "player";
 		String nodeId = "x0y0";
 		othello.getNodesToSwap(playerId, nodeId);
@@ -63,10 +63,10 @@ public class OthelloTest {
 
 	@Test
 	public void testInvalidMove() {
-		final PlayerImpl black = Mockito.mock(PlayerImpl.class);
+		final DefaultPlayer black = Mockito.mock(DefaultPlayer.class);
 		MoveHandler moveLogic = Mockito.mock(MoveHandler.class);
 
-		Othello othello = new OthelloImpl(null, black, null, moveLogic, null) {
+		Othello othello = new Game(null, black, null, moveLogic, null) {
 			@Override
 			public Player getPlayerInTurn() {
 				return black;
@@ -86,9 +86,9 @@ public class OthelloTest {
 
 	@Test
 	public void testMoveOfPlayerNotInTurn() {
-		final PlayerImpl black = Mockito.mock(PlayerImpl.class);
+		final DefaultPlayer black = Mockito.mock(DefaultPlayer.class);
 
-		Othello othello = new OthelloImpl(null, black, null, null, null) {
+		Othello othello = new Game(null, black, null, null, null) {
 			@Override
 			public Player getPlayerInTurn() {
 				return black;
@@ -104,9 +104,9 @@ public class OthelloTest {
 
 	@Test
 	public void testMoveOfHumanPlayer() {
-		final PlayerImpl black = Mockito.mock(PlayerImpl.class);
+		final DefaultPlayer black = Mockito.mock(DefaultPlayer.class);
 
-		Othello othello = new OthelloImpl(null, black, null, null, null) {
+		Othello othello = new Game(null, black, null, null, null) {
 			@Override
 			public Player getPlayerInTurn() {
 				return black;
@@ -123,12 +123,12 @@ public class OthelloTest {
 
 	@Test
 	public void testMove() {
-		final PlayerImpl black = Mockito.mock(PlayerImpl.class);
-		PlayerImpl white = Mockito.mock(PlayerImpl.class);
+		final DefaultPlayer black = Mockito.mock(DefaultPlayer.class);
+		DefaultPlayer white = Mockito.mock(DefaultPlayer.class);
 		MoveHandler moveLogic = Mockito.mock(MoveHandler.class);
 		Random random = new Random();
 
-		Othello othello = new OthelloImpl(null, black, white, moveLogic, random) {
+		Othello othello = new Game(null, black, white, moveLogic, random) {
 			@Override
 			public Player getPlayerInTurn() {
 				return black;
@@ -148,12 +148,12 @@ public class OthelloTest {
 
 	@Test
 	public void testStart() {
-		BoardImpl board = Mockito.mock(BoardImpl.class);
-		PlayerImpl black = Mockito.mock(PlayerImpl.class);
-		PlayerImpl white = Mockito.mock(PlayerImpl.class);
+		GameBoard board = Mockito.mock(GameBoard.class);
+		DefaultPlayer black = Mockito.mock(DefaultPlayer.class);
+		DefaultPlayer white = Mockito.mock(DefaultPlayer.class);
 		MoveHandler moveLogic = Mockito.mock(MoveHandler.class);
 
-		Othello othello = new OthelloImpl(board, black, white, moveLogic, new Random());
+		Othello othello = new Game(board, black, white, moveLogic, new Random());
 
 		when(black.getId()).thenReturn("black");
 

@@ -4,9 +4,9 @@ import java.util.List;
 
 public class BoardHandler {
 
-	private BoardImpl board;
+	private GameBoard board;
 
-	public BoardHandler(BoardImpl board) {
+	public BoardHandler(GameBoard board) {
 		this.board = board;
 	}
 

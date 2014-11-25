@@ -7,7 +7,7 @@ import kth.game.othello.board.Node;
 import kth.game.othello.move.Move;
 import kth.game.othello.move.MoveCalculator;
 
-public class MoveMaxSwappedStrategy implements MoveStrategy {
+public class MaxSwappedStrategy implements MoveStrategy {
 
 	@Override
 	public String getName() {

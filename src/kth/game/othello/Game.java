@@ -17,13 +17,13 @@ import kth.game.othello.score.Score;
  * @author Per Classon
  * @author Tommy Roshult
  */
-public class OthelloImpl implements Othello {
+public class Game implements Othello {
 	private BoardHandler boardHandler;
 	private MoveHandler moveHandler;
 	private PlayerHandler playerHandler;
 	private Score score;
 
-	public OthelloImpl(BoardHandler boardHandler, PlayerHandler playerHandler, MoveHandler moveHandler, Score score) {
+	public Game(BoardHandler boardHandler, PlayerHandler playerHandler, MoveHandler moveHandler, Score score) {
 		this.boardHandler = boardHandler;
 		this.moveHandler = moveHandler;
 		this.playerHandler = playerHandler;

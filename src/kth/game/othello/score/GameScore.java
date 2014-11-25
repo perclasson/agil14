@@ -11,10 +11,10 @@ import kth.game.othello.board.Node;
 import kth.game.othello.board.NodeNotification;
 import kth.game.othello.player.Player;
 
-public class ScoreImpl implements Observer, Score {
+public class GameScore implements Observer, Score {
 	private HashMap<String, ScoreItem> scores;
 
-	public ScoreImpl(List<Player> players, List<Node> nodes) {
+	public GameScore(List<Player> players, List<Node> nodes) {
 		scores = new HashMap<String, ScoreItem>();
 		for (Player player : players) {
 			scores.put(player.getId(), new ScoreItem(player.getId(), 0));

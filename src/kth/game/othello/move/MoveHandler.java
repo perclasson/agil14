@@ -2,7 +2,7 @@ package kth.game.othello.move;
 
 import java.util.List;
 
-import kth.game.othello.OthelloImpl;
+import kth.game.othello.Game;
 import kth.game.othello.board.BoardHandler;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
@@ -28,7 +28,7 @@ public class MoveHandler {
 		this.moveCalculator = moveCalculator;
 	}
 
-	public List<Node> move(OthelloImpl othello) {
+	public List<Node> move(Game othello) {
 		// If the current player is not a computer
 		if (playerHandler.getPlayerInTurn().getType() != Player.Type.COMPUTER) {
 			throw new IllegalStateException("Player in turn is not a computer.");

@@ -2,7 +2,7 @@ package kth.game.othello;
 
 import kth.game.othello.board.Node;
 import kth.game.othello.factory.OthelloFactory;
-import kth.game.othello.factory.OthelloFactoryImpl;
+import kth.game.othello.factory.OthelloGameFactor;
 import kth.game.othello.player.Player;
 
 public abstract class AbstractTest {
@@ -18,7 +18,7 @@ public abstract class AbstractTest {
 	}
 
 	protected OthelloFactory getOthelloFactory() {
-		return new OthelloFactoryImpl();
+		return new OthelloGameFactor();
 	}
 
 	protected void makeAHumanMove(Othello othello, Player human) {
