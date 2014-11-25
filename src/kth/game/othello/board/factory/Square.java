@@ -40,10 +40,10 @@ public class Square {
 		nodes.add(new NodeData(startX + middle - 1, startY + middle - 1, player2Id));
 		nodes.add(new NodeData(startX + middle, startY + middle, player2Id));
 
-		for (int x = 0; x < size; x++) {
-			for (int y = 0; y < size; y++) {
-				nodes.add(new NodeData(x, y));
-			}
+		for (int x = startX; x < startX + size; x++) {
+		    for (int y = startY; y < startY + size; y++) {
+		        nodes.add(new NodeData(x, y));
+		    }
 		}
 		return nodes;
 	}

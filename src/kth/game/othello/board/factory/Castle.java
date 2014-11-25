@@ -42,10 +42,10 @@ public class Castle {
 
 	private Set<NodeData> getCornerNodes(int size, int startX, int startY) {
 		Set<NodeData> nodes = new HashSet<NodeData>();
-		for (int x = startX; x < size; x++) {
-			for (int y = startY; y < size; y++) {
-				nodes.add(new NodeData(x, y));
-			}
+		for (int x = startX; x < startX + size; x++) {
+		    for (int y = startY; y < startY + size; y++) {
+		        nodes.add(new NodeData(x, y));
+		    }
 		}
 		return nodes;
 	}
