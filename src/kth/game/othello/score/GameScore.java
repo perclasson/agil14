@@ -17,7 +17,7 @@ import kth.game.othello.player.Player;
  * @author Ludvig Axelsson
  * @author Per Classon
  * @author Tommy Roshult
- *
+ * 
  */
 public class GameScore implements Observer, Score {
 	private HashMap<String, ScoreItem> scores;

@@ -29,12 +29,14 @@ public class MoveCalculator {
 	 *         to a specific nodeID
 	 */
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
+
 		List<Move> moves = getMoves(playerId, nodeId);
 		List<Node> swappedNodes = new ArrayList<Node>();
 		if (moves.size() > 0) {
 			Move firstMove = moves.get(0);
 			swappedNodes.add(firstMove.getStartNode());
 			for (Move move : moves) {
+
 				swappedNodes.addAll(move.getIntermediateNodes());
 			}
 			swappedNodes.add(firstMove.getEndNode());
@@ -50,7 +52,9 @@ public class MoveCalculator {
 	 */
 	public List<Move> getAllPossibleMoves(String playerId) {
 		List<Move> moves = new ArrayList<Move>();
+
 		for (Node node : board.getNodes()) {
+
 			List<Move> move = getMoves(playerId, node.getId());
 			if (move.size() > 0) {
 				moves.addAll(move);

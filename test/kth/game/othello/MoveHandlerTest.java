@@ -13,6 +13,7 @@ import kth.game.othello.board.GameBoard;
 import kth.game.othello.board.Node;
 import kth.game.othello.move.MoveCalculator;
 import kth.game.othello.move.MoveHandler;
+import kth.game.othello.player.Player;
 import kth.game.othello.player.PlayerHandler;
 
 import org.junit.Rule;
@@ -27,7 +28,7 @@ import org.mockito.Mockito;
  * @author Per Classon
  * @author Tommy Roshult
  */
-public class MoveLogicTest {
+public class MoveHandlerTest {
 
 	private GameBoard mockBoard(int order) {
 		GameBoard board = mock(GameBoard.class);
@@ -66,7 +67,7 @@ public class MoveLogicTest {
 		PlayerHandler playerhandler = Mockito.mock(PlayerHandler.class);
 		MoveCalculator movecalculator = Mockito.mock(MoveCalculator.class);
 		MoveHandler movehandler = new MoveHandler(board, playerhandler, movecalculator);
-		// when(board.getNode(Matchers.anyString())).thenThrow(new IllegalArgumentException()); Is this one necessary?
+		when(board.getNode(1, 1)).thenThrow(new IllegalArgumentException());
 		// Empty board should not have any nodes to swap
 		exception.expect(IllegalArgumentException.class);
 		movehandler.getNodesToSwap("black", "x0y0");
@@ -76,7 +77,7 @@ public class MoveLogicTest {
 	public void testGetNodesToSwap() {
 		GameBoard board = mockBoard(3);
 		PlayerHandler playerhandler = Mockito.mock(PlayerHandler.class);
-		MoveCalculator movecalculator = Mockito.mock(MoveCalculator.class);
+		MoveCalculator movecalculator = new MoveCalculator(board);
 		MoveHandler movehandler = new MoveHandler(board, playerhandler, movecalculator);
 		List<Node> swap = null;
 
@@ -92,6 +93,9 @@ public class MoveLogicTest {
 		// | empty empty empty |
 		// | empty empty empty |
 		swap = movehandler.getNodesToSwap("white", "x2y0");
+		for (Node node : swap) {
+			System.out.println(node.getId());
+		}
 		assertEquals(swap.size(), 2);
 		assertEquals(swap.get(0), board.getNode(1, 0));
 		assertEquals(swap.get(1), board.getNode(2, 0));
@@ -151,6 +155,9 @@ public class MoveLogicTest {
 	public void testMove() {
 		GameBoard board = mockBoard(3);
 		PlayerHandler playerhandler = Mockito.mock(PlayerHandler.class);
+		Player player = Mockito.mock(Player.class);
+		when(playerhandler.getPlayerInTurn()).thenReturn(player);
+		when(player.getId()).thenReturn("white");
 		MoveCalculator movecalculator = Mockito.mock(MoveCalculator.class);
 		MoveHandler movehandler = new MoveHandler(board, playerhandler, movecalculator);
 		List<Node> nodes = null;
