@@ -25,6 +25,7 @@ public class BoardNode extends Observable implements Node {
 		this.x = x;
 		this.y = y;
 		setId(x, y);
+
 	}
 
 	/**

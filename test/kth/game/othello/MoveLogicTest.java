@@ -9,14 +9,16 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
-import kth.game.othello.board.Node;
 import kth.game.othello.board.GameBoard;
+import kth.game.othello.board.Node;
+import kth.game.othello.move.MoveCalculator;
 import kth.game.othello.move.MoveHandler;
+import kth.game.othello.player.PlayerHandler;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mockito.Matchers;
+import org.mockito.Mockito;
 
 /**
  * Unit tests of class MoveLogic.
@@ -37,24 +39,22 @@ public class MoveLogicTest {
 				when(node.getXCoordinate()).thenReturn(x);
 				when(node.getYCoordinate()).thenReturn(y);
 				when(node.isMarked()).thenReturn(false);
-				when(board.getNodeByCoordinates(x, y)).thenReturn(node);
-				when(board.getNode(node.getId())).thenReturn(node);
+				when(board.getNode(x, y)).thenReturn(node);
 				nodes.add(node);
 			}
 		}
-		when(board.getOrder()).thenReturn(order);
 		when(board.getNodes()).thenReturn(nodes);
 		return board;
 	}
 
 	private void setNode(int x, int y, GameBoard board) {
-		when(board.getNodeByCoordinates(x, y).getOccupantPlayerId()).thenReturn(null);
-		when(board.getNodeByCoordinates(x, y).isMarked()).thenReturn(false);
+		when(board.getNode(x, y).getOccupantPlayerId()).thenReturn(null);
+		when(board.getNode(x, y).isMarked()).thenReturn(false);
 	}
 
 	private void setNode(int x, int y, String playerId, GameBoard board) {
-		when(board.getNodeByCoordinates(x, y).getOccupantPlayerId()).thenReturn(playerId);
-		when(board.getNodeByCoordinates(x, y).isMarked()).thenReturn(true);
+		when(board.getNode(x, y).getOccupantPlayerId()).thenReturn(playerId);
+		when(board.getNode(x, y).isMarked()).thenReturn(true);
 	}
 
 	@Rule
@@ -63,18 +63,21 @@ public class MoveLogicTest {
 	@Test
 	public void testGetNodesToSwapException() {
 		GameBoard board = mock(GameBoard.class);
-		MoveHandler moveLogic = new MoveHandler(board);
-		when(board.getNode(Matchers.anyString())).thenThrow(new IllegalArgumentException());
-
+		PlayerHandler playerhandler = Mockito.mock(PlayerHandler.class);
+		MoveCalculator movecalculator = Mockito.mock(MoveCalculator.class);
+		MoveHandler movehandler = new MoveHandler(board, playerhandler, movecalculator);
+		// when(board.getNode(Matchers.anyString())).thenThrow(new IllegalArgumentException()); Is this one necessary?
 		// Empty board should not have any nodes to swap
 		exception.expect(IllegalArgumentException.class);
-		moveLogic.getNodesToSwap("black", "x0y0");
+		movehandler.getNodesToSwap("black", "x0y0");
 	}
 
 	@Test
 	public void testGetNodesToSwap() {
 		GameBoard board = mockBoard(3);
-		MoveHandler moveLogic = new MoveHandler(board);
+		PlayerHandler playerhandler = Mockito.mock(PlayerHandler.class);
+		MoveCalculator movecalculator = Mockito.mock(MoveCalculator.class);
+		MoveHandler movehandler = new MoveHandler(board, playerhandler, movecalculator);
 		List<Node> swap = null;
 
 		// Scenario:
@@ -88,10 +91,10 @@ public class MoveLogicTest {
 		// | white white white |
 		// | empty empty empty |
 		// | empty empty empty |
-		swap = moveLogic.getNodesToSwap("white", "x2y0");
+		swap = movehandler.getNodesToSwap("white", "x2y0");
 		assertEquals(swap.size(), 2);
-		assertEquals(swap.get(0), board.getNodeByCoordinates(1, 0));
-		assertEquals(swap.get(1), board.getNodeByCoordinates(2, 0));
+		assertEquals(swap.get(0), board.getNode(1, 0));
+		assertEquals(swap.get(1), board.getNode(2, 0));
 
 		// Scenario:
 		// | white black empty |
@@ -99,7 +102,7 @@ public class MoveLogicTest {
 		// | empty empty empty |
 		setNode(0, 0, "white", board);
 		setNode(1, 0, "black", board);
-		swap = moveLogic.getNodesToSwap("white", "x1y1");
+		swap = movehandler.getNodesToSwap("white", "x1y1");
 		assertEquals(swap.size(), 0);
 
 		// Scenario:
@@ -109,7 +112,7 @@ public class MoveLogicTest {
 		setNode(0, 0, "white", board);
 		setNode(1, 0, null, board);
 		setNode(2, 0, "black", board);
-		swap = moveLogic.getNodesToSwap("white", "x1y0");
+		swap = movehandler.getNodesToSwap("white", "x1y0");
 		assertEquals(swap.size(), 0);
 
 		// Scenario:
@@ -119,7 +122,7 @@ public class MoveLogicTest {
 		setNode(0, 0, "white", board);
 		setNode(1, 0, null, board);
 		setNode(2, 0, "black", board);
-		swap = moveLogic.getNodesToSwap("white", "x1y0");
+		swap = movehandler.getNodesToSwap("white", "x1y0");
 		assertEquals(swap.size(), 0);
 
 		// Scenario:
@@ -140,14 +143,16 @@ public class MoveLogicTest {
 		// | white black white |
 		// | white white black |
 		// | white white white |
-		swap = moveLogic.getNodesToSwap("white", "x0y2");
+		swap = movehandler.getNodesToSwap("white", "x0y2");
 		assertEquals(swap.size(), 4);
 	}
 
 	@Test
 	public void testMove() {
 		GameBoard board = mockBoard(3);
-		MoveHandler moveLogic = new MoveHandler(board);
+		PlayerHandler playerhandler = Mockito.mock(PlayerHandler.class);
+		MoveCalculator movecalculator = Mockito.mock(MoveCalculator.class);
+		MoveHandler movehandler = new MoveHandler(board, playerhandler, movecalculator);
 		List<Node> nodes = null;
 
 		// Scenario:
@@ -156,7 +161,7 @@ public class MoveLogicTest {
 		// | empty empty empty |
 		setNode(0, 0, "white", board);
 		setNode(1, 0, "black", board);
-		nodes = moveLogic.move("white", "x2y0");
+		nodes = movehandler.move("white", "x2y0");
 
 		// Should be:
 		// | white white white |
@@ -164,7 +169,7 @@ public class MoveLogicTest {
 		// | empty empty empty |
 		assertEquals(nodes.size(), 3);
 		for (Node n : nodes) {
-			assertEquals(n, board.getNodeByCoordinates(n.getXCoordinate(), n.getYCoordinate()));
+			assertEquals(n, board.getNode(n.getXCoordinate(), n.getYCoordinate()));
 		}
 
 		// Scenario:
@@ -185,18 +190,20 @@ public class MoveLogicTest {
 		// | white black white |
 		// | white white black |
 		// | white white white |
-		nodes = moveLogic.move("white", "x0y2");
+		nodes = movehandler.move("white", "x0y2");
 
 		assertEquals(nodes.size(), 5);
 		for (Node n : nodes) {
-			assertEquals(n, board.getNodeByCoordinates(n.getXCoordinate(), n.getYCoordinate()));
+			assertEquals(n, board.getNode(n.getXCoordinate(), n.getYCoordinate()));
 		}
 	}
 
 	@Test
 	public void testHasAndIsValidMove() {
 		GameBoard board = mockBoard(3);
-		MoveHandler moveLogic = new MoveHandler(board);
+		PlayerHandler playerhandler = Mockito.mock(PlayerHandler.class);
+		MoveCalculator movecalculator = Mockito.mock(MoveCalculator.class);
+		MoveHandler movehandler = new MoveHandler(board, playerhandler, movecalculator);
 
 		// Scenario:
 		// | white white empty |
@@ -204,9 +211,9 @@ public class MoveLogicTest {
 		// | empty empty empty |
 		setNode(0, 0, "white", board);
 		setNode(1, 0, "white", board);
-		assertFalse(moveLogic.hasValidMove("white"));
+		assertFalse(movehandler.hasValidMove("white"));
 		for (Node n : board.getNodes()) {
-			assertFalse(moveLogic.isMoveValid("white", n.getId()));
+			assertFalse(movehandler.isMoveValid("white", n.getId()));
 		}
 
 		// Scenario:
@@ -215,8 +222,8 @@ public class MoveLogicTest {
 		// | empty empty empty |
 		setNode(0, 0, "white", board);
 		setNode(1, 0, "black", board);
-		assertTrue(moveLogic.hasValidMove("white"));
-		assertTrue(moveLogic.isMoveValid("white", "x2y0"));
+		assertTrue(movehandler.hasValidMove("white"));
+		assertTrue(movehandler.isMoveValid("white", "x2y0"));
 
 		// Scenario:
 		// | white white black |
@@ -226,12 +233,12 @@ public class MoveLogicTest {
 		setNode(1, 0, "white", board);
 		setNode(2, 0, "black", board);
 		setNode(1, 1, "white", board);
-		assertTrue(moveLogic.hasValidMove("black"));
-		assertFalse(moveLogic.hasValidMove("white"));
+		assertTrue(movehandler.hasValidMove("black"));
+		assertFalse(movehandler.hasValidMove("white"));
 
-		assertTrue(moveLogic.isMoveValid("black", "x0y2"));
-		assertFalse(moveLogic.isMoveValid("black", "x1y2"));
-		assertFalse(moveLogic.isMoveValid("black", "x0y1"));
-		assertFalse(moveLogic.isMoveValid("black", "x2y1"));
+		assertTrue(movehandler.isMoveValid("black", "x0y2"));
+		assertFalse(movehandler.isMoveValid("black", "x1y2"));
+		assertFalse(movehandler.isMoveValid("black", "x0y1"));
+		assertFalse(movehandler.isMoveValid("black", "x2y1"));
 	}
 }
