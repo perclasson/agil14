@@ -5,7 +5,7 @@ package kth.game.othello.score;
  *
  * @author Tomas Ekholm
  */
-public class ScoreItem implements Comparable<ScoreItem>{
+public class ScoreItem implements Comparable<ScoreItem> {
 
 	private String playerId;
 	private int score;

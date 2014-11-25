@@ -8,7 +8,6 @@ import java.util.Set;
 import kth.game.othello.Othello;
 import kth.game.othello.Game;
 import kth.game.othello.board.BoardFactory;
-import kth.game.othello.board.BoardHandler;
 import kth.game.othello.board.GameBoard;
 import kth.game.othello.board.factory.NodeData;
 import kth.game.othello.move.DirectionFactory;
@@ -53,12 +52,11 @@ public class OthelloGameFactor implements OthelloFactory {
 
 		GameBoard board = boardFactory.createSquareBoard(BOARD_ORDER, players);
 		MoveCalculator moveCalculator = new MoveCalculator(directionFactory.getAllDirections(), board);
-		BoardHandler boardHandler = new BoardHandler(board);
 		PlayerHandler playerHandler = new PlayerHandler(players, random);
-		MoveHandler moveHandler = new MoveHandler(boardHandler, playerHandler, moveCalculator);
+		MoveHandler moveHandler = new MoveHandler(board, playerHandler, moveCalculator);
 		GameScore score = new GameScore(players, board.getNodes());
 
-		return new Game(boardHandler, playerHandler, moveHandler, score);
+		return new Game(board, playerHandler, moveHandler, score);
 	}
 
 	@Override
@@ -70,12 +68,11 @@ public class OthelloGameFactor implements OthelloFactory {
 
 		GameBoard board = boardFactory.createSquareBoard(BOARD_ORDER, players);
 		MoveCalculator moveCalculator = new MoveCalculator(directionFactory.getAllDirections(), board);
-		BoardHandler boardHandler = new BoardHandler(board);
 		PlayerHandler playerHandler = new PlayerHandler(players, random);
-		MoveHandler moveHandler = new MoveHandler(boardHandler, playerHandler, moveCalculator);
+		MoveHandler moveHandler = new MoveHandler(board, playerHandler, moveCalculator);
 		GameScore score = new GameScore(players, board.getNodes());
 
-		return new Game(boardHandler, playerHandler, moveHandler, score);
+		return new Game(board, playerHandler, moveHandler, score);
 	}
 
 	@Override
@@ -89,12 +86,11 @@ public class OthelloGameFactor implements OthelloFactory {
 
 		GameBoard board = boardFactory.createSquareBoard(BOARD_ORDER, players);
 		MoveCalculator moveCalculator = new MoveCalculator(directionFactory.getAllDirections(), board);
-		BoardHandler boardHandler = new BoardHandler(board);
 		PlayerHandler playerHandler = new PlayerHandler(players, random);
-		MoveHandler moveHandler = new MoveHandler(boardHandler, playerHandler, moveCalculator);
+		MoveHandler moveHandler = new MoveHandler(board, playerHandler, moveCalculator);
 		GameScore score = new GameScore(players, board.getNodes());
 
-		return new Game(boardHandler, playerHandler, moveHandler, score);
+		return new Game(board, playerHandler, moveHandler, score);
 	}
 
 	@Override
@@ -102,11 +98,10 @@ public class OthelloGameFactor implements OthelloFactory {
 		Random random = new Random();
 		GameBoard board = new GameBoard(nodesData);
 		MoveCalculator moveCalculator = new MoveCalculator(directionFactory.getAllDirections(), board);
-		BoardHandler boardHandler = new BoardHandler(board);
 		PlayerHandler playerHandler = new PlayerHandler(players, random);
-		MoveHandler moveHandler = new MoveHandler(boardHandler, playerHandler, moveCalculator);
+		MoveHandler moveHandler = new MoveHandler(board, playerHandler, moveCalculator);
 		GameScore score = new GameScore(players, board.getNodes());
-		return new Game(boardHandler, playerHandler, moveHandler, score);
+		return new Game(board, playerHandler, moveHandler, score);
 	}
 
 }

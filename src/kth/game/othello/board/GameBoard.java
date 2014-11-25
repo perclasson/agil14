@@ -70,4 +70,11 @@ public class GameBoard implements Board {
 		}
 		return sb.toString();
 	}
+
+	public void changeOccupantOnNodes(List<Node> nodesToBeChanged, String playerId) {
+		for (Node n : nodesToBeChanged) {
+			changeOccupantOnNode(n, playerId);
+		}
+	}
+
 }

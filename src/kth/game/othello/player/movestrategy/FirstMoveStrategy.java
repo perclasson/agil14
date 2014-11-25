@@ -8,7 +8,7 @@ import kth.game.othello.move.Move;
 import kth.game.othello.move.MoveCalculator;
 
 public class FirstMoveStrategy implements MoveStrategy {
-	
+
 	@Override
 	public String getName() {
 		return "fist move strategy";
@@ -24,9 +24,9 @@ public class FirstMoveStrategy implements MoveStrategy {
 		// 3. Calculator needs a board
 		// 4. Board need players to be created
 		// Solution, let moveCalculator be injected here
-		//if (moveCalculator == null) {
-		//	return null;
-		//}
+		// if (moveCalculator == null) {
+		// return null;
+		// }
 		MoveCalculator moveCalculator = new MoveCalculator(othello.getBoard());
 		List<Move> moves = moveCalculator.getAllPossibleMoves(playerId);
 		return moves.get(0).getEndNode();
