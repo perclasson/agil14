@@ -19,6 +19,7 @@ import kth.game.othello.player.PlayerHandler;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 /**
@@ -67,10 +68,11 @@ public class MoveHandlerTest {
 		PlayerHandler playerhandler = Mockito.mock(PlayerHandler.class);
 		MoveCalculator movecalculator = Mockito.mock(MoveCalculator.class);
 		MoveHandler movehandler = new MoveHandler(board, playerhandler, movecalculator);
-		when(board.getNode(1, 1)).thenThrow(new IllegalArgumentException());
+		when(movecalculator.getNodesToSwap(Matchers.anyString(), Matchers.anyString())).thenReturn(
+				new ArrayList<Node>());
 		// Empty board should not have any nodes to swap
 		exception.expect(IllegalArgumentException.class);
-		movehandler.getNodesToSwap("black", "x0y0");
+		movehandler.move("black", "x0y0");
 	}
 
 	@Test
@@ -93,12 +95,9 @@ public class MoveHandlerTest {
 		// | empty empty empty |
 		// | empty empty empty |
 		swap = movehandler.getNodesToSwap("white", "x2y0");
-		for (Node node : swap) {
-			System.out.println(node.getId());
-		}
-		assertEquals(swap.size(), 2);
-		assertEquals(swap.get(0), board.getNode(1, 0));
-		assertEquals(swap.get(1), board.getNode(2, 0));
+		assertEquals(swap.size(), 3);
+		assertEquals(swap.get(1), board.getNode(1, 0));
+		assertEquals(swap.get(2), board.getNode(2, 0));
 
 		// Scenario:
 		// | white black empty |
@@ -148,7 +147,7 @@ public class MoveHandlerTest {
 		// | white white black |
 		// | white white white |
 		swap = movehandler.getNodesToSwap("white", "x0y2");
-		assertEquals(swap.size(), 4);
+		assertEquals(swap.size(), 5);
 	}
 
 	@Test
@@ -158,7 +157,7 @@ public class MoveHandlerTest {
 		Player player = Mockito.mock(Player.class);
 		when(playerhandler.getPlayerInTurn()).thenReturn(player);
 		when(player.getId()).thenReturn("white");
-		MoveCalculator movecalculator = Mockito.mock(MoveCalculator.class);
+		MoveCalculator movecalculator = new MoveCalculator(board);
 		MoveHandler movehandler = new MoveHandler(board, playerhandler, movecalculator);
 		List<Node> nodes = null;
 
