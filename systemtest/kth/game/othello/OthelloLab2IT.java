@@ -15,6 +15,14 @@ import kth.game.othello.player.movestrategy.MoveStrategy;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * Integration tests.
+ * 
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ *
+ */
 public class OthelloLab2IT extends AbstractTest {
 
 	private PlayerFactory playerFactory;
