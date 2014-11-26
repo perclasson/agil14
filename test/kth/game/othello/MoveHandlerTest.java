@@ -66,56 +66,56 @@ public class MoveHandlerTest {
 	@Test
 	public void testComputerMoveException() {
 		GameBoard board = mock(GameBoard.class);
-		PlayerHandler playerhandler = Mockito.mock(PlayerHandler.class);
+		PlayerHandler playerHandler = Mockito.mock(PlayerHandler.class);
 		Player player = Mockito.mock(Player.class);
-		when(playerhandler.getPlayerInTurn()).thenReturn(player);
+		when(playerHandler.getPlayerInTurn()).thenReturn(player);
 		when(player.getType()).thenReturn(Type.HUMAN);
-		MoveCalculator movecalculator = Mockito.mock(MoveCalculator.class);
-		MoveHandler movehandler = new MoveHandler(board, playerhandler, movecalculator);
+		MoveCalculator moveCalculator = Mockito.mock(MoveCalculator.class);
+		MoveHandler moveHandler = new MoveHandler(board, playerHandler, moveCalculator);
 		Game game = Mockito.mock(Game.class);
 		exception.expect(IllegalStateException.class);
-		movehandler.move(game);
+		moveHandler.move(game);
 
 	}
 
 	@Test
 	public void testMovePlayerNotInTurnException() {
 		GameBoard board = mock(GameBoard.class);
-		PlayerHandler playerhandler = Mockito.mock(PlayerHandler.class);
-		MoveCalculator movecalculator = Mockito.mock(MoveCalculator.class);
+		PlayerHandler playerHandler = Mockito.mock(PlayerHandler.class);
+		MoveCalculator moveCalculator = Mockito.mock(MoveCalculator.class);
 		Player player = Mockito.mock(Player.class);
-		when(playerhandler.getPlayerInTurn()).thenReturn(player);
+		when(playerHandler.getPlayerInTurn()).thenReturn(player);
 		when(player.getId()).thenReturn("0"); // Player in is 0
-		MoveHandler movehandler = new MoveHandler(board, playerhandler, movecalculator);
+		MoveHandler moveHandler = new MoveHandler(board, playerHandler, moveCalculator);
 		exception.expect(IllegalArgumentException.class);
 		exception.expectMessage("Given player not in turn.");
-		movehandler.move("1", "x1y1"); // Player 1 try to play
+		moveHandler.move("1", "x1y1"); // Player 1 try to play
 	}
 
 	@Test
 	public void testMoveIsNotValidException() {
 		GameBoard board = mock(GameBoard.class);
-		PlayerHandler playerhandler = Mockito.mock(PlayerHandler.class);
-		MoveCalculator movecalculator = Mockito.mock(MoveCalculator.class);
+		PlayerHandler playerHandler = Mockito.mock(PlayerHandler.class);
+		MoveCalculator moveCalculator = Mockito.mock(MoveCalculator.class);
 		Player player = Mockito.mock(Player.class);
-		when(playerhandler.getPlayerInTurn()).thenReturn(player);
+		when(playerHandler.getPlayerInTurn()).thenReturn(player);
 		when(player.getId()).thenReturn("1"); // Player in is 1
-		MoveHandler movehandler = new MoveHandler(board, playerhandler, movecalculator);
+		MoveHandler moveHandler = new MoveHandler(board, playerHandler, moveCalculator);
 		exception.expect(IllegalArgumentException.class);
 		exception.expectMessage("Move is not valid.");
-		movehandler.move("1", "x1y1"); // Player 1 try to play
+		moveHandler.move("1", "x1y1"); // Player 1 try to play
 	}
 
 	@Test
 	public void testMove() {
 		GameBoard board = mockBoard(3);
-		PlayerHandler playerhandler = Mockito.mock(PlayerHandler.class);
+		PlayerHandler playerHandler = Mockito.mock(PlayerHandler.class);
 		Player player = Mockito.mock(Player.class);
-		when(playerhandler.getPlayerInTurn()).thenReturn(player);
+		when(playerHandler.getPlayerInTurn()).thenReturn(player);
 		when(player.getId()).thenReturn("white");
-		MoveCalculator movecalculator = new MoveCalculator(board); // Antar att vi mŒste vi gšra en riktig
+		MoveCalculator moveCalculator = new MoveCalculator(board); // Antar att vi mï¿½ste vi gï¿½ra en riktig
 																	// movecalculator.
-		MoveHandler movehandler = new MoveHandler(board, playerhandler, movecalculator);
+		MoveHandler moveHandler = new MoveHandler(board, playerHandler, moveCalculator);
 		List<Node> nodes = null;
 
 		// Scenario:
@@ -124,7 +124,7 @@ public class MoveHandlerTest {
 		// | empty empty empty |
 		setNode(0, 0, "white", board);
 		setNode(1, 0, "black", board);
-		nodes = movehandler.move("white", "x2y0");
+		nodes = moveHandler.move("white", "x2y0");
 		for (Node n : nodes) {
 			assertEquals(n, board.getNode(n.getXCoordinate(), n.getYCoordinate()));
 		}
@@ -156,7 +156,7 @@ public class MoveHandlerTest {
 		// | white black white |
 		// | white white black |
 		// | white white white |
-		nodes = movehandler.move("white", "x0y2");
+		nodes = moveHandler.move("white", "x0y2");
 
 		assertEquals(nodes.size(), 5);
 		for (Node n : nodes) {
@@ -167,10 +167,9 @@ public class MoveHandlerTest {
 	@Test
 	public void testHasAndIsValidMove() {
 		GameBoard board = mockBoard(3);
-		PlayerHandler playerhandler = Mockito.mock(PlayerHandler.class);
-		MoveCalculator movecalculator = new MoveCalculator(board); // Antar att vi mŒste vi gšra en riktig
-																	// movecalculator.
-		MoveHandler movehandler = new MoveHandler(board, playerhandler, movecalculator);
+		PlayerHandler playerHandler = Mockito.mock(PlayerHandler.class);
+		MoveCalculator moveCalculator = new MoveCalculator(board);
+		MoveHandler moveHandler = new MoveHandler(board, playerHandler, moveCalculator);
 
 		// Scenario:
 		// | white white empty |
@@ -178,7 +177,7 @@ public class MoveHandlerTest {
 		// | empty empty empty |
 		setNode(0, 0, "white", board);
 		setNode(1, 0, "white", board);
-		assertFalse(movehandler.hasValidMove("white"));
+		assertFalse(moveHandler.hasValidMove("white"));
 
 		// Scenario:
 		// | white black empty |
@@ -186,8 +185,8 @@ public class MoveHandlerTest {
 		// | empty empty empty |
 		setNode(0, 0, "white", board);
 		setNode(1, 0, "black", board);
-		assertTrue(movehandler.hasValidMove("white"));
-		assertTrue(movehandler.isMoveValid("white", "x2y0"));
+		assertTrue(moveHandler.hasValidMove("white"));
+		assertTrue(moveHandler.isMoveValid("white", "x2y0"));
 
 		// Scenario:
 		// | white white black |
@@ -197,12 +196,12 @@ public class MoveHandlerTest {
 		setNode(1, 0, "white", board);
 		setNode(2, 0, "black", board);
 		setNode(1, 1, "white", board);
-		assertTrue(movehandler.hasValidMove("black"));
-		assertFalse(movehandler.hasValidMove("white"));
+		assertTrue(moveHandler.hasValidMove("black"));
+		assertFalse(moveHandler.hasValidMove("white"));
 
-		assertTrue(movehandler.isMoveValid("black", "x0y2"));
-		assertFalse(movehandler.isMoveValid("black", "x1y2"));
-		assertFalse(movehandler.isMoveValid("black", "x0y1"));
-		assertFalse(movehandler.isMoveValid("black", "x2y1"));
+		assertTrue(moveHandler.isMoveValid("black", "x0y2"));
+		assertFalse(moveHandler.isMoveValid("black", "x1y2"));
+		assertFalse(moveHandler.isMoveValid("black", "x0y1"));
+		assertFalse(moveHandler.isMoveValid("black", "x2y1"));
 	}
 }
