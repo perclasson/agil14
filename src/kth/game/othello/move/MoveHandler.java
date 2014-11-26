@@ -54,7 +54,8 @@ public class MoveHandler {
 	 * @param nodeId
 	 *            the node's id
 	 * @return Empty list if the move is invalid
-	 * @return the nodes that where swapped for this move, including the node where the player made the move
+	 * @return the nodes that where swapped for this move, including the node
+	 *         where the player made the move
 	 */
 	public List<Node> move(String playerId, String nodeId) {
 		if (!playerHandler.getPlayerInTurn().getId().equals(playerId)) {

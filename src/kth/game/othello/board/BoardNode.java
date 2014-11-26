@@ -6,7 +6,7 @@ import kth.game.othello.board.factory.NodeData;
 
 /**
  * This class represents a node on the Board.
- *  
+ * 
  * @author Ludvig Axelsson
  * @author Per Classon
  * @author Tommy Roshult
@@ -20,9 +20,12 @@ public class BoardNode extends Observable implements Node {
 	/**
 	 * Creates a new BoardNode object that represents a node on a board.
 	 *
-	 * @param x The node's x coordinate position on a board.
-	 * @param y The node's y coordinate position on a board.
-	 * @param playerId The player id that occupies the node.
+	 * @param x
+	 *            The node's x coordinate on a board.
+	 * @param y
+	 *            The node's y coordinate on a board.
+	 * @param playerId
+	 *            The player id that occupies the node.
 	 */
 	public BoardNode(int x, int y, String playerId) {
 		this.playerId = playerId;
@@ -32,11 +35,13 @@ public class BoardNode extends Observable implements Node {
 	}
 
 	/**
-	 * Creates a new BoardNode object that represents a node on a board.
-	 * The node will not have an occupant.
+	 * Creates a new BoardNode object that represents a node on a board. The
+	 * node will not have an occupant.
 	 *
-	 * @param x The node's x coordinate position on a board.
-	 * @param y The node's y coordinate position on a board.
+	 * @param x
+	 *            The node's x coordinate position on a board.
+	 * @param y
+	 *            The node's y coordinate position on a board.
 	 */
 	public BoardNode(int x, int y) {
 		this.x = x;
@@ -47,7 +52,8 @@ public class BoardNode extends Observable implements Node {
 	/**
 	 * Creates a new BoardNode object that represents a node on a board.
 	 * 
-	 * @param nodeData The NodeData to create the node with.
+	 * @param nodeData
+	 *            The NodeData to create the node with.
 	 */
 	public BoardNode(NodeData nodeData) {
 		this.x = nodeData.getXCoordinate();
@@ -90,14 +96,15 @@ public class BoardNode extends Observable implements Node {
 	/**
 	 * Sets the occupant player of this node.
 	 * 
-	 * @param playerID The occupant player's id.
+	 * @param playerID
+	 *            The occupant player id.
 	 */
 	public void setOccupantPlayerId(String playerId) {
 		String oldPlayerId = this.playerId;
 		if (oldPlayerId != playerId) {
 			setChanged();
 			this.playerId = playerId;
-			notifyObservers(new NodeNotification(oldPlayerId, playerId));
+			notifyObservers(new NodeOccupantNotification(oldPlayerId, playerId));
 		}
 	}
 

@@ -8,11 +8,12 @@ import java.util.Observable;
 import java.util.Observer;
 
 import kth.game.othello.board.Node;
-import kth.game.othello.board.NodeNotification;
+import kth.game.othello.board.NodeOccupantNotification;
 import kth.game.othello.player.Player;
 
 /**
- * The responsibility of this class is to observe nodes so that we can count the score.
+ * The responsibility of this class is to observe nodes so that we can count the
+ * score.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon
@@ -50,10 +51,10 @@ public class GameScore implements Observer, Score {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		NodeNotification notification = (NodeNotification) arg;
-		incrementScore(notification.newPlayerId);
-		if (notification.oldPlayerId != null) {
-			decrementScore(notification.oldPlayerId);
+		NodeOccupantNotification notification = (NodeOccupantNotification) arg;
+		incrementScore(notification.newOccupantPlayerId);
+		if (notification.oldOccupantPlayerId != null) {
+			decrementScore(notification.oldOccupantPlayerId);
 		}
 	}
 

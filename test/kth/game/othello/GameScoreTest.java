@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Observable;
 
 import kth.game.othello.board.Node;
-import kth.game.othello.board.NodeNotification;
+import kth.game.othello.board.NodeOccupantNotification;
 import kth.game.othello.player.Player;
 import kth.game.othello.score.GameScore;
 import kth.game.othello.score.ScoreItem;
@@ -35,9 +35,9 @@ public class GameScoreTest {
 		GameScore score = new GameScore(players, new ArrayList<Node>());
 
 		// Let's add one point to playerTwo
-		NodeNotification not = Mockito.mock(NodeNotification.class);
-		not.newPlayerId = playerTwoId;
-		not.oldPlayerId = null;
+		NodeOccupantNotification not = Mockito.mock(NodeOccupantNotification.class);
+		not.newOccupantPlayerId = playerTwoId;
+		not.oldOccupantPlayerId = null;
 
 		Observable o = Mockito.mock(Observable.class);
 		score.update(o, not);

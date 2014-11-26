@@ -8,7 +8,8 @@ import java.util.Set;
 import kth.game.othello.board.factory.NodeData;
 
 /**
- * This class represents a game board of Othello. The responsibility of the board is to gather the nodes included in the game.
+ * This class represents a game board of Othello. The responsibility of the
+ * board is to gather the nodes included in the game.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon
@@ -16,12 +17,12 @@ import kth.game.othello.board.factory.NodeData;
  */
 public class GameBoard implements Board {
 	private HashMap<String, BoardNode> board;
-	
 
 	/**
 	 * Creates a new GameBoard that represents a board of the game.
 	 * 
-	 * @param nodeData A set of NodeData that will be used as nodes in the board.
+	 * @param nodeData
+	 *            A set of NodeData that will be used as nodes in the board.
 	 */
 	public GameBoard(Set<NodeData> nodeData) {
 		this.board = new HashMap<String, BoardNode>();
@@ -47,10 +48,13 @@ public class GameBoard implements Board {
 	}
 
 	/**
-	 * Changes the occupant player on nodes in the board. The list of nodes given will have their occupant changed to the given player id.
+	 * Changes the occupant player on nodes in the board. The list of nodes
+	 * given will have their occupant changed to the given player id.
 	 * 
-	 * @param nodesToBeChanged A list of nodes have their occupant player changed.
-	 * @param playerId The player id that should be set on the nodes.
+	 * @param nodesToBeChanged
+	 *            A list of nodes have their occupant player changed.
+	 * @param playerId
+	 *            The player id that should be set on the nodes.
 	 */
 	public void changeOccupantOnNodes(List<Node> nodesToBeChanged, String playerId) {
 		for (Node n : nodesToBeChanged) {
@@ -90,7 +94,7 @@ public class GameBoard implements Board {
 		}
 		return sb.toString();
 	}
-	
+
 	private void changeOccupantOnNode(Node node, String playerId) {
 		board.get(node.getId()).setOccupantPlayerId(playerId);
 	}
