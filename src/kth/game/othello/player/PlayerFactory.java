@@ -3,6 +3,13 @@ package kth.game.othello.player;
 import kth.game.othello.player.Player.Type;
 import kth.game.othello.player.movestrategy.MoveStrategy;
 
+/**
+ * A factory for producing players.
+ *
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ */
 public class PlayerFactory {
 
 	private int id = 0;

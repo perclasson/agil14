@@ -3,16 +3,26 @@ package kth.game.othello.player;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * The responsibility of this class is to handle the players of the game.
+ * 
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ */
 public class PlayerHandler {
 	private Player playerInTurn;
 	private List<Player> players;
 	private Random random;
 
 	/**
-	 * Sets the player in turn to null.
+	 * Creates a PlayerHandler object that keeps track of the players and player
+	 * in turn.
 	 * 
 	 * @param players
+	 *            A list of Player objects to handle.
 	 * @param random
+	 *            A random generator.
 	 */
 	public PlayerHandler(List<Player> players, Random random) {
 		this.players = players;
@@ -21,17 +31,19 @@ public class PlayerHandler {
 	}
 
 	/**
-	 * @return return player with currentPlayerIndex, it is that player in turn.
-	 * @return null if currentPlayerIndex is -1.
+	 * The player in turn.
+	 * 
+	 * @return the player in turn or null if there is none.
 	 */
 	public Player getPlayerInTurn() {
 		return playerInTurn;
 	}
 
 	/**
-	 * Sets the current player in turn to given playerId.
+	 * Sets the current player in turn to the given playerId.
 	 * 
 	 * @param playerId
+	 *            The player id of the player that is set to be in turn.
 	 */
 	public void setPlayerInTurn(String playerId) {
 		if (playerId == null) {
@@ -49,7 +61,7 @@ public class PlayerHandler {
 	}
 
 	/**
-	 * Change the player in turn to the next one given in our list of players.
+	 * Change the player in turn to the next one.
 	 */
 	public void changePlayersTurn() {
 		for (int i = 0; i < players.size(); i++) {
@@ -60,6 +72,11 @@ public class PlayerHandler {
 		}
 	}
 
+	/**
+	 * A list of players in this handler.
+	 * 
+	 * @return the players.
+	 */
 	public List<Player> getPlayers() {
 		return players;
 	}
