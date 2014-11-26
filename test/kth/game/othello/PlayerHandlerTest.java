@@ -13,7 +13,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * Units test of class PlayerHandler.
+ * Unit test of class PlayerHandler.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon
