@@ -14,6 +14,7 @@ import kth.game.othello.board.Node;
 import kth.game.othello.move.MoveCalculator;
 import kth.game.othello.move.MoveHandler;
 import kth.game.othello.player.Player;
+import kth.game.othello.player.Player.Type;
 import kth.game.othello.player.PlayerHandler;
 
 import org.junit.Rule;
@@ -73,6 +74,22 @@ public class MoveHandlerTest {
 		// Empty board should not have any nodes to swap
 		exception.expect(IllegalArgumentException.class);
 		movehandler.move("black", "x0y0");
+	}
+
+	// If the type of a player is not a computer, then an exception should be thrown.
+	@Test
+	public void testMoveException() {
+		GameBoard board = mock(GameBoard.class);
+		PlayerHandler playerhandler = Mockito.mock(PlayerHandler.class);
+		Player player = Mockito.mock(Player.class);
+		when(playerhandler.getPlayerInTurn()).thenReturn(player);
+		when(player.getType()).thenReturn(Type.HUMAN);
+		MoveCalculator movecalculator = Mockito.mock(MoveCalculator.class);
+		MoveHandler movehandler = new MoveHandler(board, playerhandler, movecalculator);
+		Game game = Mockito.mock(Game.class);
+		exception.expect(IllegalStateException.class);
+		movehandler.move(game);
+
 	}
 
 	@Test
