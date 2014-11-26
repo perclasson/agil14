@@ -21,7 +21,7 @@ import kth.game.othello.player.movestrategy.MoveStrategy;
 import kth.game.othello.score.GameScore;
 
 /**
- * This class consists of functions to create Othello games.
+ * This class responsibility is to create a game of Othello.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon

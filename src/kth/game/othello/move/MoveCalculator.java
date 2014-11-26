@@ -1,6 +1,7 @@
 package kth.game.othello.move;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import kth.game.othello.board.Board;
@@ -30,14 +31,12 @@ public class MoveCalculator {
 	 *         where the player made the move, for a move to a specific nodeID
 	 */
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
-
 		List<Move> moves = getMoves(playerId, nodeId);
 		List<Node> swappedNodes = new ArrayList<Node>();
 		if (moves.size() > 0) {
 			Move firstMove = moves.get(0);
 			swappedNodes.add(firstMove.getStartNode());
 			for (Move move : moves) {
-
 				swappedNodes.addAll(move.getIntermediateNodes());
 			}
 			swappedNodes.add(firstMove.getEndNode());
@@ -120,6 +119,7 @@ public class MoveCalculator {
 		// Follow the direction
 		Move currentMove = null;
 		Node currentNode = targetNode;
+		visitedNodes.add(currentNode);
 
 		while (true) {
 			currentNode = getNextNode(currentNode, direction);
@@ -131,9 +131,11 @@ public class MoveCalculator {
 
 			if (nodeIsOpponent) {
 				visitedNodes.add(currentNode);
-			} else if (visitedNodes.size() > 0 && nodeIsMine) {
+			} else if (visitedNodes.size() >= 2 && nodeIsMine) {
 				// The move was valid
-				currentMove = new Move(currentNode, targetNode, visitedNodes);
+				visitedNodes.add(currentNode);
+				Collections.reverse(visitedNodes);
+				currentMove = new Move(visitedNodes);
 				break;
 			} else {
 				break;

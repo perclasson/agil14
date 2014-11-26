@@ -254,7 +254,7 @@ public class MoveCalculatorTest {
 			}
 		}
 
-		// test when there are several IntermediateNodes
+		// Test when there are several IntermediateNodes
 
 		// Scenario:
 		// | empty empty empty empty empty |
@@ -267,13 +267,13 @@ public class MoveCalculatorTest {
 		setNode(2, 2, "black", board);
 		setNode(3, 2, "black", board);
 		moves = moveCalculator.getAllPossibleMoves("white");
-
+		
 		assertEquals(moves.get(0).getStartNode(), board.getNode(0, 2));
-		// Betwwen startNode and endNode
-		int k = 3;
+		// Between startNode and endNode
+		int k = 1;
 		for (Node node : moves.get(0).getIntermediateNodes()) {
 			assertEquals(node, board.getNode(k, 2));
-			k--;
+			k++;
 		}
 		assertEquals(moves.get(0).getEndNode(), board.getNode(4, 2));
 		assertEquals(moves.size(), 1);

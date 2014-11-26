@@ -6,7 +6,7 @@ import java.util.List;
 import kth.game.othello.board.Node;
 
 /**
- * Class of contains nodes that represents a move in Othello.
+ * This class represents a move in a Othello game.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon
@@ -14,36 +14,36 @@ import kth.game.othello.board.Node;
  */
 public class Move {
 
-	private ArrayList<Node> visitedNodes;
-	private Node fromNode;
-	private Node toNode;
+	private ArrayList<Node> nodes;
 
 	/**
-	 * Initializes a Othello move given a "start" node, "end" node, and a list
-	 * of visited nodes between the start and end node.
+	 * Creates a new Move object that represents a move starting at the start
+	 * node and ends at the end node.
+	 * 
+	 * @param nodes
+	 *            A list of nodes that represents the move. The first index is
+	 *            the start and last index is the end of the move.
 	 */
-	public Move(Node start, Node end, ArrayList<Node> visitedNodes) {
-		this.visitedNodes = visitedNodes;
-		this.fromNode = start;
-		this.toNode = end;
+	public Move(ArrayList<Node> nodes) {
+		this.nodes = nodes;
 	}
 
 	/**
-	 * The first node of the move.
+	 * The first node of this move.
 	 * 
-	 * @return the "from" node
+	 * @return the start node of this move.
 	 */
 	public Node getStartNode() {
-		return fromNode;
+		return nodes.get(0);
 	}
 
 	/**
-	 * The last node of the move.
+	 * The last node of this move.
 	 * 
-	 * @return the "to" node
+	 * @return the end node of this move.
 	 */
 	public Node getEndNode() {
-		return toNode;
+		return nodes.get(nodes.size() - 1);
 	}
 
 	/**
@@ -52,7 +52,10 @@ public class Move {
 	 * @return the list of nodes between the start and end node.
 	 */
 	public List<Node> getIntermediateNodes() {
-		return visitedNodes;
+		ArrayList<Node> intermediateNodes = new ArrayList<Node>(nodes);
+		intermediateNodes.remove(0);
+		intermediateNodes.remove(intermediateNodes.size() - 1);
+		return intermediateNodes;
 	}
 
 	@Override
