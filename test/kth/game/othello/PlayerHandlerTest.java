@@ -12,6 +12,14 @@ import kth.game.othello.player.PlayerHandler;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+/**
+ * Units test of class PlayerHandler.
+ * 
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ *
+ */
 public class PlayerHandlerTest {
 
 	@Test

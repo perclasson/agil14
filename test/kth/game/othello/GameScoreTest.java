@@ -18,6 +18,14 @@ import kth.game.othello.score.ScoreItem;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+/**
+ * Unit tests of class GameScore.
+ * 
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ *
+ */
 public class GameScoreTest {
 	private List<Node> mockNodes(int order) {
 		ArrayList<Node> nodes = new ArrayList<Node>();

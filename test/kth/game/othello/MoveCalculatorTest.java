@@ -14,6 +14,14 @@ import kth.game.othello.move.MoveCalculator;
 
 import org.junit.Test;
 
+/**
+ * Unit tests of class MoveCalculator.
+ * 
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ *
+ */
 public class MoveCalculatorTest {
 
 	private GameBoard mockBoard(int order) {
@@ -267,7 +275,7 @@ public class MoveCalculatorTest {
 		setNode(2, 2, "black", board);
 		setNode(3, 2, "black", board);
 		moves = moveCalculator.getAllPossibleMoves("white");
-		
+
 		assertEquals(moves.get(0).getStartNode(), board.getNode(0, 2));
 		// Between startNode and endNode
 		int k = 1;
