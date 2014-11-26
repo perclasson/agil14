@@ -8,7 +8,8 @@ import kth.game.othello.move.Move;
 import kth.game.othello.move.MoveCalculator;
 
 /**
- * The responsibility of this class is to choose moves. This one chooses the first available move.
+ * The responsibility of this class is to choose moves. This one chooses the
+ * first available move.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon
@@ -23,7 +24,8 @@ public class FirstMoveStrategy implements MoveStrategy {
 	}
 
 	/**
-	 * Strategy where the first move from the list with all possible moves will be chosen.
+	 * Strategy where the first move from the list with all possible moves will
+	 * be chosen.
 	 */
 
 	@Override

@@ -8,7 +8,8 @@ import kth.game.othello.move.Move;
 import kth.game.othello.move.MoveCalculator;
 
 /**
- * The responsibility of this class is to choose moves. This one chooses moves that maximises swaps.
+ * The responsibility of this class is to choose moves. This one chooses moves
+ * that maximises swaps.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon
@@ -23,7 +24,8 @@ public class MaxSwappedStrategy implements MoveStrategy {
 	}
 
 	/**
-	 * Strategy where the move that leads to most changes of occupantplayer will be swapped.
+	 * Strategy where the move that leads to most changes of occupantplayer will
+	 * be swapped.
 	 */
 	@Override
 	public Node move(String playerId, Othello othello) {

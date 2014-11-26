@@ -31,6 +31,8 @@ public class ScoreItem implements Comparable<ScoreItem> {
 
 	@Override
 	public int compareTo(ScoreItem other) {
+
 		return getScore() - other.getScore();
+
 	}
 }

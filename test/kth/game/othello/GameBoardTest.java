@@ -3,6 +3,8 @@ package kth.game.othello;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import kth.game.othello.board.Node;
@@ -36,7 +38,6 @@ public class GameBoardTest {
 	@Test
 	public void testChangeOccupantOnNodes() {
 	    // Mock node data for the board
-		HashSet<NodeData> nodes = new HashSet<NodeData>();
 	    NodeData nodeDataOne = mock(NodeData.class);
 	    when(nodeDataOne.getXCoordinate()).thenReturn(0);
 	    when(nodeDataOne.getYCoordinate()).thenReturn(0);
@@ -49,12 +50,13 @@ public class GameBoardTest {
 	    when(nodeDataThree.getXCoordinate()).thenReturn(2);
 	    when(nodeDataThree.getYCoordinate()).thenReturn(2);   
 	    when(nodeDataThree.getOccupantPlayerId()).thenReturn("white");
-	    nodes.add(nodeDataOne);
-	    nodes.add(nodeDataTwo);
-	    nodes.add(nodeDataThree);
+		HashSet<NodeData> nodeData = new HashSet<NodeData>();
+		nodeData.add(nodeDataOne);
+		nodeData.add(nodeDataTwo);
+		nodeData.add(nodeDataThree);
 		
 	    // Create board with node data and retrieve nodes
-		GameBoard board = new GameBoard(nodes);
+		GameBoard board = new GameBoard(nodeData);
 		Node nodeOne = board.getNode(0, 0);
 		Node nodeTwo = board.getNode(1, 1);
 		Node nodeThree = board.getNode(2, 2);
@@ -64,10 +66,13 @@ public class GameBoardTest {
 			assertEquals(node.getOccupantPlayerId(), "white");
 		}
 		
+		ArrayList<Node> nodes = new ArrayList<Node>();
+		
 		// Change all node occupant to black
-		board.changeOccupantOnNode(nodeOne, "black");
-		board.changeOccupantOnNode(nodeTwo, "black");
-		board.changeOccupantOnNode(nodeThree, "black");
+		nodes.add(nodeOne);
+		nodes.add(nodeTwo);
+		nodes.add(nodeThree);
+		board.changeOccupantOnNodes(nodes, "black");
 		
 		// Assert
 		for (Node node : board.getNodes()) {
@@ -75,11 +80,13 @@ public class GameBoardTest {
 		}
 		
 		// Toggle occupant on node one
-		board.changeOccupantOnNode(nodeOne, "black");
+		nodes.clear();
+		nodes.add(nodeOne);
+		board.changeOccupantOnNodes(nodes, "black");
 		assertEquals(nodeOne.getOccupantPlayerId(), "black");
-		board.changeOccupantOnNode(nodeOne, "white");
+		board.changeOccupantOnNodes(nodes, "white");
 		assertEquals(nodeOne.getOccupantPlayerId(), "white");
-		board.changeOccupantOnNode(nodeOne, "black");
+		board.changeOccupantOnNodes(nodes, "black");
 		assertEquals(nodeOne.getOccupantPlayerId(), "black");
 	}
 }

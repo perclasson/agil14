@@ -7,30 +7,31 @@ import java.util.Set;
 
 import kth.game.othello.board.factory.NodeData;
 
+/**
+ * This class represents a game board of Othello. The responsibility of the
+ * board is to gather the nodes included in the game.
+ * 
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ */
 public class GameBoard implements Board {
 	private HashMap<String, BoardNode> board;
 
 	/**
-	 * Create a board, representing as hashmap, where the nodeID is the key, and the node itself is the value
+	 * Creates a new GameBoard that represents a board of the game.
 	 * 
 	 * @param nodeData
+	 *            A set of NodeData that will be used as nodes in the board.
 	 */
-
 	public GameBoard(Set<NodeData> nodeData) {
 		this.board = new HashMap<String, BoardNode>();
-
-		// Create an array of the node data set
 		for (NodeData n : nodeData) {
 			BoardNode node = new BoardNode(n);
 			board.put(node.getId(), node);
 		}
 	}
 
-	/**
-	 * Return the node corresponding to the coordinates given by the x and y value.
-	 * 
-	 * @throw IllegalArgumentException if no node is find.
-	 */
 	@Override
 	public Node getNode(int x, int y) {
 		for (Node node : board.values()) {
@@ -46,10 +47,15 @@ public class GameBoard implements Board {
 		return new ArrayList<Node>(board.values());
 	}
 
-	public void changeOccupantOnNode(Node node, String playerId) {
-		board.get(node.getId()).setOccupantPlayerId(playerId);
-	}
-
+	/**
+	 * Changes the occupant player on nodes in the board. The list of nodes
+	 * given will have their occupant changed to the given player id.
+	 * 
+	 * @param nodesToBeChanged
+	 *            A list of nodes have their occupant player changed.
+	 * @param playerId
+	 *            The player id that should be set on the nodes.
+	 */
 	public void changeOccupantOnNodes(List<Node> nodesToBeChanged, String playerId) {
 		for (Node n : nodesToBeChanged) {
 			changeOccupantOnNode(n, playerId);
@@ -57,7 +63,7 @@ public class GameBoard implements Board {
 	}
 
 	/**
-	 * A string representing a matrix of the board
+	 * A string representing the board using internal nodes.
 	 */
 	@Override
 	public String toString() {
@@ -87,6 +93,10 @@ public class GameBoard implements Board {
 			sb.append(System.getProperty("line.separator"));
 		}
 		return sb.toString();
+	}
+
+	private void changeOccupantOnNode(Node node, String playerId) {
+		board.get(node.getId()).setOccupantPlayerId(playerId);
 	}
 
 }

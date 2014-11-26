@@ -8,7 +8,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import kth.game.othello.board.Node;
-import kth.game.othello.board.NodeNotification;
+import kth.game.othello.board.NodeOccupantNotification;
 import kth.game.othello.player.Player;
 
 /**
@@ -41,12 +41,11 @@ public class GameScore implements Observer, Score {
 
 	@Override
 	public List<ScoreItem> getPlayersScore() {
-		ArrayList<ScoreItem> scoreItems = new ArrayList<ScoreItem>();
-		for (Player player : scorePlayers) {
-			scoreItems.add(scores.get(player.getId()));
-		}
-		Collections.sort(scoreItems);
-		return scoreItems;
+
+		List<ScoreItem> listScores = new ArrayList<ScoreItem>(scores.values());
+		Collections.sort(listScores);
+		return listScores;
+
 	}
 
 	@Override
@@ -56,10 +55,10 @@ public class GameScore implements Observer, Score {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		NodeNotification notification = (NodeNotification) arg;
-		incrementScore(notification.newPlayerId);
-		if (notification.oldPlayerId != null) {
-			decrementScore(notification.oldPlayerId);
+		NodeOccupantNotification notification = (NodeOccupantNotification) arg;
+		incrementScore(notification.newOccupantPlayerId);
+		if (notification.oldOccupantPlayerId != null) {
+			decrementScore(notification.oldOccupantPlayerId);
 		}
 	}
 

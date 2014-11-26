@@ -9,7 +9,8 @@ import kth.game.othello.move.Move;
 import kth.game.othello.move.MoveCalculator;
 
 /**
- * The responsibility of this class is to choose moves. This one does it randomly.
+ * The responsibility of this class is to choose moves. This one does it
+ * randomly.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon

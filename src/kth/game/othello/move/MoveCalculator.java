@@ -21,12 +21,13 @@ public class MoveCalculator {
 	}
 
 	/**
-	 * Given a playerID and a nodeID to move to, this method checks which nodes needs to be change occupant player
+	 * Given a playerID and a nodeID to move to, this method checks which nodes
+	 * needs to be change occupant player
 	 * 
 	 * @param playerId
 	 * @param nodeId
-	 * @return the nodes that where swapped for this move, including the node where the player made the move, for a move
-	 *         to a specific nodeID
+	 * @return the nodes that where swapped for this move, including the node
+	 *         where the player made the move, for a move to a specific nodeID
 	 */
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
 
@@ -64,13 +65,15 @@ public class MoveCalculator {
 	}
 
 	/**
-	 * For a specific node, this method return all the moves that could lead to that node. By from the specific node go
-	 * in all directions and looking for a node that have the same playerId. All the nodes between the specific node the
-	 * eventually findings must have the opponents playerId
+	 * For a specific node, this method return all the moves that could lead to
+	 * that node. By from the specific node go in all directions and looking for
+	 * a node that have the same playerId. All the nodes between the specific
+	 * node the eventually findings must have the opponents playerId
 	 * 
 	 * @param playerId
 	 * @param nodeId
-	 * @return list of moves, where every move leads to a valid "placement" on the nodeId.
+	 * @return list of moves, where every move leads to a valid "placement" on
+	 *         the nodeId.
 	 */
 	public List<Move> getMoves(String playerId, String nodeId) {
 		// The valid moves
@@ -101,8 +104,9 @@ public class MoveCalculator {
 	}
 
 	/**
-	 * Given the node one player want to move to, this methods checks if the move is valid for one direction of the
-	 * board and then return the move. If the is no such move to do, this method return null.
+	 * Given the node one player want to move to, this methods checks if the
+	 * move is valid for one direction of the board and then return the move. If
+	 * the is no such move to do, this method return null.
 	 * 
 	 * @param targetNode
 	 * @param direction
@@ -140,7 +144,8 @@ public class MoveCalculator {
 	}
 
 	/**
-	 * Given node and direction, this function get the next node in that direction.
+	 * Given node and direction, this function get the next node in that
+	 * direction.
 	 * 
 	 * @param currentNode
 	 * @param direction
