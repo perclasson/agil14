@@ -31,6 +31,7 @@ public class ScoreItem implements Comparable<ScoreItem> {
 
 	@Override
 	public int compareTo(ScoreItem other) {
-		return Integer.compare(getScore(), other.getScore());
+		// We want to sort in descending order
+		return Integer.compare(other.getScore(), getScore());
 	}
 }

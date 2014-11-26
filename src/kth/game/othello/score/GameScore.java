@@ -38,9 +38,9 @@ public class GameScore implements Observer, Score {
 
 	@Override
 	public List<ScoreItem> getPlayersScore() {
-		ArrayList<ScoreItem> scores = new ArrayList<ScoreItem>();
-		Collections.sort(scores);
-		return scores;
+		List<ScoreItem> listScores = new ArrayList<ScoreItem>(scores.values());
+		Collections.sort(listScores);
+		return listScores;
 	}
 
 	@Override
