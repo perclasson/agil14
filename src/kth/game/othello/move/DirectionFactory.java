@@ -3,6 +3,13 @@ package kth.game.othello.move;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * A factory for producing directions.
+ *
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ */
 public class DirectionFactory {
 
 	public Direction createDirectionNorth() {
@@ -38,9 +45,9 @@ public class DirectionFactory {
 	}
 
 	/**
-	 * Creates a list with all valid directions.
+	 * Creates a list with all directions.
 	 * 
-	 * @return the valid directions
+	 * @return the directions
 	 */
 	public List<Direction> getAllDirections() {
 		Direction[] list = { createDirectionNorth(), createDirectionNorthEast(), createDirectionEast(),
