@@ -1,8 +1,7 @@
 package kth.game.othello.board.factory;
 
 /**
- * A representation of a node. Two nodes are equal if and only if there x- and
- * y-coordinate are equal.
+ * A representation of a node. Two nodes are equal if and only if there x- and y-coordinate are equal.
  *
  * @author Tomas Ekholm
  */

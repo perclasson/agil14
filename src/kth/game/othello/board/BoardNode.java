@@ -35,8 +35,7 @@ public class BoardNode extends Observable implements Node {
 	}
 
 	/**
-	 * Creates a new BoardNode object that represents a node on a board. The
-	 * node will not have an occupant.
+	 * Creates a new BoardNode object that represents a node on a board. The node will not have an occupant.
 	 *
 	 * @param x
 	 *            The node's x coordinate position on a board.

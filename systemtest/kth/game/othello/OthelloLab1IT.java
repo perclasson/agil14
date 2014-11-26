@@ -17,8 +17,8 @@ import org.junit.Test;
 public class OthelloLab1IT extends AbstractTest {
 
 	/**
-	 * DEMO 2 Integration test which show that the model allows for one computer
-	 * and one human to play against each other for 10 moves.
+	 * DEMO 2 Integration test which show that the model allows for one computer and one human to play against each
+	 * other for 10 moves.
 	 */
 	@Test
 	public void someMovesBetweenAComputerAndHumanTest() {
@@ -37,8 +37,7 @@ public class OthelloLab1IT extends AbstractTest {
 	}
 
 	/**
-	 * DEMO 1 Integration test which show that two computer players can start a
-	 * game and and print out who has won.
+	 * DEMO 1 Integration test which show that two computer players can start a game and and print out who has won.
 	 */
 	@Test
 	public void twoComputerOnAClassicalBoardTest() {

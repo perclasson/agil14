@@ -16,8 +16,7 @@ public class PlayerHandler {
 	private Random random;
 
 	/**
-	 * Creates a PlayerHandler object that keeps track of the players and player
-	 * in turn.
+	 * Creates a PlayerHandler object that keeps track of the players and player in turn.
 	 * 
 	 * @param players
 	 *            A list of Player objects to handle.

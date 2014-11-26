@@ -19,8 +19,7 @@ public class MoveCalculator {
 	private final Board board;
 
 	/**
-	 * Creates a new MoveCalculator object that can calculate moves on a board
-	 * with different directions.
+	 * Creates a new MoveCalculator object that can calculate moves on a board with different directions.
 	 * 
 	 * @param directions
 	 *            The directions that will be used by the calculator.
@@ -33,8 +32,7 @@ public class MoveCalculator {
 	}
 
 	/**
-	 * Creates a new MoveCalculator object that can calculate moves on a board
-	 * with different directions.
+	 * Creates a new MoveCalculator object that can calculate moves on a board with different directions.
 	 * 
 	 * @param board
 	 *            The board that will be used to calculate moves on.

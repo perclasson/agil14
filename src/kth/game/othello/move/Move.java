@@ -17,12 +17,11 @@ public class Move {
 	private ArrayList<Node> nodes;
 
 	/**
-	 * Creates a new Move object that represents a move starting at the start
-	 * node and ends at the end node.
+	 * Creates a new Move object that represents a move starting at the start node and ends at the end node.
 	 * 
 	 * @param nodes
-	 *            A list of nodes that represents the move. The first index is
-	 *            the start and last index is the end of the move.
+	 *            A list of nodes that represents the move. The first index is the start and last index is the end of
+	 *            the move.
 	 */
 	public Move(ArrayList<Node> nodes) {
 		this.nodes = nodes;

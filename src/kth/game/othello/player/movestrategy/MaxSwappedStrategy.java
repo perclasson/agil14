@@ -8,12 +8,11 @@ import kth.game.othello.move.Move;
 import kth.game.othello.move.MoveCalculator;
 
 /**
- * A move strategy where the move that leads to most changes of occupant player will
- * be swapped.
+ * A move strategy where the move that leads to most changes of occupant player will be swapped.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon
- * @author Tommy Roshult 
+ * @author Tommy Roshult
  */
 public class MaxSwappedStrategy implements MoveStrategy {
 
