@@ -21,9 +21,11 @@ import kth.game.othello.player.Player;
  */
 public class GameScore implements Observer, Score {
 	private HashMap<String, ScoreItem> scores;
+	private List<Player> scorePlayers;
 
 	public GameScore(List<Player> players, List<Node> nodes) {
 		scores = new HashMap<String, ScoreItem>();
+		scorePlayers = players;
 		for (Player player : players) {
 			scores.put(player.getId(), new ScoreItem(player.getId(), 0));
 		}
@@ -31,6 +33,7 @@ public class GameScore implements Observer, Score {
 			node.addObserver(this);
 			String playerOnNode = node.getOccupantPlayerId();
 			if (playerOnNode != null) {
+
 				incrementScore(playerOnNode);
 			}
 		}
@@ -38,9 +41,12 @@ public class GameScore implements Observer, Score {
 
 	@Override
 	public List<ScoreItem> getPlayersScore() {
-		ArrayList<ScoreItem> scores = new ArrayList<ScoreItem>();
-		Collections.sort(scores);
-		return scores;
+		ArrayList<ScoreItem> scoreItems = new ArrayList<ScoreItem>();
+		for (Player player : scorePlayers) {
+			scoreItems.add(scores.get(player.getId()));
+		}
+		Collections.sort(scoreItems);
+		return scoreItems;
 	}
 
 	@Override

@@ -151,7 +151,6 @@ public class MoveCalculatorTest {
 		assertEquals(moves.get(0).getEndNode(), board.getNode(2, 0));
 		assertEquals(moves.get(0).getIntermediateNodes().get(0), board.getNode(1, 0));
 		assertEquals(moves.get(0).getStartNode(), board.getNode(0, 0));
-
 		assertEquals(moves.get(1).getEndNode(), board.getNode(0, 2));
 		assertEquals(moves.get(1).getIntermediateNodes().get(0), board.getNode(0, 1));
 		assertEquals(moves.get(1).getStartNode(), board.getNode(0, 0));
@@ -280,7 +279,6 @@ public class MoveCalculatorTest {
 		assertEquals(moves.size(), 1);
 
 		// No moves should be find
-
 		// Scenario:
 		// | empty empty empty empty empty |
 		// | empty empty empty empty empty |
