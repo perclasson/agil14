@@ -34,13 +34,18 @@ public class PlayerHandler {
 	 * @param playerId
 	 */
 	public void setPlayerInTurn(String playerId) {
+		if (playerId == null) {
+			// Game is ended
+			playerInTurn = null;
+			return;
+		}
+
 		for (Player player : players) {
 			if (player.getId().equals(playerId)) {
 				playerInTurn = player;
 				return;
 			}
 		}
-		throw new IllegalArgumentException("The playerId is not in player list.");
 	}
 
 	/**
