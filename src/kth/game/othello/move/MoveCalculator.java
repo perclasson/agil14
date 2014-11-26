@@ -7,28 +7,51 @@ import java.util.List;
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
 
+/**
+ * The responsibility of this class is to calculate Othello moves on a board.
+ * 
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ */
 public class MoveCalculator {
 	private final List<Direction> directions;
 	private final Board board;
 
+	/**
+	 * Creates a new MoveCalculator object that can calculate moves on a board
+	 * with different directions.
+	 * 
+	 * @param directions
+	 *            The directions that will be used by the calculator.
+	 * @param board
+	 *            The board that will be used to calculate moves on.
+	 */
 	public MoveCalculator(List<Direction> directions, Board board) {
 		this.directions = directions;
 		this.board = board;
 	}
 
+	/**
+	 * Creates a new MoveCalculator object that can calculate moves on a board
+	 * with different directions.
+	 * 
+	 * @param board
+	 *            The board that will be used to calculate moves on.
+	 */
 	public MoveCalculator(Board board) {
 		this.directions = new DirectionFactory().getAllDirections();
 		this.board = board;
 	}
 
 	/**
-	 * Given a playerID and a nodeID to move to, this method checks which nodes
-	 * needs to be change occupant player
+	 * Returns the nodes that will be swapped for a move at the given nodeId.
 	 * 
 	 * @param playerId
+	 *            the id of the player making the move
 	 * @param nodeId
-	 * @return the nodes that where swapped for this move, including the node
-	 *         where the player made the move, for a move to a specific nodeID
+	 *            the id of the node where the move the move should be made
+	 * @return the list of nodes that will be swapped for the given move
 	 */
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
 		List<Move> moves = getMoves(playerId, nodeId);
@@ -45,10 +68,11 @@ public class MoveCalculator {
 	}
 
 	/**
-	 * This function looks for all valid moves a player could do
+	 * Returns all possible moves that the given player can make.
 	 * 
 	 * @param playerId
-	 * @return List<Move> All valid moves.
+	 *            the id of the player.
+	 * @return the list of all possible moves that can be made by the player.
 	 */
 	public List<Move> getAllPossibleMoves(String playerId) {
 		List<Move> moves = new ArrayList<Move>();
@@ -62,17 +86,15 @@ public class MoveCalculator {
 		}
 		return moves;
 	}
-
+	
 	/**
-	 * For a specific node, this method return all the moves that could lead to
-	 * that node. By from the specific node go in all directions and looking for
-	 * a node that have the same playerId. All the nodes between the specific
-	 * node the eventually findings must have the opponents playerId
+	 * Returns the moves possible to the the given nodeId.
 	 * 
 	 * @param playerId
+	 *            the id of the player making the move
 	 * @param nodeId
-	 * @return list of moves, where every move leads to a valid "placement" on
-	 *         the nodeId.
+	 *            the id of the node where the move should be made
+	 * @return a list of moves possible to the node.
 	 */
 	public List<Move> getMoves(String playerId, String nodeId) {
 		// The valid moves
@@ -102,25 +124,18 @@ public class MoveCalculator {
 		return moves;
 	}
 
-	/**
-	 * Given the node one player want to move to, this methods checks if the
-	 * move is valid for one direction of the board and then return the move. If
-	 * the is no such move to do, this method return null.
-	 * 
-	 * @param targetNode
-	 * @param direction
-	 * @param playerId
-	 * @return Move
-	 * 
-	 */
 	private Move getMoveInDirection(Node targetNode, Direction direction, String playerId) {
+		// Store the move as visited nodes
 		ArrayList<Node> visitedNodes = new ArrayList<Node>();
 
 		// Follow the direction
 		Move currentMove = null;
 		Node currentNode = targetNode;
+		
+		// Add the current target node as the first visited
 		visitedNodes.add(currentNode);
-
+		
+		// Move from the target until we meet a node of our own
 		while (true) {
 			currentNode = getNextNode(currentNode, direction);
 			if (currentNode == null) {
@@ -132,8 +147,10 @@ public class MoveCalculator {
 			if (nodeIsOpponent) {
 				visitedNodes.add(currentNode);
 			} else if (visitedNodes.size() >= 2 && nodeIsMine) {
-				// The move was valid
+				// The move was valid and add the current node
 				visitedNodes.add(currentNode);
+				
+				// The move made is the reverse of the list
 				Collections.reverse(visitedNodes);
 				currentMove = new Move(visitedNodes);
 				break;
@@ -145,15 +162,6 @@ public class MoveCalculator {
 		return currentMove;
 	}
 
-	/**
-	 * Given node and direction, this function get the next node in that
-	 * direction.
-	 * 
-	 * @param currentNode
-	 * @param direction
-	 * @return Node
-	 * @return null if there is no more nodes in that direction
-	 */
 	private Node getNextNode(Node currentNode, Direction direction) {
 		int x = currentNode.getXCoordinate() + direction.getX();
 		int y = currentNode.getYCoordinate() + direction.getY();
