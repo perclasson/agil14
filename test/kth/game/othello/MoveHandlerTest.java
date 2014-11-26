@@ -78,7 +78,7 @@ public class MoveHandlerTest {
 
 	// If the type of a player is not a computer, then an exception should be thrown.
 	@Test
-	public void testMoveException() {
+	public void testComputerMoveException() {
 		GameBoard board = mock(GameBoard.class);
 		PlayerHandler playerhandler = Mockito.mock(PlayerHandler.class);
 		Player player = Mockito.mock(Player.class);
@@ -90,6 +90,20 @@ public class MoveHandlerTest {
 		exception.expect(IllegalStateException.class);
 		movehandler.move(game);
 
+	}
+
+	@Test
+	public void testMovePlayerNotInTurnException() {
+		GameBoard board = mock(GameBoard.class);
+		PlayerHandler playerhandler = Mockito.mock(PlayerHandler.class);
+		MoveCalculator movecalculator = Mockito.mock(MoveCalculator.class);
+		Player player = Mockito.mock(Player.class);
+		when(playerhandler.getPlayerInTurn()).thenReturn(player);
+		when(player.getId()).thenReturn("0"); // Player in is 0
+		MoveHandler movehandler = new MoveHandler(board, playerhandler, movecalculator);
+		exception.expect(IllegalArgumentException.class);
+		exception.expectMessage("Given player not in turn.");
+		movehandler.move("1", "x1y1"); // Player 1 try to play
 	}
 
 	@Test
