@@ -5,6 +5,14 @@ import kth.game.othello.factory.OthelloFactory;
 import kth.game.othello.factory.OthelloGameFactor;
 import kth.game.othello.player.Player;
 
+/**
+ * Abstract test class used in integration tests.
+ * 
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ *
+ */
 public abstract class AbstractTest {
 
 	protected Object getNumberOfOccupiedNodes(Othello othello) {
