@@ -107,6 +107,20 @@ public class MoveHandlerTest {
 	}
 
 	@Test
+	public void testMoveIsNotValidException() {
+		GameBoard board = mock(GameBoard.class);
+		PlayerHandler playerhandler = Mockito.mock(PlayerHandler.class);
+		MoveCalculator movecalculator = Mockito.mock(MoveCalculator.class);
+		Player player = Mockito.mock(Player.class);
+		when(playerhandler.getPlayerInTurn()).thenReturn(player);
+		when(player.getId()).thenReturn("1"); // Player in is 1
+		MoveHandler movehandler = new MoveHandler(board, playerhandler, movecalculator);
+		exception.expect(IllegalArgumentException.class);
+		exception.expectMessage("Move is not valid.");
+		movehandler.move("1", "x1y1"); // Player 1 try to play
+	}
+
+	@Test
 	public void testGetNodesToSwap() {
 		GameBoard board = mockBoard(3);
 		PlayerHandler playerhandler = Mockito.mock(PlayerHandler.class);
