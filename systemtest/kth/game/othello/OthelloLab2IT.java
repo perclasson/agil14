@@ -116,14 +116,9 @@ public class OthelloLab2IT extends AbstractTest {
 	@Test
 	public void threeComputersOnADiamondBoardTest() {
 		List<Player> players = new ArrayList<Player>();
-
-		String playerBlackId = "black";
-		String playerWhiteId = "white";
-		String playerOrangeId = "orange";
-
-		players.add(playerFactory.createComputerPlayer(playerBlackId, new MoveRandomStrategy(random)));
-		players.add(playerFactory.createComputerPlayer(playerWhiteId, new MoveRandomStrategy(random)));
-		players.add(playerFactory.createComputerPlayer(playerOrangeId, new MoveRandomStrategy(random)));
+		players.add(playerFactory.createComputerPlayer("black", new MoveRandomStrategy(random)));
+		players.add(playerFactory.createComputerPlayer("white", new MoveRandomStrategy(random)));
+		players.add(playerFactory.createComputerPlayer("orange", new MoveRandomStrategy(random)));
 
 		Diamond diamond = new Diamond();
 		Othello othello = getOthelloFactory().createGame(diamond.getNodes(11, players), players);
@@ -134,8 +129,8 @@ public class OthelloLab2IT extends AbstractTest {
 		Assert.assertFalse(othello.isActive());
 
 		// Show the score.
-		Assert.assertTrue(othello.getScore().getPoints(playerBlackId) >= 0);
-		Assert.assertTrue(othello.getScore().getPoints(playerWhiteId) >= 0);
-		Assert.assertTrue(othello.getScore().getPoints(playerOrangeId) >= 0);
+		Assert.assertTrue(othello.getScore().getPoints(players.get(0).getId()) >= 0);
+		Assert.assertTrue(othello.getScore().getPoints(players.get(1).getId()) >= 0);
+		Assert.assertTrue(othello.getScore().getPoints(players.get(2).getId()) >= 0);
 	}
 }
