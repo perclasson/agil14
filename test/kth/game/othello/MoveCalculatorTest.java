@@ -133,6 +133,9 @@ public class MoveCalculatorTest {
 		setNode(0, 0, "white", board);
 		setNode(1, 0, "black", board);
 		moves = moveCalculator.getAllPossibleMoves("white");
+		assertEquals(moves.get(0).getEndNode(), board.getNode(2, 0));
+		assertEquals(moves.get(0).getIntermediateNodes().get(0), board.getNode(1, 0));
+		assertEquals(moves.get(0).getStartNode(), board.getNode(0, 0));
 		assertEquals(moves.size(), 1);
 
 		// Two possible moves
@@ -145,6 +148,14 @@ public class MoveCalculatorTest {
 
 		setNode(0, 1, "black", board);
 		moves = moveCalculator.getAllPossibleMoves("white");
+		assertEquals(moves.get(0).getEndNode(), board.getNode(2, 0));
+		assertEquals(moves.get(0).getIntermediateNodes().get(0), board.getNode(1, 0));
+		assertEquals(moves.get(0).getStartNode(), board.getNode(0, 0));
+
+		assertEquals(moves.get(1).getEndNode(), board.getNode(0, 2));
+		assertEquals(moves.get(1).getIntermediateNodes().get(0), board.getNode(0, 1));
+		assertEquals(moves.get(1).getStartNode(), board.getNode(0, 0));
+
 		assertEquals(moves.size(), 2);
 
 		// three possible moves
@@ -156,6 +167,19 @@ public class MoveCalculatorTest {
 		// | empty empty empty empty empty |
 		setNode(1, 1, "black", board);
 		moves = moveCalculator.getAllPossibleMoves("white");
+		moves = moveCalculator.getAllPossibleMoves("white");
+		assertEquals(moves.get(0).getEndNode(), board.getNode(2, 0));
+		assertEquals(moves.get(0).getIntermediateNodes().get(0), board.getNode(1, 0));
+		assertEquals(moves.get(0).getStartNode(), board.getNode(0, 0));
+
+		assertEquals(moves.get(1).getEndNode(), board.getNode(0, 2));
+		assertEquals(moves.get(1).getIntermediateNodes().get(0), board.getNode(0, 1));
+		assertEquals(moves.get(1).getStartNode(), board.getNode(0, 0));
+
+		assertEquals(moves.get(2).getEndNode(), board.getNode(2, 2));
+		assertEquals(moves.get(2).getIntermediateNodes().get(0), board.getNode(1, 1));
+		assertEquals(moves.get(2).getStartNode(), board.getNode(0, 0));
+
 		assertEquals(moves.size(), 3);
 
 		// Reset the board
@@ -223,5 +247,48 @@ public class MoveCalculatorTest {
 		setNode(3, 3, "black", board);
 		moves = moveCalculator.getAllPossibleMoves("white");
 		assertEquals(moves.size(), 8);
+
+		// Reset the board
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				setNode(i, j, board);
+			}
+		}
+
+		// test when there are several IntermediateNodes
+
+		// Scenario:
+		// | empty empty empty empty empty |
+		// | empty empty empty empty empty |
+		// | white black black black empty |
+		// | empty empty empty empty empty |
+		// | empty empty empty empty empty |
+		setNode(0, 2, "white", board);
+		setNode(1, 2, "black", board);
+		setNode(2, 2, "black", board);
+		setNode(3, 2, "black", board);
+		moves = moveCalculator.getAllPossibleMoves("white");
+
+		assertEquals(moves.get(0).getStartNode(), board.getNode(0, 2));
+		// Betwwen startNode and endNode
+		int k = 3;
+		for (Node node : moves.get(0).getIntermediateNodes()) {
+			assertEquals(node, board.getNode(k, 2));
+			k--;
+		}
+		assertEquals(moves.get(0).getEndNode(), board.getNode(4, 2));
+		assertEquals(moves.size(), 1);
+
+		// No moves should be find
+
+		// Scenario:
+		// | empty empty empty empty empty |
+		// | empty empty empty empty empty |
+		// | white black black black black |
+		// | empty empty empty empty empty |
+		// | empty empty empty empty empty |
+		setNode(4, 2, "black", board);
+		moves = moveCalculator.getAllPossibleMoves("white");
+		assertEquals(moves.size(), 0);
 	}
 }
