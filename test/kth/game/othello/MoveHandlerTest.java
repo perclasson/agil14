@@ -20,7 +20,6 @@ import kth.game.othello.player.PlayerHandler;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 /**
@@ -62,19 +61,6 @@ public class MoveHandlerTest {
 
 	@Rule
 	public ExpectedException exception = ExpectedException.none();
-
-	@Test
-	public void testGetNodesToSwapException() {
-		GameBoard board = mock(GameBoard.class);
-		PlayerHandler playerhandler = Mockito.mock(PlayerHandler.class);
-		MoveCalculator movecalculator = Mockito.mock(MoveCalculator.class);
-		MoveHandler movehandler = new MoveHandler(board, playerhandler, movecalculator);
-		when(movecalculator.getNodesToSwap(Matchers.anyString(), Matchers.anyString())).thenReturn(
-				new ArrayList<Node>());
-		// Empty board should not have any nodes to swap
-		exception.expect(IllegalArgumentException.class);
-		movehandler.move("black", "x0y0");
-	}
 
 	// If the type of a player is not a computer, then an exception should be thrown.
 	@Test
@@ -202,7 +188,8 @@ public class MoveHandlerTest {
 		Player player = Mockito.mock(Player.class);
 		when(playerhandler.getPlayerInTurn()).thenReturn(player);
 		when(player.getId()).thenReturn("white");
-		MoveCalculator movecalculator = new MoveCalculator(board);
+		MoveCalculator movecalculator = new MoveCalculator(board); // Antar att vi måste vi göra en riktig
+																	// movecalculator.
 		MoveHandler movehandler = new MoveHandler(board, playerhandler, movecalculator);
 		List<Node> nodes = null;
 
@@ -253,7 +240,8 @@ public class MoveHandlerTest {
 	public void testHasAndIsValidMove() {
 		GameBoard board = mockBoard(3);
 		PlayerHandler playerhandler = Mockito.mock(PlayerHandler.class);
-		MoveCalculator movecalculator = Mockito.mock(MoveCalculator.class);
+		MoveCalculator movecalculator = new MoveCalculator(board); // Antar att vi måste vi göra en riktig
+																	// movecalculator.
 		MoveHandler movehandler = new MoveHandler(board, playerhandler, movecalculator);
 
 		// Scenario:
@@ -263,9 +251,6 @@ public class MoveHandlerTest {
 		setNode(0, 0, "white", board);
 		setNode(1, 0, "white", board);
 		assertFalse(movehandler.hasValidMove("white"));
-		for (Node n : board.getNodes()) {
-			assertFalse(movehandler.isMoveValid("white", n.getId()));
-		}
 
 		// Scenario:
 		// | white black empty |
