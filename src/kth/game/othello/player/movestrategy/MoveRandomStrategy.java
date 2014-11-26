@@ -9,13 +9,11 @@ import kth.game.othello.move.Move;
 import kth.game.othello.move.MoveCalculator;
 
 /**
- * The responsibility of this class is to choose moves. This one does it
- * randomly.
+ * A move strategy where the move is randomly made.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon
  * @author Tommy Roshult
- *
  */
 public class MoveRandomStrategy implements MoveStrategy {
 
@@ -29,10 +27,6 @@ public class MoveRandomStrategy implements MoveStrategy {
 	public String getName() {
 		return "move random strategy";
 	}
-
-	/**
-	 * Strategy where the move is random
-	 */
 
 	@Override
 	public Node move(String playerId, Othello othello) {

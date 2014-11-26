@@ -8,9 +8,8 @@ import kth.game.othello.move.Move;
 import kth.game.othello.move.MoveCalculator;
 
 /**
- * The responsibility of this class is to choose moves. This one chooses the
- * first available move.
- * 
+ * A move strategy where the first move from all possible moves will be chosen.
+ *
  * @author Ludvig Axelsson
  * @author Per Classon
  * @author Tommy Roshult
@@ -22,11 +21,6 @@ public class FirstMoveStrategy implements MoveStrategy {
 	public String getName() {
 		return "first move strategy";
 	}
-
-	/**
-	 * Strategy where the first move from the list with all possible moves will
-	 * be chosen.
-	 */
 
 	@Override
 	public Node move(String playerId, Othello othello) {
