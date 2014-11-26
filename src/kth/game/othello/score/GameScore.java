@@ -12,19 +12,17 @@ import kth.game.othello.board.NodeOccupantNotification;
 import kth.game.othello.player.Player;
 
 /**
- * The responsibility of this class is to observe nodes so that we can count the
- * score.
+ * The responsibility of this class is to observe nodes so that we can count the score.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon
  * @author Tommy Roshult
  */
-public class GameScore implements Observer, Score {
+public class GameScore extends Observable implements Observer, Score {
 	private HashMap<String, ScoreItem> scores;
 
 	/**
-	 * Creates a GameScore object that keeps track of the score of players by
-	 * listening to the given nodes.
+	 * Creates a GameScore object that keeps track of the score of players by listening to the given nodes.
 	 * 
 	 * @param players
 	 *            The players score to be tracked.
@@ -75,14 +73,18 @@ public class GameScore implements Observer, Score {
 		changeScore(playerId, -1);
 	}
 
+	/**
+	 * Notify observers with the new scores.
+	 * 
+	 * @param playerId
+	 *            The id of the player.
+	 * @param value
+	 *            The new score for the player.
+	 */
 	private void changeScore(String playerId, int value) {
 		ScoreItem oldScore = scores.get(playerId);
+		setChanged();
 		scores.put(playerId, new ScoreItem(playerId, oldScore.getScore() + value));
+		notifyObservers(scores);
 	}
-
-	@Override
-	public void addObserver(Observer observer) {
-		// TODO ?????????
-	}
-
 }
