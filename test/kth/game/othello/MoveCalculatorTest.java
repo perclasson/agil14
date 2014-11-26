@@ -9,6 +9,7 @@ import java.util.List;
 
 import kth.game.othello.board.GameBoard;
 import kth.game.othello.board.Node;
+import kth.game.othello.move.Move;
 import kth.game.othello.move.MoveCalculator;
 
 import org.junit.Test;
@@ -116,4 +117,111 @@ public class MoveCalculatorTest {
 		assertEquals(swap.size(), 5);
 	}
 
+	@Test
+	public void getAllPossibleMovesTest() {
+		GameBoard board = mockBoard(5);
+		MoveCalculator moveCalculator = new MoveCalculator(board);
+		List<Move> moves = null;
+
+		// Only one possible move
+		// Scenario:
+		// | white black empty empty empty |
+		// | empty empty empty empty empty |
+		// | empty empty empty empty empty |
+		// | empty empty empty empty empty |
+		// | empty empty empty empty empty |
+		setNode(0, 0, "white", board);
+		setNode(1, 0, "black", board);
+		moves = moveCalculator.getAllPossibleMoves("white");
+		assertEquals(moves.size(), 1);
+
+		// Two possible moves
+		// Scenario:
+		// | white black empty empty empty |
+		// | black empty empty empty empty |
+		// | empty empty empty empty empty |
+		// | empty empty empty empty empty |
+		// | empty empty empty empty empty |
+
+		setNode(0, 1, "black", board);
+		moves = moveCalculator.getAllPossibleMoves("white");
+		assertEquals(moves.size(), 2);
+
+		// three possible moves
+		// Scenario:
+		// | white black empty empty empty |
+		// | black black empty empty empty |
+		// | empty empty empty empty empty |
+		// | empty empty empty empty empty |
+		// | empty empty empty empty empty |
+		setNode(1, 1, "black", board);
+		moves = moveCalculator.getAllPossibleMoves("white");
+		assertEquals(moves.size(), 3);
+
+		// Reset the board
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				setNode(i, j, board);
+			}
+		}
+
+		// four possible moves
+		// Scenario:
+		// | empty empty empty empty empty |
+		// | empty empty black empty empty |
+		// | empty black white black empty |
+		// | empty empty black empty empty |
+		// | empty empty empty empty empty |
+		setNode(2, 2, "white", board);
+		setNode(2, 1, "black", board);
+		setNode(1, 2, "black", board);
+		setNode(2, 3, "black", board);
+		setNode(3, 2, "black", board);
+		moves = moveCalculator.getAllPossibleMoves("white");
+		assertEquals(moves.size(), 4);
+
+		// five possible moves
+		// Scenario:
+		// | empty empty empty empty empty |
+		// | empty black black empty empty |
+		// | empty black white black empty |
+		// | empty empty black empty empty |
+		// | empty empty empty empty empty |
+		setNode(1, 1, "black", board);
+		moves = moveCalculator.getAllPossibleMoves("white");
+		assertEquals(moves.size(), 5);
+
+		// six possible moves
+		// Scenario:
+		// | empty empty empty empty empty |
+		// | empty black black black empty |
+		// | empty black white black empty |
+		// | empty empty black empty empty |
+		// | empty empty empty empty empty |
+		setNode(3, 1, "black", board);
+		moves = moveCalculator.getAllPossibleMoves("white");
+		assertEquals(moves.size(), 6);
+
+		// seven possible moves
+		// Scenario:
+		// | empty empty empty empty empty |
+		// | empty black black black empty |
+		// | empty black white black empty |
+		// | empty black black empty empty |
+		// | empty empty empty empty empty |
+		setNode(1, 3, "black", board);
+		moves = moveCalculator.getAllPossibleMoves("white");
+		assertEquals(moves.size(), 7);
+
+		// seven possible moves
+		// Scenario:
+		// | empty empty empty empty empty |
+		// | empty black black black empty |
+		// | empty black white black empty |
+		// | empty black black black empty |
+		// | empty empty empty empty empty |
+		setNode(3, 3, "black", board);
+		moves = moveCalculator.getAllPossibleMoves("white");
+		assertEquals(moves.size(), 7);
+	}
 }

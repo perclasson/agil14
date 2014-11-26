@@ -125,6 +125,9 @@ public class MoveHandlerTest {
 		setNode(0, 0, "white", board);
 		setNode(1, 0, "black", board);
 		nodes = movehandler.move("white", "x2y0");
+		for (Node n : nodes) {
+			assertEquals(n, board.getNode(n.getXCoordinate(), n.getYCoordinate()));
+		}
 
 		// Should be:
 		// | white white white |
