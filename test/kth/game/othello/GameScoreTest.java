@@ -34,9 +34,9 @@ public class GameScoreTest {
 
 	private List<Player> mockPlayers(int nrOfPlayers) {
 		ArrayList<Player> players = new ArrayList<Player>();
-		for (int y = 1; y < nrOfPlayers + 1; y++) {
+		for (int playerId = 1; playerId <= nrOfPlayers; playerId++) {
 			Player player = mock(Player.class);
-			when(player.getId()).thenReturn("player" + y);
+			when(player.getId()).thenReturn("player" + playerId);
 			players.add(player);
 		}
 		return players;
@@ -96,21 +96,20 @@ public class GameScoreTest {
 		setNode(players.get(3).getId(), nodes.get(8));
 		setNode(players.get(3).getId(), nodes.get(9));
 		GameScore gameScore = new GameScore(players, nodes);
-		List<ScoreItem> scoreitems = gameScore.getPlayersScore();
-		// When we get the scores in descending order
-		for (int i = 0; i < scoreitems.size(); i++) {
-			for (int j = i + 1; j < scoreitems.size(); j++) {
-				assertTrue(scoreitems.get(i).getScore() <= scoreitems.get(j).getScore());
-			}
-		}
-		// Player 1 have 1p
-		// PLayer 2 have 2p
-		// Player 4 have 3p
-		// Player 3 have 4p
-		assertEquals(scoreitems.get(0).getPlayerId(), players.get(0).getId());
-		assertEquals(scoreitems.get(1).getPlayerId(), players.get(1).getId());
-		assertEquals(scoreitems.get(3).getPlayerId(), players.get(2).getId());
-		assertEquals(scoreitems.get(2).getPlayerId(), players.get(3).getId());
-	}
+		List<ScoreItem> scoreItems = gameScore.getPlayersScore();
 
+		// When we get the scores in descending order
+		for (int i = 0; i < scoreItems.size() - 1; i++) {
+			assertTrue(scoreItems.get(i).getScore() >= scoreItems.get(i + 1).getScore());
+		}
+
+		// Player 3 have 4p
+		// Player 4 have 3p
+		// PLayer 2 have 2p
+		// Player 1 have 1p
+		assertEquals(scoreItems.get(0).getPlayerId(), players.get(2).getId());
+		assertEquals(scoreItems.get(1).getPlayerId(), players.get(3).getId());
+		assertEquals(scoreItems.get(2).getPlayerId(), players.get(1).getId());
+		assertEquals(scoreItems.get(3).getPlayerId(), players.get(0).getId());
+	}
 }
