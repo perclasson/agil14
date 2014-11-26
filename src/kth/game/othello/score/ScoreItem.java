@@ -31,8 +31,8 @@ public class ScoreItem implements Comparable<ScoreItem> {
 
 	@Override
 	public int compareTo(ScoreItem other) {
-
-		return getScore() - other.getScore();
+		// ScoreItems are sorted in descending order
+		return other.getScore() - getScore();
 
 	}
 }
