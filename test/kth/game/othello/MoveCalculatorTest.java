@@ -222,6 +222,6 @@ public class MoveCalculatorTest {
 		// | empty empty empty empty empty |
 		setNode(3, 3, "black", board);
 		moves = moveCalculator.getAllPossibleMoves("white");
-		assertEquals(moves.size(), 7);
+		assertEquals(moves.size(), 8);
 	}
 }
