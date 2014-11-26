@@ -10,7 +10,7 @@ import kth.game.othello.player.PlayerHandler;
 import kth.game.othello.player.movestrategy.MoveStrategy;
 
 /**
- * This is a helper class that contains the logic when players make moves.
+ * The responsibility of this class is to handle moves of the game.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon
@@ -22,6 +22,16 @@ public class MoveHandler {
 	private PlayerHandler playerHandler;
 	private MoveCalculator moveCalculator;
 
+	/**
+	 * Creates a MoveHandler object that validates if moves are correct.
+	 * 
+	 * @param gameBoard
+	 *            The board of the game.
+	 * @param playerHandler
+	 *            The player handler of the game.
+	 * @param moveCalculator
+	 *            A move calculator that uses the given board.
+	 */
 	public MoveHandler(GameBoard gameBoard, PlayerHandler playerHandler, MoveCalculator moveCalculator) {
 		this.gameBoard = gameBoard;
 		this.playerHandler = playerHandler;
@@ -29,12 +39,11 @@ public class MoveHandler {
 	}
 
 	/**
-	 * If the player is a computer, this function do a move for that player
+	 * See the {@link kth.game.othello.Othello} interface for other details.
 	 * 
-	 * @param othello
-	 * @return List<Node> Corresponding to that move.
+	 * @param Game
+	 *            The current game of othello.
 	 */
-
 	public List<Node> move(Game othello) {
 		// If the current player is not a computer
 		if (playerHandler.getPlayerInTurn().getType() != Player.Type.COMPUTER) {
@@ -47,15 +56,7 @@ public class MoveHandler {
 	}
 
 	/**
-	 * Makes a move given a player, node id and updates the board.
-	 * 
-	 * @param playerId
-	 *            the player's id
-	 * @param nodeId
-	 *            the node's id
-	 * @return Empty list if the move is invalid
-	 * @return the nodes that where swapped for this move, including the node
-	 *         where the player made the move
+	 * See the {@link kth.game.othello.Othello} interface.
 	 */
 	public List<Node> move(String playerId, String nodeId) {
 		if (!playerHandler.getPlayerInTurn().getId().equals(playerId)) {
@@ -79,26 +80,22 @@ public class MoveHandler {
 	}
 
 	/**
-	 * Checks if a player has a valid move.
-	 * 
-	 * @param playerId
-	 * @return true if the player has a valid move
+	 * See the {@link kth.game.othello.Othello} interface.
 	 */
 	public boolean hasValidMove(String playerId) {
 		return moveCalculator.getAllPossibleMoves(playerId).size() > 0;
 	}
 
 	/**
-	 * Checks if a move is valid for a player.
-	 * 
-	 * @param playerId
-	 * @param nodeId
-	 * @return if it's valid for playerId to move to NodeId or not.
+	 * See the {@link kth.game.othello.Othello} interface.
 	 */
 	public boolean isMoveValid(String playerId, String nodeId) {
 		return moveCalculator.getMoves(playerId, nodeId).size() > 0;
 	}
 
+	/**
+	 * See the {@link kth.game.othello.Othello} interface.
+	 */
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
 		return moveCalculator.getNodesToSwap(playerId, nodeId);
 	}

@@ -86,7 +86,7 @@ public class MoveCalculator {
 		}
 		return moves;
 	}
-	
+
 	/**
 	 * Returns the moves possible to the the given nodeId.
 	 * 
@@ -131,10 +131,10 @@ public class MoveCalculator {
 		// Follow the direction
 		Move currentMove = null;
 		Node currentNode = targetNode;
-		
+
 		// Add the current target node as the first visited
 		visitedNodes.add(currentNode);
-		
+
 		// Move from the target until we meet a node of our own
 		while (true) {
 			currentNode = getNextNode(currentNode, direction);
@@ -149,7 +149,7 @@ public class MoveCalculator {
 			} else if (visitedNodes.size() >= 2 && nodeIsMine) {
 				// The move was valid and add the current node
 				visitedNodes.add(currentNode);
-				
+
 				// The move made is the reverse of the list
 				Collections.reverse(visitedNodes);
 				currentMove = new Move(visitedNodes);
