@@ -115,7 +115,7 @@ public class GameBoard implements Board {
 
 		int maxY = 0;
 		for (Node n : board.values()) {
-			if (n.getXCoordinate() > maxY) {
+			if (n.getYCoordinate() > maxY) {
 				maxY = n.getYCoordinate();
 			}
 		}
