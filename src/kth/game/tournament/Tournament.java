@@ -7,7 +7,7 @@ import kth.game.othello.view.swing.OthelloViewFactory;
 
 public class Tournament {
 
-	public static void Main(String[] args) {
+	public static void main(String[] args) {
 		Othello othelloGame = new OthelloGameFactor().createComputerGame();
 		OthelloView othelloView = OthelloViewFactory.create(othelloGame, 100, 100);
 		othelloView.start();
