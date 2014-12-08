@@ -9,10 +9,10 @@ import java.util.List;
 
 import kth.game.othello.board.GameBoard;
 import kth.game.othello.board.Node;
-import kth.game.othello.move.Move;
-import kth.game.othello.move.MoveCalculator;
+import kth.game.othello.move.Direction;
 
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * Unit tests of class MoveCalculator.
@@ -20,7 +20,7 @@ import org.junit.Test;
  * @author Ludvig Axelsson
  * @author Per Classon
  * @author Tommy Roshult
- *
+ * 
  */
 public class DefaultRulesTest {
 
@@ -42,6 +42,19 @@ public class DefaultRulesTest {
 		return board;
 	}
 
+	private List<Direction> getMockDirections() {
+		ArrayList<Direction> directions = new ArrayList<Direction>();
+		for (int x = -1; x <= 1; x++) {
+			for (int y = -1; y <= 1; y++) {
+				Direction d = Mockito.mock(Direction.class);
+				when(d.getX()).thenReturn(x);
+				when(d.getY()).thenReturn(y);
+				directions.add(d);
+			}
+		}
+		return directions;
+	}
+
 	private void setNode(int x, int y, GameBoard board) {
 		when(board.getNode(x, y).getOccupantPlayerId()).thenReturn(null);
 		when(board.getNode(x, y).isMarked()).thenReturn(false);
@@ -55,7 +68,7 @@ public class DefaultRulesTest {
 	@Test
 	public void testGetNodesToSwap() {
 		GameBoard board = mockBoard(3);
-		MoveCalculator moveCalculator = new MoveCalculator(board);
+		DefaultRules defaultRules = new DefaultRules(getMockDirections(), board);
 		List<Node> swap = null;
 
 		// Scenario:
@@ -69,7 +82,9 @@ public class DefaultRulesTest {
 		// | white white white |
 		// | empty empty empty |
 		// | empty empty empty |
-		swap = moveCalculator.getNodesToSwap("white", "x2y0");
+		System.out.println("test1");
+		swap = defaultRules.getNodesToSwap("white", "x2y0");
+		System.out.println("test2");
 		assertEquals(swap.size(), 3);
 		assertEquals(swap.get(1), board.getNode(1, 0));
 		assertEquals(swap.get(2), board.getNode(2, 0));
@@ -80,7 +95,7 @@ public class DefaultRulesTest {
 		// | empty empty empty |
 		setNode(0, 0, "white", board);
 		setNode(1, 0, "black", board);
-		swap = moveCalculator.getNodesToSwap("white", "x1y1");
+		swap = defaultRules.getNodesToSwap("white", "x1y1");
 		assertEquals(swap.size(), 0);
 
 		// Scenario:
@@ -90,7 +105,7 @@ public class DefaultRulesTest {
 		setNode(0, 0, "white", board);
 		setNode(1, 0, null, board);
 		setNode(2, 0, "black", board);
-		swap = moveCalculator.getNodesToSwap("white", "x1y0");
+		swap = defaultRules.getNodesToSwap("white", "x1y0");
 		assertEquals(swap.size(), 0);
 
 		// Scenario:
@@ -100,7 +115,7 @@ public class DefaultRulesTest {
 		setNode(0, 0, "white", board);
 		setNode(1, 0, null, board);
 		setNode(2, 0, "black", board);
-		swap = moveCalculator.getNodesToSwap("white", "x1y0");
+		swap = defaultRules.getNodesToSwap("white", "x1y0");
 		assertEquals(swap.size(), 0);
 
 		// Scenario:
@@ -121,17 +136,15 @@ public class DefaultRulesTest {
 		// | white black white |
 		// | white white black |
 		// | white white white |
-		swap = moveCalculator.getNodesToSwap("white", "x0y2");
+		swap = defaultRules.getNodesToSwap("white", "x0y2");
 		assertEquals(swap.size(), 5);
 	}
 
 	@Test
-	public void getAllPossibleMovesTest() {
+	public void hasValidMoveTest() {
 		GameBoard board = mockBoard(5);
-		MoveCalculator moveCalculator = new MoveCalculator(board);
-		List<Move> moves = null;
+		DefaultRules defaultRules = new DefaultRules(getMockDirections(), board);
 
-		// Only one possible move
 		// Scenario:
 		// | white black empty empty empty |
 		// | empty empty empty empty empty |
@@ -140,161 +153,102 @@ public class DefaultRulesTest {
 		// | empty empty empty empty empty |
 		setNode(0, 0, "white", board);
 		setNode(1, 0, "black", board);
-		moves = moveCalculator.getAllPossibleMoves("white");
-		assertEquals(moves.get(0).getEndNode(), board.getNode(2, 0));
-		assertEquals(moves.get(0).getIntermediateNodes().get(0), board.getNode(1, 0));
-		assertEquals(moves.get(0).getStartNode(), board.getNode(0, 0));
-		assertEquals(moves.size(), 1);
-
-		// Two possible moves
-		// Scenario:
-		// | white black empty empty empty |
-		// | black empty empty empty empty |
-		// | empty empty empty empty empty |
-		// | empty empty empty empty empty |
-		// | empty empty empty empty empty |
-
-		setNode(0, 1, "black", board);
-		moves = moveCalculator.getAllPossibleMoves("white");
-		assertEquals(moves.get(0).getEndNode(), board.getNode(2, 0));
-		assertEquals(moves.get(0).getIntermediateNodes().get(0), board.getNode(1, 0));
-		assertEquals(moves.get(0).getStartNode(), board.getNode(0, 0));
-		assertEquals(moves.get(1).getEndNode(), board.getNode(0, 2));
-		assertEquals(moves.get(1).getIntermediateNodes().get(0), board.getNode(0, 1));
-		assertEquals(moves.get(1).getStartNode(), board.getNode(0, 0));
-
-		assertEquals(moves.size(), 2);
-
-		// three possible moves
-		// Scenario:
-		// | white black empty empty empty |
-		// | black black empty empty empty |
-		// | empty empty empty empty empty |
-		// | empty empty empty empty empty |
-		// | empty empty empty empty empty |
-		setNode(1, 1, "black", board);
-		moves = moveCalculator.getAllPossibleMoves("white");
-		moves = moveCalculator.getAllPossibleMoves("white");
-		assertEquals(moves.get(0).getEndNode(), board.getNode(2, 0));
-		assertEquals(moves.get(0).getIntermediateNodes().get(0), board.getNode(1, 0));
-		assertEquals(moves.get(0).getStartNode(), board.getNode(0, 0));
-
-		assertEquals(moves.get(1).getEndNode(), board.getNode(0, 2));
-		assertEquals(moves.get(1).getIntermediateNodes().get(0), board.getNode(0, 1));
-		assertEquals(moves.get(1).getStartNode(), board.getNode(0, 0));
-
-		assertEquals(moves.get(2).getEndNode(), board.getNode(2, 2));
-		assertEquals(moves.get(2).getIntermediateNodes().get(0), board.getNode(1, 1));
-		assertEquals(moves.get(2).getStartNode(), board.getNode(0, 0));
-
-		assertEquals(moves.size(), 3);
-
-		// Reset the board
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				setNode(i, j, board);
-			}
-		}
-
-		// four possible moves
-		// Scenario:
-		// | empty empty empty empty empty |
-		// | empty empty black empty empty |
-		// | empty black white black empty |
-		// | empty empty black empty empty |
-		// | empty empty empty empty empty |
-		setNode(2, 2, "white", board);
-		setNode(2, 1, "black", board);
-		setNode(1, 2, "black", board);
-		setNode(2, 3, "black", board);
-		setNode(3, 2, "black", board);
-		moves = moveCalculator.getAllPossibleMoves("white");
-		assertEquals(moves.size(), 4);
-
-		// five possible moves
-		// Scenario:
-		// | empty empty empty empty empty |
-		// | empty black black empty empty |
-		// | empty black white black empty |
-		// | empty empty black empty empty |
-		// | empty empty empty empty empty |
-		setNode(1, 1, "black", board);
-		moves = moveCalculator.getAllPossibleMoves("white");
-		assertEquals(moves.size(), 5);
-
-		// six possible moves
-		// Scenario:
-		// | empty empty empty empty empty |
-		// | empty black black black empty |
-		// | empty black white black empty |
-		// | empty empty black empty empty |
-		// | empty empty empty empty empty |
-		setNode(3, 1, "black", board);
-		moves = moveCalculator.getAllPossibleMoves("white");
-		assertEquals(moves.size(), 6);
-
-		// seven possible moves
-		// Scenario:
-		// | empty empty empty empty empty |
-		// | empty black black black empty |
-		// | empty black white black empty |
-		// | empty black black empty empty |
-		// | empty empty empty empty empty |
-		setNode(1, 3, "black", board);
-		moves = moveCalculator.getAllPossibleMoves("white");
-		assertEquals(moves.size(), 7);
-
-		// seven possible moves
-		// Scenario:
-		// | empty empty empty empty empty |
-		// | empty black black black empty |
-		// | empty black white black empty |
-		// | empty black black black empty |
-		// | empty empty empty empty empty |
-		setNode(3, 3, "black", board);
-		moves = moveCalculator.getAllPossibleMoves("white");
-		assertEquals(moves.size(), 8);
-
-		// Reset the board
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				setNode(i, j, board);
-			}
-		}
-
-		// Test when there are several IntermediateNodes
+		assertEquals(defaultRules.hasValidMove("white"), true);
+		assertEquals(defaultRules.hasValidMove("black"), false);
 
 		// Scenario:
-		// | empty empty empty empty empty |
-		// | empty empty empty empty empty |
 		// | white black black black empty |
 		// | empty empty empty empty empty |
 		// | empty empty empty empty empty |
-		setNode(0, 2, "white", board);
-		setNode(1, 2, "black", board);
-		setNode(2, 2, "black", board);
-		setNode(3, 2, "black", board);
-		moves = moveCalculator.getAllPossibleMoves("white");
+		// | empty empty empty empty empty |
+		// | empty empty empty empty empty |
+		setNode(2, 0, "black", board);
+		setNode(3, 0, "black", board);
+		assertEquals(defaultRules.hasValidMove("white"), true);
+		assertEquals(defaultRules.hasValidMove("black"), false);
 
-		assertEquals(moves.get(0).getStartNode(), board.getNode(0, 2));
-		// Between startNode and endNode
-		int k = 1;
-		for (Node node : moves.get(0).getIntermediateNodes()) {
-			assertEquals(node, board.getNode(k, 2));
-			k++;
-		}
-		assertEquals(moves.get(0).getEndNode(), board.getNode(4, 2));
-		assertEquals(moves.size(), 1);
-
-		// No moves should be find
 		// Scenario:
-		// | empty empty empty empty empty |
-		// | empty empty empty empty empty |
 		// | white black black black black |
 		// | empty empty empty empty empty |
 		// | empty empty empty empty empty |
-		setNode(4, 2, "black", board);
-		moves = moveCalculator.getAllPossibleMoves("white");
-		assertEquals(moves.size(), 0);
+		// | empty empty empty empty empty |
+		// | empty empty empty empty empty |
+		setNode(4, 0, "black", board);
+		assertEquals(defaultRules.hasValidMove("white"), false);
+		assertEquals(defaultRules.hasValidMove("black"), false);
+
+		// Reset board
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				setNode(i, j, board);
+			}
+		}
+
+		// Scenario:
+		// | white empty empty empty empty |
+		// | empty black empty empty empty |
+		// | empty empty black empty empty |
+		// | empty empty empty black empty |
+		// | empty empty empty empty empty |
+		setNode(0, 0, "white", board);
+		setNode(1, 1, "black", board);
+		setNode(2, 2, "black", board);
+		setNode(3, 3, "black", board);
+		assertEquals(defaultRules.hasValidMove("white"), true);
+		assertEquals(defaultRules.hasValidMove("black"), false);
+
+		// Scenario:
+		// | white empty empty empty empty |
+		// | empty black empty empty empty |
+		// | empty empty black empty empty |
+		// | empty empty empty black empty |
+		// | empty empty empty empty empty |
+		setNode(0, 0, "white", board);
+		setNode(1, 1, "black", board);
+		setNode(2, 2, "black", board);
+		setNode(3, 3, "black", board);
+		assertEquals(defaultRules.hasValidMove("white"), true);
+		assertEquals(defaultRules.hasValidMove("black"), false);
+
+		// Scenario:
+		// | white empty empty empty empty |
+		// | empty black empty empty empty |
+		// | empty empty black empty empty |
+		// | empty empty empty black empty |
+		// | empty empty empty empty black |
+		setNode(4, 4, "black", board);
+		assertEquals(defaultRules.hasValidMove("white"), false);
+		assertEquals(defaultRules.hasValidMove("black"), false);
+
+		// Reset board
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				setNode(i, j, board);
+			}
+		}
+
+		// Scenario:
+		// | white empty empty empty empty |
+		// | black empty empty empty empty |
+		// | black empty empty empty empty |
+		// | black empty empty empty empty |
+		// | empty empty empty empty empty |
+		setNode(0, 0, "white", board);
+		setNode(0, 1, "black", board);
+		setNode(0, 2, "black", board);
+		setNode(0, 3, "black", board);
+		assertEquals(defaultRules.hasValidMove("white"), true);
+		assertEquals(defaultRules.hasValidMove("black"), false);
+
+		// Scenario:
+		// | white empty empty empty empty |
+		// | empty black empty empty empty |
+		// | empty empty black empty empty |
+		// | empty empty empty black empty |
+		// | empty empty empty empty black |
+		setNode(0, 4, "black", board);
+		assertEquals(defaultRules.hasValidMove("white"), false);
+		assertEquals(defaultRules.hasValidMove("black"), false);
+
 	}
 }

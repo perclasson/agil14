@@ -11,7 +11,7 @@ import kth.game.othello.move.Move;
 
 /**
  * This is a representation of the default rules in a Othello game.
- *
+ * 
  */
 public class DefaultRules implements Rules {
 	private final List<Direction> directions;
@@ -25,6 +25,7 @@ public class DefaultRules implements Rules {
 	@Override
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
 		List<Move> moves = getMoves(playerId, nodeId);
+		System.out.println("test1");
 		List<Node> swappedNodes = new ArrayList<Node>();
 		if (moves.size() > 0) {
 			Move firstMove = moves.get(0);
@@ -111,7 +112,7 @@ public class DefaultRules implements Rules {
 				// The move made is the reverse of the list
 				Collections.reverse(visitedNodes);
 				return new Move(visitedNodes);
-			} 
+			}
 		}
 		return null;
 	}
