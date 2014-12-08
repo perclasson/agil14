@@ -163,6 +163,6 @@ public class MoveHandlerTest {
 		moveHandler.move(player.getId(), "nodeid");
 
 		// Verify that players turn was changed
-		verify(playerHandler).changePlayersTurn();
+		verify(playerHandler).changePlayerInTurn();
 	}
 }

@@ -50,8 +50,8 @@ public class OthelloGameFactor implements OthelloFactory {
 		players.add(playerFactory.createComputerPlayer("Computer 2", moveStrategy));
 
 		GameBoard board = new GameBoard(new Square().getNodes(BOARD_ORDER, players));
-		PlayerHandler playerHandler = new PlayerHandler(players, random);
 		Rules rules = new DefaultRules(directionFactory.getAllDirections(), board);
+		PlayerHandler playerHandler = new PlayerHandler(players, rules, random);
 		MoveHandler moveHandler = new MoveHandler(board, playerHandler, rules);
 		GameScore score = new GameScore(players, board.getNodes());
 
@@ -66,8 +66,8 @@ public class OthelloGameFactor implements OthelloFactory {
 		players.add(playerFactory.createHumanPlayer("Player 2"));
 
 		GameBoard board = new GameBoard(new Square().getNodes(BOARD_ORDER, players));
-		PlayerHandler playerHandler = new PlayerHandler(players, random);
 		Rules rules = new DefaultRules(directionFactory.getAllDirections(), board);
+		PlayerHandler playerHandler = new PlayerHandler(players, rules, random);
 		MoveHandler moveHandler = new MoveHandler(board, playerHandler, rules);
 		GameScore score = new GameScore(players, board.getNodes());
 
@@ -84,8 +84,8 @@ public class OthelloGameFactor implements OthelloFactory {
 		players.add(playerFactory.createHumanPlayer("Human"));
 
 		GameBoard board = new GameBoard(new Square().getNodes(BOARD_ORDER, players));
-		PlayerHandler playerHandler = new PlayerHandler(players, random);
 		Rules rules = new DefaultRules(directionFactory.getAllDirections(), board);
+		PlayerHandler playerHandler = new PlayerHandler(players, rules, random);
 		MoveHandler moveHandler = new MoveHandler(board, playerHandler, rules);
 		GameScore score = new GameScore(players, board.getNodes());
 
@@ -97,7 +97,7 @@ public class OthelloGameFactor implements OthelloFactory {
 		Random random = new Random();
 		GameBoard board = new GameBoard(nodesData);
 		Rules rules = new DefaultRules(directionFactory.getAllDirections(), board);
-		PlayerHandler playerHandler = new PlayerHandler(players, random);
+		PlayerHandler playerHandler = new PlayerHandler(players, rules, random);
 		MoveHandler moveHandler = new MoveHandler(board, playerHandler, rules);
 		GameScore score = new GameScore(players, board.getNodes());
 		return new Game(board, playerHandler, moveHandler, score);
