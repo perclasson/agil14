@@ -99,4 +99,36 @@ public class GameBoard implements Board {
 		board.get(node.getId()).setOccupantPlayerId(playerId);
 	}
 
+	@Override
+	public int getMaxX() {
+		int maxX = 0;
+		for (Node n : board.values()) {
+			if (n.getXCoordinate() > maxX) {
+				maxX = n.getXCoordinate();
+			}
+		}
+		return maxX;
+	}
+
+	@Override
+	public int getMaxY() {
+		int maxY = 0;
+		for (Node n : board.values()) {
+			if (n.getXCoordinate() > maxY) {
+				maxY = n.getYCoordinate();
+			}
+		}
+		return maxY;
+	}
+
+	@Override
+	public boolean hasNode(int x, int y) {
+		for (Node n : board.values()) {
+			if (n.getXCoordinate() == x && n.getYCoordinate() == y) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }
