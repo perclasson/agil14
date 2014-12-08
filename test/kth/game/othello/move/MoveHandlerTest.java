@@ -1,4 +1,4 @@
-package kth.game.othello;
+package kth.game.othello.move;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import kth.game.othello.Game;
 import kth.game.othello.board.GameBoard;
 import kth.game.othello.board.Node;
 import kth.game.othello.move.MoveCalculator;

@@ -1,4 +1,4 @@
-package kth.game.othello;
+package kth.game.othello.player;
 
 import static org.junit.Assert.assertEquals;
 

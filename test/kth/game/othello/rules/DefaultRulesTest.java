@@ -1,4 +1,4 @@
-package kth.game.othello;
+package kth.game.othello.rules;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -22,7 +22,7 @@ import org.junit.Test;
  * @author Tommy Roshult
  *
  */
-public class MoveCalculatorTest {
+public class DefaultRulesTest {
 
 	private GameBoard mockBoard(int order) {
 		GameBoard board = mock(GameBoard.class);

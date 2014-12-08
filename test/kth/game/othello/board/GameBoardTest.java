@@ -1,4 +1,4 @@
-package kth.game.othello;
+package kth.game.othello.board;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
