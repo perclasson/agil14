@@ -101,7 +101,6 @@ public class GameBoard implements Board {
 
 	@Override
 	public int getMaxX() {
-<<<<<<< HEAD
 		int maxX = 0;
 		for (Node n : board.values()) {
 			if (n.getXCoordinate() > maxX) {
@@ -109,15 +108,11 @@ public class GameBoard implements Board {
 			}
 		}
 		return maxX;
-=======
-		// TODO Auto-generated method stub
-		return 0;
->>>>>>> 211eab830cde8eb3531c8c160372df24bd4fea65
 	}
 
 	@Override
 	public int getMaxY() {
-<<<<<<< HEAD
+
 		int maxY = 0;
 		for (Node n : board.values()) {
 			if (n.getXCoordinate() > maxY) {
@@ -125,23 +120,17 @@ public class GameBoard implements Board {
 			}
 		}
 		return maxY;
-=======
-		// TODO Auto-generated method stub
-		return 0;
->>>>>>> 211eab830cde8eb3531c8c160372df24bd4fea65
+
 	}
 
 	@Override
 	public boolean hasNode(int x, int y) {
-<<<<<<< HEAD
+
 		for (Node n : board.values()) {
 			if (n.getXCoordinate() == x && n.getYCoordinate() == y) {
 				return true;
 			}
 		}
-=======
-		// TODO Auto-generated method stub
->>>>>>> 211eab830cde8eb3531c8c160372df24bd4fea65
 		return false;
 	}
 
