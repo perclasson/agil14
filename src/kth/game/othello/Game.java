@@ -4,12 +4,10 @@ import java.util.List;
 import java.util.Observer;
 
 import kth.game.othello.board.Board;
-import kth.game.othello.board.GameBoard;
 import kth.game.othello.board.Node;
 import kth.game.othello.move.MoveHandler;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.PlayerHandler;
-import kth.game.othello.rules.Rules;
 import kth.game.othello.score.Score;
 
 /**

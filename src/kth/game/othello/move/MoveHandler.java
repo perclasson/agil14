@@ -2,7 +2,6 @@ package kth.game.othello.move;
 
 import java.util.List;
 
-import kth.game.othello.Game;
 import kth.game.othello.board.GameBoard;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
