@@ -29,8 +29,8 @@ public class MoveHandler {
 	 *            The board of the game.
 	 * @param playerHandler
 	 *            The player handler of the game.
-	 * @param moveCalculator
-	 *            A move calculator that uses the given board.
+	 * @param rules
+	 *            TODO
 	 */
 	public MoveHandler(GameBoard gameBoard, PlayerHandler playerHandler, Rules rules) {
 		this.gameBoard = gameBoard;
@@ -40,9 +40,6 @@ public class MoveHandler {
 
 	/**
 	 * See the {@link kth.game.othello.Othello} interface for other details.
-	 * 
-	 * @param Game
-	 *            The current game of othello.
 	 */
 	public List<Node> move() {
 		// If the current player is not a computer

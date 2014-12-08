@@ -2,12 +2,15 @@ package kth.game.othello;
 
 import java.util.List;
 import java.util.Observer;
+import java.util.Stack;
 
 import kth.game.othello.board.Board;
+import kth.game.othello.board.GameBoard;
 import kth.game.othello.board.Node;
 import kth.game.othello.move.MoveHandler;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.PlayerHandler;
+import kth.game.othello.score.GameScore;
 import kth.game.othello.score.Score;
 
 /**
@@ -18,21 +21,33 @@ import kth.game.othello.score.Score;
  * @author Tommy Roshult
  */
 public class Game implements Othello {
-	private Board boardHandler;
+	private Board board;
 	private MoveHandler moveHandler;
 	private PlayerHandler playerHandler;
 	private Score score;
+	private String gameId;
+	private List<Observer> gameFinishedObservers;
+	private List<Observer> moveObservers;
+	private Stack<GameData> previous;
+	private GameDataFactory gameDataFactory;
 
-	public Game(Board board, PlayerHandler playerHandler, MoveHandler moveHandler, Score score) {
-		this.boardHandler = board;
+	public Game(Board board, PlayerHandler playerHandler, MoveHandler moveHandler, Score score, String gameId,
+			List<Observer> gameFinishedObservers, List<Observer> moveObservers, Stack<GameData> previous,
+			GameDataFactory gameDataFactory) {
+		this.board = board;
 		this.moveHandler = moveHandler;
 		this.playerHandler = playerHandler;
 		this.score = score;
+		this.gameId = gameId;
+		this.gameFinishedObservers = gameFinishedObservers;
+		this.moveObservers = moveObservers;
+		this.previous = previous;
+		this.gameDataFactory = gameDataFactory;
 	}
 
 	@Override
 	public Board getBoard() {
-		return boardHandler;
+		return board;
 	}
 
 	@Override
@@ -67,22 +82,28 @@ public class Game implements Othello {
 
 	@Override
 	public List<Node> move() {
-		return moveHandler.move();
+		List<Node> nodes = moveHandler.move();
+		saveCurrentState();
+		return nodes;
 	}
 
 	@Override
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
-		return moveHandler.move(playerId, nodeId);
+		List<Node> nodes = moveHandler.move(playerId, nodeId);
+		saveCurrentState();
+		return nodes;
 	}
 
 	@Override
 	public void start() {
 		playerHandler.setRandomPlayerInTurn();
+		saveCurrentState();
 	}
 
 	@Override
 	public void start(String playerId) {
 		playerHandler.setPlayerInTurn(playerId);
+		saveCurrentState();
 	}
 
 	@Override
@@ -92,26 +113,35 @@ public class Game implements Othello {
 
 	@Override
 	public void addGameFinishedObserver(Observer observer) {
-		// TODO Auto-generated method stub
+		// TODO this game finished observers are to be used
+		if (!gameFinishedObservers.contains(observer)) {
+			gameFinishedObservers.add(observer);
+		}
 
 	}
 
 	@Override
 	public void addMoveObserver(Observer observer) {
-		// TODO Auto-generated method stub
-
+		// TODO these move observers are to be used
+		if (!moveObservers.contains(observer)) {
+			moveObservers.add(observer);
+		}
 	}
 
 	@Override
 	public String getId() {
-		// TODO Auto-generated method stub
-		return null;
+		return gameId;
 	}
 
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
-
+		GameData gameData = previous.pop();
+		board = new GameBoard(gameData.getNodeData());
+		playerHandler.setPlayerInTurn(gameData.getPlayerInTurnId());
+		score = new GameScore(playerHandler.getPlayers(), board.getNodes());
 	}
 
+	private void saveCurrentState() {
+		previous.add(gameDataFactory.createGameData(this));
+	}
 }
