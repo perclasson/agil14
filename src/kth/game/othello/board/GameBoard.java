@@ -99,4 +99,22 @@ public class GameBoard implements Board {
 		board.get(node.getId()).setOccupantPlayerId(playerId);
 	}
 
+	@Override
+	public int getMaxX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getMaxY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean hasNode(int x, int y) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
