@@ -46,10 +46,13 @@ public class DefaultRulesTest {
 		ArrayList<Direction> directions = new ArrayList<Direction>();
 		for (int x = -1; x <= 1; x++) {
 			for (int y = -1; y <= 1; y++) {
-				Direction d = Mockito.mock(Direction.class);
-				when(d.getX()).thenReturn(x);
-				when(d.getY()).thenReturn(y);
-				directions.add(d);
+				if (!(x == 0 && y == 0)) {
+					Direction d = Mockito.mock(Direction.class);
+					when(d.getX()).thenReturn(x);
+					when(d.getY()).thenReturn(y);
+
+					directions.add(d);
+				}
 			}
 		}
 		return directions;
@@ -82,9 +85,9 @@ public class DefaultRulesTest {
 		// | white white white |
 		// | empty empty empty |
 		// | empty empty empty |
-		System.out.println("test1");
+
 		swap = defaultRules.getNodesToSwap("white", "x2y0");
-		System.out.println("test2");
+
 		assertEquals(swap.size(), 3);
 		assertEquals(swap.get(1), board.getNode(1, 0));
 		assertEquals(swap.get(2), board.getNode(2, 0));

@@ -24,8 +24,9 @@ public class DefaultRules implements Rules {
 
 	@Override
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
+
 		List<Move> moves = getMoves(playerId, nodeId);
-		System.out.println("test1");
+
 		List<Node> swappedNodes = new ArrayList<Node>();
 		if (moves.size() > 0) {
 			Move firstMove = moves.get(0);
@@ -58,7 +59,6 @@ public class DefaultRules implements Rules {
 	private List<Move> getMoves(String playerId, String nodeId) {
 		// The valid moves
 		List<Move> moves = new ArrayList<Move>();
-
 		// Try every direction from the target node
 		Node targetNode = null;
 		for (Node node : board.getNodes()) {
@@ -79,7 +79,6 @@ public class DefaultRules implements Rules {
 				moves.add(move);
 			}
 		}
-
 		return moves;
 	}
 
@@ -93,6 +92,7 @@ public class DefaultRules implements Rules {
 
 		// Move from the target until we meet a node of our own
 		while (true) {
+
 			currentNode = getNextNode(currentNode, direction);
 
 			if (currentNode == null) {
