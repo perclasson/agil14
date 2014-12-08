@@ -1,6 +1,7 @@
 package kth.game.othello;
 
 import java.util.List;
+import java.util.Observer;
 
 import kth.game.othello.board.Board;
 import kth.game.othello.board.GameBoard;
@@ -8,6 +9,7 @@ import kth.game.othello.board.Node;
 import kth.game.othello.move.MoveHandler;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.PlayerHandler;
+import kth.game.othello.rules.Rules;
 import kth.game.othello.score.Score;
 
 /**
@@ -18,12 +20,12 @@ import kth.game.othello.score.Score;
  * @author Tommy Roshult
  */
 public class Game implements Othello {
-	private GameBoard boardHandler;
+	private Board boardHandler;
 	private MoveHandler moveHandler;
 	private PlayerHandler playerHandler;
 	private Score score;
 
-	public Game(GameBoard board, PlayerHandler playerHandler, MoveHandler moveHandler, Score score) {
+	public Game(Board board, PlayerHandler playerHandler, MoveHandler moveHandler, Score score) {
 		this.boardHandler = board;
 		this.moveHandler = moveHandler;
 		this.playerHandler = playerHandler;
@@ -67,7 +69,7 @@ public class Game implements Othello {
 
 	@Override
 	public List<Node> move() {
-		return moveHandler.move(this);
+		return moveHandler.move();
 	}
 
 	@Override
@@ -88,6 +90,30 @@ public class Game implements Othello {
 	@Override
 	public Score getScore() {
 		return score;
+	}
+
+	@Override
+	public void addGameFinishedObserver(Observer observer) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void addMoveObserver(Observer observer) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void undo() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

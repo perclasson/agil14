@@ -1,11 +1,8 @@
 package kth.game.othello.player.movestrategy;
 
-import java.util.List;
-
-import kth.game.othello.Othello;
+import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
-import kth.game.othello.move.Move;
-import kth.game.othello.move.MoveCalculator;
+import kth.game.othello.rules.Rules;
 
 /**
  * A move strategy where the first move from all possible moves will be chosen.
@@ -23,10 +20,9 @@ public class FirstMoveStrategy implements MoveStrategy {
 	}
 
 	@Override
-	public Node move(String playerId, Othello othello) {
-		MoveCalculator moveCalculator = new MoveCalculator(othello.getBoard());
-		List<Move> moves = moveCalculator.getAllPossibleMoves(playerId);
-		return moves.get(0).getEndNode();
+	public Node move(String playerId, Rules rules, Board board) {
+		// TODO come up with a new strategy
+		return null;
 	}
 
 }

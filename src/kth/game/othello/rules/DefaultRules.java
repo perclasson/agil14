@@ -1,4 +1,4 @@
-package kth.game.othello.move;
+package kth.game.othello.rules;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,51 +6,23 @@ import java.util.List;
 
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
+import kth.game.othello.move.Direction;
+import kth.game.othello.move.Move;
 
 /**
- * The responsibility of this class is to calculate Othello moves on a board.
- * 
- * @author Ludvig Axelsson
- * @author Per Classon
- * @author Tommy Roshult
+ * This is a representation of the default rules in a Othello game.
+ *
  */
-public class MoveCalculator {
+public class DefaultRules implements Rules {
 	private final List<Direction> directions;
 	private final Board board;
 
-	/**
-	 * Creates a new MoveCalculator object that can calculate moves on a board with different directions.
-	 * 
-	 * @param directions
-	 *            The directions that will be used by the calculator.
-	 * @param board
-	 *            The board that will be used to calculate moves on.
-	 */
-	public MoveCalculator(List<Direction> directions, Board board) {
+	public DefaultRules(List<Direction> directions, Board board) {
 		this.directions = directions;
 		this.board = board;
 	}
 
-	/**
-	 * Creates a new MoveCalculator object that can calculate moves on a board with different directions.
-	 * 
-	 * @param board
-	 *            The board that will be used to calculate moves on.
-	 */
-	public MoveCalculator(Board board) {
-		this.directions = new DirectionFactory().getAllDirections();
-		this.board = board;
-	}
-
-	/**
-	 * Returns the nodes that will be swapped for a move at the given nodeId.
-	 * 
-	 * @param playerId
-	 *            the id of the player making the move
-	 * @param nodeId
-	 *            the id of the node where the move the move should be made
-	 * @return the list of nodes that will be swapped for the given move
-	 */
+	@Override
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
 		List<Move> moves = getMoves(playerId, nodeId);
 		List<Node> swappedNodes = new ArrayList<Node>();
@@ -65,36 +37,24 @@ public class MoveCalculator {
 		return swappedNodes;
 	}
 
-	/**
-	 * Returns all possible moves that the given player can make.
-	 * 
-	 * @param playerId
-	 *            the id of the player.
-	 * @return the list of all possible moves that can be made by the player.
-	 */
-	public List<Move> getAllPossibleMoves(String playerId) {
-		List<Move> moves = new ArrayList<Move>();
-
-		for (Node node : board.getNodes()) {
-
-			List<Move> move = getMoves(playerId, node.getId());
-			if (move.size() > 0) {
-				moves.addAll(move);
-			}
-		}
-		return moves;
+	@Override
+	public boolean isMoveValid(String playerId, String nodeId) {
+		return getMoves(playerId, nodeId).size() > 0;
 	}
 
-	/**
-	 * Returns the moves possible to the the given nodeId.
-	 * 
-	 * @param playerId
-	 *            the id of the player making the move
-	 * @param nodeId
-	 *            the id of the node where the move should be made
-	 * @return a list of moves possible to the node.
-	 */
-	public List<Move> getMoves(String playerId, String nodeId) {
+	@Override
+	public boolean hasValidMove(String playerId) {
+		// Try a move on every node on the board
+		for (Node node : board.getNodes()) {
+			List<Move> move = getMoves(playerId, node.getId());
+			if (move.size() > 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private List<Move> getMoves(String playerId, String nodeId) {
 		// The valid moves
 		List<Move> moves = new ArrayList<Move>();
 
@@ -126,19 +86,19 @@ public class MoveCalculator {
 		// Store the move as visited nodes
 		ArrayList<Node> visitedNodes = new ArrayList<Node>();
 
-		// Follow the direction
-		Move currentMove = null;
-		Node currentNode = targetNode;
-
 		// Add the current target node as the first visited
+		Node currentNode = targetNode;
 		visitedNodes.add(currentNode);
 
 		// Move from the target until we meet a node of our own
 		while (true) {
 			currentNode = getNextNode(currentNode, direction);
+
 			if (currentNode == null) {
+				// We moved out of bounds
 				break;
 			}
+
 			boolean nodeIsOpponent = currentNode.isMarked() && !currentNode.getOccupantPlayerId().equals(playerId);
 			boolean nodeIsMine = currentNode.isMarked() && currentNode.getOccupantPlayerId().equals(playerId);
 
@@ -150,14 +110,10 @@ public class MoveCalculator {
 
 				// The move made is the reverse of the list
 				Collections.reverse(visitedNodes);
-				currentMove = new Move(visitedNodes);
-				break;
-			} else {
-				break;
-			}
+				return new Move(visitedNodes);
+			} 
 		}
-
-		return currentMove;
+		return null;
 	}
 
 	private Node getNextNode(Node currentNode, Direction direction) {
