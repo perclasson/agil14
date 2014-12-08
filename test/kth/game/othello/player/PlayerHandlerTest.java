@@ -18,7 +18,6 @@ import org.mockito.Mockito;
  * @author Ludvig Axelsson
  * @author Per Classon
  * @author Tommy Roshult
- *
  */
 public class PlayerHandlerTest {
 

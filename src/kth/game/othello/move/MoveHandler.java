@@ -72,6 +72,8 @@ public class MoveHandler {
 		gameBoard.changeOccupantOnNodes(nodes, playerId);
 
 		playerHandler.changePlayersTurn();
+		
+		// TODO maybe move this to player handler
 		if (!hasValidMove(playerHandler.getPlayerInTurn().getId())) {
 			playerHandler.setPlayerInTurn(null);
 		}
