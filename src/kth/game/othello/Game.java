@@ -2,11 +2,12 @@ package kth.game.othello;
 
 import java.util.List;
 import java.util.Observer;
-import java.util.Stack;
 
 import kth.game.othello.board.Board;
 import kth.game.othello.board.GameBoard;
 import kth.game.othello.board.Node;
+import kth.game.othello.gamestate.GameState;
+import kth.game.othello.gamestate.GameStateHandler;
 import kth.game.othello.move.MoveHandler;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.PlayerHandler;
@@ -28,12 +29,10 @@ public class Game implements Othello {
 	private String gameId;
 	private List<Observer> gameFinishedObservers;
 	private List<Observer> moveObservers;
-	private Stack<GameData> previous;
-	private GameDataFactory gameDataFactory;
+	private GameStateHandler gameStateHandler;
 
 	public Game(Board board, PlayerHandler playerHandler, MoveHandler moveHandler, Score score, String gameId,
-			List<Observer> gameFinishedObservers, List<Observer> moveObservers, Stack<GameData> previous,
-			GameDataFactory gameDataFactory) {
+			List<Observer> gameFinishedObservers, List<Observer> moveObservers, GameStateHandler gameStateHandler) {
 		this.board = board;
 		this.moveHandler = moveHandler;
 		this.playerHandler = playerHandler;
@@ -41,8 +40,7 @@ public class Game implements Othello {
 		this.gameId = gameId;
 		this.gameFinishedObservers = gameFinishedObservers;
 		this.moveObservers = moveObservers;
-		this.previous = previous;
-		this.gameDataFactory = gameDataFactory;
+		this.gameStateHandler = gameStateHandler;
 	}
 
 	@Override
@@ -135,13 +133,13 @@ public class Game implements Othello {
 
 	@Override
 	public void undo() {
-		GameData gameData = previous.pop();
-		board = new GameBoard(gameData.getNodeData());
-		playerHandler.setPlayerInTurn(gameData.getPlayerInTurnId());
+		GameState gameState = gameStateHandler.pop();
+		board = new GameBoard(gameState.getNodeData());
+		playerHandler.setPlayerInTurn(gameState.getPlayerInTurnId());
 		score = new GameScore(playerHandler.getPlayers(), board.getNodes());
 	}
 
 	private void saveCurrentState() {
-		previous.add(gameDataFactory.createGameData(this));
+		gameStateHandler.add(this);
 	}
 }

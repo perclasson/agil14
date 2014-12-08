@@ -1,13 +1,14 @@
-package kth.game.othello;
+package kth.game.othello.gamestate;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import kth.game.othello.Game;
 import kth.game.othello.board.Node;
 import kth.game.othello.board.factory.NodeData;
 
-public class GameDataFactory {
-	public GameData createGameData(Game game) {
+public class GameStateFactory {
+	public GameState create(Game game) {
 		Set<NodeData> nodeData = new HashSet<NodeData>();
 
 		for (Node node : game.getBoard().getNodes()) {
@@ -16,6 +17,6 @@ public class GameDataFactory {
 
 		String playerInTurnId = game.getPlayerInTurn().getId();
 
-		return new GameData(nodeData, playerInTurnId);
+		return new GameState(nodeData, playerInTurnId);
 	}
 }

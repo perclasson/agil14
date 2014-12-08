@@ -1,14 +1,14 @@
-package kth.game.othello;
+package kth.game.othello.gamestate;
 
 import java.util.Set;
 
 import kth.game.othello.board.factory.NodeData;
 
-public class GameData {
+public class GameState {
 	private Set<NodeData> nodeData;
 	private String playerInTurnId;
 
-	public GameData(Set<NodeData> nodeData, String playerInTurnId) {
+	public GameState(Set<NodeData> nodeData, String playerInTurnId) {
 		this.nodeData = nodeData;
 		this.playerInTurnId = playerInTurnId;
 	}
