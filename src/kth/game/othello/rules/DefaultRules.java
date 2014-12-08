@@ -48,8 +48,7 @@ public class DefaultRules implements Rules {
 	public boolean hasValidMove(String playerId) {
 		// Try a move on every node on the board
 		for (Node node : board.getNodes()) {
-			List<Move> move = getMoves(playerId, node.getId());
-			if (move.size() > 0) {
+			if (isMoveValid(playerId, node.getId())) {
 				return true;
 			}
 		}

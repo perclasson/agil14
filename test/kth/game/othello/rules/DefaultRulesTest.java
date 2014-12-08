@@ -1,5 +1,7 @@
 package kth.game.othello.rules;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -9,10 +11,9 @@ import java.util.List;
 
 import kth.game.othello.board.GameBoard;
 import kth.game.othello.board.Node;
-import kth.game.othello.move.Direction;
+import kth.game.othello.move.DirectionFactory;
 
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Unit tests of class MoveCalculator.
@@ -23,6 +24,8 @@ import org.mockito.Mockito;
  * 
  */
 public class DefaultRulesTest {
+
+	private DirectionFactory directionFactory = new DirectionFactory();
 
 	private GameBoard mockBoard(int order) {
 		GameBoard board = mock(GameBoard.class);
@@ -42,20 +45,12 @@ public class DefaultRulesTest {
 		return board;
 	}
 
-	private List<Direction> getMockDirections() {
-		ArrayList<Direction> directions = new ArrayList<Direction>();
-		for (int x = -1; x <= 1; x++) {
-			for (int y = -1; y <= 1; y++) {
-				if (!(x == 0 && y == 0)) {
-					Direction d = Mockito.mock(Direction.class);
-					when(d.getX()).thenReturn(x);
-					when(d.getY()).thenReturn(y);
-
-					directions.add(d);
-				}
+	private void resetOccupantsOnBoard(GameBoard board) {
+		for (int x = 0; x < board.getMaxX(); x++) {
+			for (int y = 0; y < board.getMaxY(); y++) {
+				setNode(x, y, null, board);
 			}
 		}
-		return directions;
 	}
 
 	private void setNode(int x, int y, GameBoard board) {
@@ -71,7 +66,7 @@ public class DefaultRulesTest {
 	@Test
 	public void testGetNodesToSwap() {
 		GameBoard board = mockBoard(3);
-		DefaultRules defaultRules = new DefaultRules(getMockDirections(), board);
+		DefaultRules defaultRules = new DefaultRules(directionFactory.getAllDirections(), board);
 		List<Node> swap = null;
 
 		// Scenario:
@@ -80,14 +75,12 @@ public class DefaultRulesTest {
 		// | empty empty empty |
 		setNode(0, 0, "white", board);
 		setNode(1, 0, "black", board);
+		swap = defaultRules.getNodesToSwap("white", "x2y0");
 
 		// Should be:
 		// | white white white |
 		// | empty empty empty |
 		// | empty empty empty |
-
-		swap = defaultRules.getNodesToSwap("white", "x2y0");
-
 		assertEquals(swap.size(), 3);
 		assertEquals(swap.get(1), board.getNode(1, 0));
 		assertEquals(swap.get(2), board.getNode(2, 0));
@@ -134,19 +127,19 @@ public class DefaultRulesTest {
 		setNode(0, 2, board);
 		setNode(1, 2, "black", board);
 		setNode(2, 2, "white", board);
+		swap = defaultRules.getNodesToSwap("white", "x0y2");
 
 		// Should be:
 		// | white black white |
 		// | white white black |
 		// | white white white |
-		swap = defaultRules.getNodesToSwap("white", "x0y2");
 		assertEquals(swap.size(), 5);
 	}
 
 	@Test
-	public void hasValidMoveTest() {
+	public void testHasValidMove() {
 		GameBoard board = mockBoard(5);
-		DefaultRules defaultRules = new DefaultRules(getMockDirections(), board);
+		DefaultRules defaultRules = new DefaultRules(directionFactory.getAllDirections(), board);
 
 		// Scenario:
 		// | white black empty empty empty |
@@ -156,8 +149,8 @@ public class DefaultRulesTest {
 		// | empty empty empty empty empty |
 		setNode(0, 0, "white", board);
 		setNode(1, 0, "black", board);
-		assertEquals(defaultRules.hasValidMove("white"), true);
-		assertEquals(defaultRules.hasValidMove("black"), false);
+		assertTrue(defaultRules.hasValidMove("white"));
+		assertFalse(defaultRules.hasValidMove("black"));
 
 		// Scenario:
 		// | white black black black empty |
@@ -167,8 +160,8 @@ public class DefaultRulesTest {
 		// | empty empty empty empty empty |
 		setNode(2, 0, "black", board);
 		setNode(3, 0, "black", board);
-		assertEquals(defaultRules.hasValidMove("white"), true);
-		assertEquals(defaultRules.hasValidMove("black"), false);
+		assertTrue(defaultRules.hasValidMove("white"));
+		assertFalse(defaultRules.hasValidMove("black"));
 
 		// Scenario:
 		// | white black black black black |
@@ -177,15 +170,11 @@ public class DefaultRulesTest {
 		// | empty empty empty empty empty |
 		// | empty empty empty empty empty |
 		setNode(4, 0, "black", board);
-		assertEquals(defaultRules.hasValidMove("white"), false);
-		assertEquals(defaultRules.hasValidMove("black"), false);
+		assertFalse(defaultRules.hasValidMove("white"));
+		assertFalse(defaultRules.hasValidMove("black"));
 
 		// Reset board
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				setNode(i, j, board);
-			}
-		}
+		resetOccupantsOnBoard(board);
 
 		// Scenario:
 		// | white empty empty empty empty |
@@ -197,8 +186,8 @@ public class DefaultRulesTest {
 		setNode(1, 1, "black", board);
 		setNode(2, 2, "black", board);
 		setNode(3, 3, "black", board);
-		assertEquals(defaultRules.hasValidMove("white"), true);
-		assertEquals(defaultRules.hasValidMove("black"), false);
+		assertTrue(defaultRules.hasValidMove("white"));
+		assertFalse(defaultRules.hasValidMove("black"));
 
 		// Scenario:
 		// | white empty empty empty empty |
@@ -210,8 +199,8 @@ public class DefaultRulesTest {
 		setNode(1, 1, "black", board);
 		setNode(2, 2, "black", board);
 		setNode(3, 3, "black", board);
-		assertEquals(defaultRules.hasValidMove("white"), true);
-		assertEquals(defaultRules.hasValidMove("black"), false);
+		assertTrue(defaultRules.hasValidMove("white"));
+		assertFalse(defaultRules.hasValidMove("black"));
 
 		// Scenario:
 		// | white empty empty empty empty |
@@ -220,15 +209,11 @@ public class DefaultRulesTest {
 		// | empty empty empty black empty |
 		// | empty empty empty empty black |
 		setNode(4, 4, "black", board);
-		assertEquals(defaultRules.hasValidMove("white"), false);
-		assertEquals(defaultRules.hasValidMove("black"), false);
+		assertFalse(defaultRules.hasValidMove("white"));
+		assertFalse(defaultRules.hasValidMove("black"));
 
 		// Reset board
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				setNode(i, j, board);
-			}
-		}
+		resetOccupantsOnBoard(board);
 
 		// Scenario:
 		// | white empty empty empty empty |
@@ -240,8 +225,8 @@ public class DefaultRulesTest {
 		setNode(0, 1, "black", board);
 		setNode(0, 2, "black", board);
 		setNode(0, 3, "black", board);
-		assertEquals(defaultRules.hasValidMove("white"), true);
-		assertEquals(defaultRules.hasValidMove("black"), false);
+		assertTrue(defaultRules.hasValidMove("white"));
+		assertFalse(defaultRules.hasValidMove("black"));
 
 		// Scenario:
 		// | white empty empty empty empty |
@@ -250,8 +235,9 @@ public class DefaultRulesTest {
 		// | empty empty empty black empty |
 		// | empty empty empty empty black |
 		setNode(0, 4, "black", board);
-		assertEquals(defaultRules.hasValidMove("white"), false);
-		assertEquals(defaultRules.hasValidMove("black"), false);
+		assertFalse(defaultRules.hasValidMove("white"));
+		assertFalse(defaultRules.hasValidMove("black"));
 
 	}
+
 }
