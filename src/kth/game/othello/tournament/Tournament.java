@@ -1,4 +1,4 @@
-package kth.game.tournament;
+package kth.game.othello.tournament;
 
 import kth.game.othello.Othello;
 import kth.game.othello.factory.OthelloGameFactor;
