@@ -1,7 +1,6 @@
 package kth.game.othello.player;
 
 import java.util.List;
-import java.util.Observable;
 import java.util.Random;
 
 import kth.game.othello.rules.Rules;
@@ -13,7 +12,7 @@ import kth.game.othello.rules.Rules;
  * @author Per Classon
  * @author Tommy Roshult
  */
-public class PlayerHandler extends Observable {
+public class PlayerHandler {
 	private Player playerInTurn;
 	private List<Player> players;
 	private Random random;

@@ -1,6 +1,7 @@
 package kth.game.othello;
 
 import java.util.List;
+import java.util.Observable;
 import java.util.Observer;
 
 import kth.game.othello.board.Board;
@@ -21,7 +22,7 @@ import kth.game.othello.score.Score;
  * @author Per Classon
  * @author Tommy Roshult
  */
-public class Game implements Othello {
+public class Game extends Observable implements Othello {
 	private Board board;
 	private MoveHandler moveHandler;
 	private PlayerHandler playerHandler;
@@ -78,6 +79,10 @@ public class Game implements Othello {
 	public List<Node> move() {
 		List<Node> nodes = moveHandler.move();
 		saveCurrentState();
+		if (!isActive()) {
+			setChanged();
+			notifyObservers();
+		}
 		return nodes;
 	}
 
@@ -85,6 +90,10 @@ public class Game implements Othello {
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
 		List<Node> nodes = moveHandler.move(playerId, nodeId);
 		saveCurrentState();
+		if (!isActive()) {
+			setChanged();
+			notifyObservers();
+		}
 		return nodes;
 	}
 
@@ -107,7 +116,7 @@ public class Game implements Othello {
 
 	@Override
 	public void addGameFinishedObserver(Observer observer) {
-		playerHandler.addObserver(observer);
+		addObserver(observer);
 	}
 
 	@Override
@@ -131,4 +140,5 @@ public class Game implements Othello {
 	private void saveCurrentState() {
 		gameStateHandler.add(this);
 	}
+
 }
