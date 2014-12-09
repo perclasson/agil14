@@ -12,7 +12,8 @@ public class NodeOccupantNotification {
 	public String newOccupantPlayerId;
 
 	/**
-	 * Creates a new NodeOccupantNotification that contains the previous and new occupant player id.
+	 * Creates a new NodeOccupantNotification that contains the previous and new
+	 * occupant player id.
 	 * 
 	 * @param prevPlayerId
 	 *            The previous player id.

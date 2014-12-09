@@ -52,7 +52,7 @@ public class OthelloGameFactory implements OthelloFactory {
 		List<Player> players = new ArrayList<Player>();
 		players.add(playerFactory.createComputerPlayer("Computer 1", moveStrategy));
 		players.add(playerFactory.createComputerPlayer("Computer 2", moveStrategy));
-		
+
 		GameBoard board = new GameBoard(new Square().getNodes(BOARD_ORDER, players));
 		Rules rules = new DefaultRules(directionFactory.getAllDirections(), board);
 		PlayerHandler playerHandler = new PlayerHandler(players, rules, random);

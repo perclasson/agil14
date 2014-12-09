@@ -22,7 +22,7 @@ public abstract class AbstractTest {
 		}
 		return occupiedNodesCounter;
 	}
-	
+
 	protected void makeAHumanMove(Othello othello, Player human) {
 		for (Node node : othello.getBoard().getNodes()) {
 			if (othello.isMoveValid(human.getId(), node.getId())) {

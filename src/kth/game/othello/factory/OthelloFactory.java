@@ -36,7 +36,8 @@ public interface OthelloFactory {
 	public Othello createHumanVersusComputerGame();
 
 	/**
-	 * Creates an Othello game with the given players on a board that contains the given nodes
+	 * Creates an Othello game with the given players on a board that contains
+	 * the given nodes
 	 *
 	 * @param nodesData
 	 *            the nodes of the board
