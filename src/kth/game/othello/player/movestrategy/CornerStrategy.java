@@ -7,7 +7,7 @@ import kth.game.othello.board.Node;
 import kth.game.othello.rules.Rules;
 
 /**
- * A move strategy where the move that will swap most node of occupant player will be made.
+ * A move strategy where the moves near the corners are chosen.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon
