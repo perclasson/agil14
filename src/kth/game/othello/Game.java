@@ -27,19 +27,15 @@ public class Game implements Othello {
 	private PlayerHandler playerHandler;
 	private Score score;
 	private String gameId;
-	private List<Observer> gameFinishedObservers;
-	private List<Observer> moveObservers;
 	private GameStateHandler gameStateHandler;
 
 	public Game(Board board, PlayerHandler playerHandler, MoveHandler moveHandler, Score score, String gameId,
-			List<Observer> gameFinishedObservers, List<Observer> moveObservers, GameStateHandler gameStateHandler) {
+			GameStateHandler gameStateHandler) {
 		this.board = board;
 		this.moveHandler = moveHandler;
 		this.playerHandler = playerHandler;
 		this.score = score;
 		this.gameId = gameId;
-		this.gameFinishedObservers = gameFinishedObservers;
-		this.moveObservers = moveObservers;
 		this.gameStateHandler = gameStateHandler;
 	}
 
@@ -111,19 +107,12 @@ public class Game implements Othello {
 
 	@Override
 	public void addGameFinishedObserver(Observer observer) {
-		// TODO this game finished observers are to be used
-		if (!gameFinishedObservers.contains(observer)) {
-			gameFinishedObservers.add(observer);
-		}
-
+		playerHandler.addObserver(observer);
 	}
 
 	@Override
 	public void addMoveObserver(Observer observer) {
-		// TODO these move observers are to be used
-		if (!moveObservers.contains(observer)) {
-			moveObservers.add(observer);
-		}
+		moveHandler.addObserver(observer);
 	}
 
 	@Override

@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.Stack;
 
-import kth.game.othello.Othello;
 import kth.game.othello.Game;
+import kth.game.othello.Othello;
 import kth.game.othello.board.GameBoard;
 import kth.game.othello.board.factory.NodeData;
 import kth.game.othello.board.factory.Square;
+import kth.game.othello.gamestate.GameState;
+import kth.game.othello.gamestate.GameStateFactory;
+import kth.game.othello.gamestate.GameStateHandler;
 import kth.game.othello.move.DirectionFactory;
 import kth.game.othello.move.MoveHandler;
 import kth.game.othello.player.Player;
@@ -54,8 +58,8 @@ public class OthelloGameFactor implements OthelloFactory {
 		PlayerHandler playerHandler = new PlayerHandler(players, rules, random);
 		MoveHandler moveHandler = new MoveHandler(board, playerHandler, rules);
 		GameScore score = new GameScore(players, board.getNodes());
-
-		return new Game(board, playerHandler, moveHandler, score);
+		GameStateHandler gameStateHandler = new GameStateHandler(new Stack<GameState>(), new GameStateFactory());
+		return new Game(board, playerHandler, moveHandler, score, "gameId", gameStateHandler);
 	}
 
 	@Override
@@ -70,8 +74,8 @@ public class OthelloGameFactor implements OthelloFactory {
 		PlayerHandler playerHandler = new PlayerHandler(players, rules, random);
 		MoveHandler moveHandler = new MoveHandler(board, playerHandler, rules);
 		GameScore score = new GameScore(players, board.getNodes());
-
-		return new Game(board, playerHandler, moveHandler, score);
+		GameStateHandler gameStateHandler = new GameStateHandler(new Stack<GameState>(), new GameStateFactory());
+		return new Game(board, playerHandler, moveHandler, score, "gameId", gameStateHandler);
 	}
 
 	@Override
@@ -88,8 +92,8 @@ public class OthelloGameFactor implements OthelloFactory {
 		PlayerHandler playerHandler = new PlayerHandler(players, rules, random);
 		MoveHandler moveHandler = new MoveHandler(board, playerHandler, rules);
 		GameScore score = new GameScore(players, board.getNodes());
-
-		return new Game(board, playerHandler, moveHandler, score);
+		GameStateHandler gameStateHandler = new GameStateHandler(new Stack<GameState>(), new GameStateFactory());
+		return new Game(board, playerHandler, moveHandler, score, "gameId", gameStateHandler);
 	}
 
 	@Override
@@ -100,7 +104,8 @@ public class OthelloGameFactor implements OthelloFactory {
 		PlayerHandler playerHandler = new PlayerHandler(players, rules, random);
 		MoveHandler moveHandler = new MoveHandler(board, playerHandler, rules);
 		GameScore score = new GameScore(players, board.getNodes());
-		return new Game(board, playerHandler, moveHandler, score);
+		GameStateHandler gameStateHandler = new GameStateHandler(new Stack<GameState>(), new GameStateFactory());
+		return new Game(board, playerHandler, moveHandler, score, "gameId", gameStateHandler);
 	}
 
 }

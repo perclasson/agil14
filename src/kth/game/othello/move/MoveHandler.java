@@ -1,6 +1,7 @@
 package kth.game.othello.move;
 
 import java.util.List;
+import java.util.Observable;
 
 import kth.game.othello.board.GameBoard;
 import kth.game.othello.board.Node;
@@ -16,7 +17,7 @@ import kth.game.othello.rules.Rules;
  * @author Per Classon
  * @author Tommy Roshult
  */
-public class MoveHandler {
+public class MoveHandler extends Observable {
 
 	private GameBoard gameBoard;
 	private PlayerHandler playerHandler;
@@ -69,11 +70,13 @@ public class MoveHandler {
 		gameBoard.changeOccupantOnNodes(nodes, playerId);
 
 		playerHandler.changePlayerInTurn();
-		
+
 		// TODO maybe move this to player handler
 		if (!hasValidMove(playerHandler.getPlayerInTurn().getId())) {
 			playerHandler.setPlayerInTurn(null);
 		}
+
+		notifyObservers(nodes);
 
 		return nodes;
 	}

@@ -1,6 +1,7 @@
 package kth.game.othello.player;
 
 import java.util.List;
+import java.util.Observable;
 import java.util.Random;
 
 import kth.game.othello.rules.Rules;
@@ -12,15 +13,14 @@ import kth.game.othello.rules.Rules;
  * @author Per Classon
  * @author Tommy Roshult
  */
-public class PlayerHandler {
+public class PlayerHandler extends Observable {
 	private Player playerInTurn;
 	private List<Player> players;
 	private Random random;
 	private Rules rules;
 
 	/**
-	 * Creates a PlayerHandler object that keeps track of the players and player
-	 * in turn.
+	 * Creates a PlayerHandler object that keeps track of the players and player in turn.
 	 * 
 	 * @param players
 	 *            A list of Player objects to handle.
@@ -49,12 +49,10 @@ public class PlayerHandler {
 	}
 
 	/**
-	 * Sets the current player in turn to the Player with the given playerId or
-	 * null if it the player id is not found.
+	 * Sets the current player in turn to the Player with the given playerId or null if it the player id is not found.
 	 * 
 	 * @param playerId
-	 *            The player id of the player that is set to be in turn or null
-	 *            if playerId does not match any player.
+	 *            The player id of the player that is set to be in turn or null if playerId does not match any player.
 	 */
 	public void setPlayerInTurn(String playerId) {
 		for (Player player : players) {
@@ -67,8 +65,7 @@ public class PlayerHandler {
 	}
 
 	/**
-	 * Change the player in turn to the next one. If no player can move, the
-	 * player in turn will be set to null.
+	 * Change the player in turn to the next one. If no player can move, the player in turn will be set to null.
 	 */
 	public void changePlayerInTurn() {
 		int playerInTurnIndex = getPlayerInTurnIndex();
@@ -78,7 +75,7 @@ public class PlayerHandler {
 		if (playerInTurnIndex != -1) {
 			nextPlayerIndex = getNextPlayerIndex(playerInTurnIndex);
 		}
-		
+
 		// Rotate until we have tried all players or found one
 		Player nextPlayer = null;
 		while (nextPlayerIndex != playerInTurnIndex) {
@@ -93,6 +90,11 @@ public class PlayerHandler {
 
 		// Set player in turn to found player or null
 		playerInTurn = nextPlayer;
+
+		// If game is finished
+		if (playerInTurn == null) {
+			notifyObservers();
+		}
 	}
 
 	/**
