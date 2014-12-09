@@ -85,6 +85,8 @@ public class GameScore extends Observable implements Observer, Score {
 		ScoreItem oldScore = scores.get(playerId);
 		setChanged();
 		scores.put(playerId, new ScoreItem(playerId, oldScore.getScore() + value));
-		notifyObservers(scores);
+		List<String> changedPlayers = new ArrayList<String>();
+		changedPlayers.add(playerId);
+		notifyObservers(changedPlayers);
 	}
 }
