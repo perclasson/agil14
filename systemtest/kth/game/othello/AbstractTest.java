@@ -1,8 +1,6 @@
 package kth.game.othello;
 
 import kth.game.othello.board.Node;
-import kth.game.othello.factory.OthelloFactory;
-import kth.game.othello.factory.OthelloGameFactor;
 import kth.game.othello.player.Player;
 
 /**
@@ -24,11 +22,7 @@ public abstract class AbstractTest {
 		}
 		return occupiedNodesCounter;
 	}
-
-	protected OthelloFactory getOthelloFactory() {
-		return new OthelloGameFactor();
-	}
-
+	
 	protected void makeAHumanMove(Othello othello, Player human) {
 		for (Node node : othello.getBoard().getNodes()) {
 			if (othello.isMoveValid(human.getId(), node.getId())) {

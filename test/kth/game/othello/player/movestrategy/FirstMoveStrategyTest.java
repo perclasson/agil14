@@ -21,7 +21,7 @@ public class FirstMoveStrategyTest {
 	public void testMove() {
 		Rules rules = mock(Rules.class);
 		Board board = mock(Board.class);
-		FirstMoveStrategy m = new FirstMoveStrategy();
+		MinSwappedStrategy m = new MinSwappedStrategy();
 
 		// No move possible, should return null
 		assertEquals(m.move("player", rules, board), null);

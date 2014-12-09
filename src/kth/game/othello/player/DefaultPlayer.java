@@ -10,14 +10,14 @@ import kth.game.othello.player.movestrategy.MoveStrategy;
  * @author Tommy Roshult
  */
 public class DefaultPlayer implements Player {
-
 	private String id;
 	private String name;
 	private Type type;
 	private MoveStrategy moveStrategy;
 
 	/**
-	 * Creates a DefaultPlayer object that represents a Player in the game of Othello.
+	 * Creates a DefaultPlayer object that represents a Player in the game of
+	 * Othello.
 	 * 
 	 * @param type
 	 *            The type of the player.
@@ -33,7 +33,8 @@ public class DefaultPlayer implements Player {
 	}
 
 	/**
-	 * Creates a DefaultPlayer object that represents a Player in the game of Othello.
+	 * Creates a DefaultPlayer object that represents a Player in the game of
+	 * Othello.
 	 * 
 	 * @param type
 	 *            The type of the player.
@@ -76,4 +77,28 @@ public class DefaultPlayer implements Player {
 		this.moveStrategy = moveStrategy;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DefaultPlayer other = (DefaultPlayer) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 }

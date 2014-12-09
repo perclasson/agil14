@@ -1,6 +1,5 @@
 package kth.game.othello.player.movestrategy;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import kth.game.othello.board.Board;
@@ -16,22 +15,26 @@ import kth.game.othello.rules.Rules;
  * @author Tommy Roshult
  * 
  */
-public class FirstMoveStrategy implements MoveStrategy {
+public class MinSwappedStrategy implements MoveStrategy {
 
 	@Override
 	public String getName() {
-		return "first move strategy";
+		return "min swapped strategy";
 	}
 
 	@Override
 	public Node move(String playerId, Rules rules, Board board) {
-		for (Node node : board.getNodes()) {
-			if (rules.getNodesToSwap(playerId, node.getId()).size() > 0) {
-				// A move was found, return it
-				return node;
+		List<Node> nodes = board.getNodes();
+		int minSwapSize = Integer.MAX_VALUE;
+		Node minNode = null;
+		for (Node node : nodes) {
+			List<Node> swapped = rules.getNodesToSwap(playerId, node.getId());
+			if (swapped.size() > 0 && swapped.size() < minSwapSize) {
+				minSwapSize = swapped.size();
+				minNode = node;
 			}
 		}
-		return null;
+		return minNode;
 	}
 
 }

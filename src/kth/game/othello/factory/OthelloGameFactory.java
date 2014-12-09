@@ -32,13 +32,13 @@ import kth.game.othello.score.GameScore;
  * @author Per Classon
  * @author Tommy Roshult
  */
-public class OthelloGameFactor implements OthelloFactory {
+public class OthelloGameFactory implements OthelloFactory {
 	private static final int BOARD_ORDER = 8;
 
 	private PlayerFactory playerFactory;
 	private DirectionFactory directionFactory;
 
-	public OthelloGameFactor() {
+	public OthelloGameFactory() {
 		this.playerFactory = new PlayerFactory();
 		this.directionFactory = new DirectionFactory();
 	}
@@ -52,7 +52,7 @@ public class OthelloGameFactor implements OthelloFactory {
 		List<Player> players = new ArrayList<Player>();
 		players.add(playerFactory.createComputerPlayer("Computer 1", moveStrategy));
 		players.add(playerFactory.createComputerPlayer("Computer 2", moveStrategy));
-
+		
 		GameBoard board = new GameBoard(new Square().getNodes(BOARD_ORDER, players));
 		Rules rules = new DefaultRules(directionFactory.getAllDirections(), board);
 		PlayerHandler playerHandler = new PlayerHandler(players, rules, random);

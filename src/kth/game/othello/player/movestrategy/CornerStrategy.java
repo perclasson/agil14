@@ -39,10 +39,10 @@ public class CornerStrategy implements MoveStrategy {
 	}
 
 	private double evaluateNode(Node node, Board board) {
-		double x = (double) node.getXCoordinate();
-		double y = (double) node.getYCoordinate();
-		double meanX = ((double) board.getMaxX()) / 2.0d;
-		double meanY = ((double) board.getMaxY()) / 2.0d;
+		double x = node.getXCoordinate();
+		double y = node.getYCoordinate();
+		double meanX = (board.getMaxX()) / 2.0d;
+		double meanY = (board.getMaxY()) / 2.0d;
 
 		return Math.pow((x - meanX), 2.0d) + Math.pow((y - meanY), 2.0d);
 	}

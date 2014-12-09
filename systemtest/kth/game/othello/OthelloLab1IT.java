@@ -2,8 +2,10 @@ package kth.game.othello;
 
 import kth.game.othello.Othello;
 import kth.game.othello.board.Node;
+import kth.game.othello.factory.OthelloGameFactory;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.Player.Type;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -16,13 +18,19 @@ import org.junit.Test;
  */
 public class OthelloLab1IT extends AbstractTest {
 
+	private OthelloGameFactory othelloFactory;
+
+	public OthelloLab1IT() {
+		this.othelloFactory = new OthelloGameFactory();
+	}
+
 	/**
-	 * DEMO 2 Integration test which show that the model allows for one computer and one human to play against each
-	 * other for 10 moves.
+	 * DEMO 2 Integration test which show that the model allows for one computer
+	 * and one human to play against each other for 10 moves.
 	 */
 	@Test
 	public void someMovesBetweenAComputerAndHumanTest() {
-		Othello othello = getOthelloFactory().createHumanVersusComputerGame();
+		Othello othello = othelloFactory.createHumanVersusComputerGame();
 		Player human = (othello.getPlayers().get(0).getType() == Type.COMPUTER) ? othello.getPlayers().get(1) : othello
 				.getPlayers().get(0);
 		othello.start(human.getId());
@@ -37,11 +45,12 @@ public class OthelloLab1IT extends AbstractTest {
 	}
 
 	/**
-	 * DEMO 1 Integration test which show that two computer players can start a game and and print out who has won.
+	 * DEMO 1 Integration test which show that two computer players can start a
+	 * game and and print out who has won.
 	 */
 	@Test
 	public void twoComputerOnAClassicalBoardTest() {
-		Othello othello = getOthelloFactory().createComputerGame();
+		Othello othello = othelloFactory.createComputerGame();
 		othello.start(othello.getPlayers().get(0).getId());
 		while (othello.isActive()) {
 			Assert.assertEquals(Type.COMPUTER, othello.getPlayerInTurn().getType());

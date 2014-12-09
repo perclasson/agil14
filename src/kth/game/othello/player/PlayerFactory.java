@@ -12,7 +12,7 @@ import kth.game.othello.player.movestrategy.MoveStrategy;
  */
 public class PlayerFactory {
 
-	private int id = 0;
+	private static int ID = 0;
 
 	public Player createComputerPlayer(String name, MoveStrategy moveStrategy) {
 		return new DefaultPlayer(Type.COMPUTER, name, generatePlayerId(), moveStrategy);
@@ -23,6 +23,6 @@ public class PlayerFactory {
 	}
 
 	private String generatePlayerId() {
-		return Integer.toString(id++);
+		return Integer.toString(++ID);
 	}
 }

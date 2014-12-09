@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import kth.game.othello.board.factory.Diamond;
+import kth.game.othello.factory.OthelloGameFactory;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.Player.Type;
 import kth.game.othello.player.PlayerFactory;
@@ -27,10 +28,12 @@ public class OthelloLab2IT extends AbstractTest {
 
 	private PlayerFactory playerFactory;
 	private Random random;
+	private OthelloGameFactory othelloFactory;
 
 	public OthelloLab2IT() {
 		this.random = new Random();
 		this.playerFactory = new PlayerFactory();
+		this.othelloFactory = new OthelloGameFactory();
 	}
 
 	private MoveStrategy getNewMoveStrategy() {
@@ -45,13 +48,12 @@ public class OthelloLab2IT extends AbstractTest {
 			} else {
 				Assert.assertEquals(null, othello.getPlayerInTurn());
 			}
-
 		}
 	}
 
 	@Test
 	public void studyTheInitialScoreTest() {
-		Othello othello = getOthelloFactory().createComputerGame();
+		Othello othello = othelloFactory.createComputerGame();
 		String playerId = othello.getPlayers().get(0).getId();
 		othello.start();
 		Assert.assertEquals(2, othello.getScore().getPoints(playerId));
@@ -59,7 +61,7 @@ public class OthelloLab2IT extends AbstractTest {
 
 	@Test
 	public void studyTheScoreAfterAMoveTest() {
-		Othello othello = getOthelloFactory().createComputerGame();
+		Othello othello = othelloFactory.createComputerGame();
 		String playerId = othello.getPlayers().get(1).getId();
 		othello.start(playerId);
 		othello.move(playerId, othello.getBoard().getNode(5, 3).getId());
@@ -67,12 +69,13 @@ public class OthelloLab2IT extends AbstractTest {
 	}
 
 	/*
-	 * Demo 4 Start a computer game with two computers. Make ten moves with each player. Change the strategy for one of
-	 * the players. Go to step 2 until one of the computers won.
+	 * Demo 4 Start a computer game with two computers. Make ten moves with each
+	 * player. Change the strategy for one of the players. Go to step 2 until
+	 * one of the computers won.
 	 */
 	@Test
 	public void twoComputerOnAClassicalBoardTest() {
-		Othello othello = getOthelloFactory().createComputerGame();
+		Othello othello = othelloFactory.createComputerGame();
 		othello.start(othello.getPlayers().get(0).getId());
 
 		// Make some moves
@@ -88,11 +91,12 @@ public class OthelloLab2IT extends AbstractTest {
 	}
 
 	/*
-	 * Demo 5 Start a human against human game. Make four moves for each player. Show the score.
+	 * Demo 5 Start a human against human game. Make four moves for each player.
+	 * Show the score.
 	 */
 	@Test
 	public void humanVersusHumanGame() {
-		Othello othello = getOthelloFactory().createHumanGame();
+		Othello othello = othelloFactory.createHumanGame();
 
 		Player one = othello.getPlayers().get(0);
 		Player two = othello.getPlayers().get(1);
@@ -111,7 +115,8 @@ public class OthelloLab2IT extends AbstractTest {
 	}
 
 	/*
-	 * Demo 6 Create three computers. Use the diamond board from the board factory. Play the game and show the result.
+	 * Demo 6 Create three computers. Use the diamond board from the board
+	 * factory. Play the game and show the result.
 	 */
 	@Test
 	public void threeComputersOnADiamondBoardTest() {
@@ -121,7 +126,7 @@ public class OthelloLab2IT extends AbstractTest {
 		players.add(playerFactory.createComputerPlayer("orange", new MoveRandomStrategy(random)));
 
 		Diamond diamond = new Diamond();
-		Othello othello = getOthelloFactory().createGame(diamond.getNodes(11, players), players);
+		Othello othello = othelloFactory.createGame(diamond.getNodes(11, players), players);
 		othello.start();
 		while (othello.isActive()) {
 			othello.move();
