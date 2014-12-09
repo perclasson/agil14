@@ -89,12 +89,6 @@ public class PlayerHandler {
 
 		// Set player in turn to found player or null
 		playerInTurn = nextPlayer;
-
-		// If game is finished
-		if (playerInTurn == null) {
-			setChanged();
-			notifyObservers();
-		}
 	}
 
 	/**
