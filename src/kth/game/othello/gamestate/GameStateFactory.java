@@ -6,6 +6,7 @@ import java.util.Set;
 import kth.game.othello.Game;
 import kth.game.othello.board.Node;
 import kth.game.othello.board.factory.NodeData;
+import kth.game.othello.player.Player;
 
 public class GameStateFactory {
 	public GameState create(Game game) {
@@ -15,7 +16,12 @@ public class GameStateFactory {
 			nodeData.add(new NodeData(node.getXCoordinate(), node.getYCoordinate(), node.getOccupantPlayerId()));
 		}
 
-		String playerInTurnId = game.getPlayerInTurn().getId();
+		Player playerInTurn = game.getPlayerInTurn();
+		String playerInTurnId = null;
+
+		if (playerInTurn != null) {
+			playerInTurnId = playerInTurn.getId();
+		}
 
 		return new GameState(nodeData, playerInTurnId);
 	}

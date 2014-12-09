@@ -71,11 +71,6 @@ public class MoveHandler extends Observable {
 
 		playerHandler.changePlayerInTurn();
 
-		// TODO maybe move this to player handler
-		if (!hasValidMove(playerHandler.getPlayerInTurn().getId())) {
-			playerHandler.setPlayerInTurn(null);
-		}
-
 		notifyObservers(nodes);
 
 		return nodes;
