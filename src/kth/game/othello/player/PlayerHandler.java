@@ -93,6 +93,7 @@ public class PlayerHandler extends Observable {
 
 		// If game is finished
 		if (playerInTurn == null) {
+			setChanged();
 			notifyObservers();
 		}
 	}

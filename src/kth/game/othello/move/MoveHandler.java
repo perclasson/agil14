@@ -71,6 +71,7 @@ public class MoveHandler extends Observable {
 
 		playerHandler.changePlayerInTurn();
 
+		setChanged();
 		notifyObservers(nodes);
 
 		return nodes;
