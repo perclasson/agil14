@@ -237,7 +237,6 @@ public class DefaultRulesTest {
 		setNode(0, 4, "black", board);
 		assertFalse(defaultRules.hasValidMove("white"));
 		assertFalse(defaultRules.hasValidMove("black"));
-
 	}
 
 }

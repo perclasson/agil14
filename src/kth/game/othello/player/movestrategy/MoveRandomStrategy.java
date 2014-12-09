@@ -31,7 +31,11 @@ public class MoveRandomStrategy implements MoveStrategy {
 	@Override
 	public Node move(String playerId, Rules rules, Board board) {
 		List<Node> nodes = getPossibleMoves(playerId, rules, board);
-		return nodes.get(random.nextInt(nodes.size()));
+		if (nodes.size() > 0) {
+			return nodes.get(random.nextInt(nodes.size()));
+		} else {
+			return null;
+		}
 	}
 
 	private List<Node> getPossibleMoves(String playerId, Rules rules, Board board) {

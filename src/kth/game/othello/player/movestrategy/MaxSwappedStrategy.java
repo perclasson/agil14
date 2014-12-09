@@ -7,8 +7,8 @@ import kth.game.othello.board.Node;
 import kth.game.othello.rules.Rules;
 
 /**
- * A move strategy where the move that leads to most changes of occupant player
- * will be swapped.
+ * A move strategy where the move that will swap most node of occupant player
+ * will be made.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon
