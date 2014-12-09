@@ -1,8 +1,9 @@
 package kth.game.othello.rules;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
@@ -24,19 +25,14 @@ public class DefaultRules implements Rules {
 
 	@Override
 	public List<Node> getNodesToSwap(String playerId, String nodeId) {
-
 		List<Move> moves = getMoves(playerId, nodeId);
-
-		List<Node> swappedNodes = new ArrayList<Node>();
+		Set<Node> swappedNodes = new HashSet<Node>();
 		if (moves.size() > 0) {
-			Move firstMove = moves.get(0);
-			swappedNodes.add(firstMove.getStartNode());
 			for (Move move : moves) {
-				swappedNodes.addAll(move.getIntermediateNodes());
+				swappedNodes.addAll(move.getNodes());
 			}
-			swappedNodes.add(firstMove.getEndNode());
 		}
-		return swappedNodes;
+		return new ArrayList<Node>(swappedNodes);
 	}
 
 	@Override
@@ -91,7 +87,6 @@ public class DefaultRules implements Rules {
 
 		// Move from the target until we meet a node of our own
 		while (true) {
-
 			currentNode = getNextNode(currentNode, direction);
 
 			if (currentNode == null) {
@@ -105,12 +100,9 @@ public class DefaultRules implements Rules {
 			if (nodeIsOpponent) {
 				visitedNodes.add(currentNode);
 			} else if (visitedNodes.size() >= 2 && nodeIsMine) {
-				// The move was valid and add the current node
-				visitedNodes.add(currentNode);
-
-				// The move made is the reverse of the list
-				Collections.reverse(visitedNodes);
 				return new Move(visitedNodes);
+			} else {
+				break;
 			}
 		}
 		return null;

@@ -1,8 +1,8 @@
 package kth.game.othello.rules;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -81,9 +81,9 @@ public class DefaultRulesTest {
 		// | white white white |
 		// | empty empty empty |
 		// | empty empty empty |
-		assertEquals(swap.size(), 3);
+		assertEquals(swap.size(), 2);
+		assertEquals(swap.get(0), board.getNode(2, 0));
 		assertEquals(swap.get(1), board.getNode(1, 0));
-		assertEquals(swap.get(2), board.getNode(2, 0));
 
 		// Scenario:
 		// | white black empty |
@@ -133,7 +133,7 @@ public class DefaultRulesTest {
 		// | white black white |
 		// | white white black |
 		// | white white white |
-		assertEquals(swap.size(), 5);
+		assertEquals(swap.size(), 4);
 	}
 
 	@Test

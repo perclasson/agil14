@@ -57,6 +57,10 @@ public class Move {
 		return intermediateNodes;
 	}
 
+	public List<Node> getNodes() {
+		return nodes;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
