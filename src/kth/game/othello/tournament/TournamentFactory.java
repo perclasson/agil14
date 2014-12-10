@@ -27,8 +27,7 @@ public class TournamentFactory {
 	private PlayerFactory playerFactory;
 
 	/**
-	 * Creates a TournamentFactory object that can be used to create tournaments
-	 * of the othello game.
+	 * Creates a TournamentFactory object that can be used to create tournaments of the othello game.
 	 * 
 	 * @param othelloFactory
 	 *            For creating othello games.
@@ -41,9 +40,8 @@ public class TournamentFactory {
 	}
 
 	/**
-	 * Creates an Othello tournament that will rank the different move
-	 * strategies that is given. Each move strategy will meet the other
-	 * strategies twice and starting the game exactly once.
+	 * Creates an Othello tournament that will rank the different move strategies that is given. Each move strategy will
+	 * meet the other strategies twice and starting the game exactly once.
 	 * 
 	 * @param strategies
 	 *            The move strategies that will be ranked.

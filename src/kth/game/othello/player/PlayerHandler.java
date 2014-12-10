@@ -19,8 +19,7 @@ public class PlayerHandler {
 	private Rules rules;
 
 	/**
-	 * Creates a PlayerHandler object that keeps track of the players and player
-	 * in turn.
+	 * Creates a PlayerHandler object that keeps track of the players and player in turn.
 	 * 
 	 * @param players
 	 *            A list of Player objects to handle.
@@ -49,12 +48,10 @@ public class PlayerHandler {
 	}
 
 	/**
-	 * Sets the current player in turn to the Player with the given playerId or
-	 * null if it the player id is not found.
+	 * Sets the current player in turn to the Player with the given playerId or null if it the player id is not found.
 	 * 
 	 * @param playerId
-	 *            The player id of the player that is set to be in turn or null
-	 *            if playerId does not match any player.
+	 *            The player id of the player that is set to be in turn or null if playerId does not match any player.
 	 */
 	public void setPlayerInTurn(String playerId) {
 		for (Player player : players) {
@@ -67,8 +64,7 @@ public class PlayerHandler {
 	}
 
 	/**
-	 * Change the player in turn to the next one. If no player can move, the
-	 * player in turn will be set to null.
+	 * Change the player in turn to the next one. If no player can move, the player in turn will be set to null.
 	 */
 	public void changePlayerInTurn() {
 		int playerInTurnIndex = getPlayerInTurnIndex();

@@ -14,8 +14,7 @@ import kth.game.othello.score.Score;
 public interface GamePlayStrategy {
 
 	/**
-	 * Plays the given game of Othello with the starting player and returns the
-	 * score of the game.
+	 * Plays the given game of Othello with the starting player and returns the score of the game.
 	 * 
 	 * @param othello
 	 *            The game to be played.

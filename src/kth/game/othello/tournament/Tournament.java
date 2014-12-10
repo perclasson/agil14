@@ -22,8 +22,7 @@ public class Tournament {
 	 * @param gameInstances
 	 *            The game instances that will be played during the tournament.
 	 * @param result
-	 *            The result object that will contain the result of the
-	 *            tournament.
+	 *            The result object that will contain the result of the tournament.
 	 */
 	public Tournament(List<GameInstance> gameInstances, PlayerResult result) {
 		this.gameInstances = gameInstances;

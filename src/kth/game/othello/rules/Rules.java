@@ -5,8 +5,8 @@ import kth.game.othello.board.Node;
 import java.util.List;
 
 /**
- * The responsibility of the Rules is to define when a player can make a move
- * and in that case also determine what nodes to swap at the board.
+ * The responsibility of the Rules is to define when a player can make a move and in that case also determine what nodes
+ * to swap at the board.
  * 
  * @author Tomas Ekholm
  */

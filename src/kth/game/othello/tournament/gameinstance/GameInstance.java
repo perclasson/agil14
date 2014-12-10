@@ -16,8 +16,7 @@ public class GameInstance {
 	private GamePlayStrategy gamePlayStrategy;
 
 	/**
-	 * Creates an GameInstance object that represents an instance of Othello
-	 * with a game and a starting player.
+	 * Creates an GameInstance object that represents an instance of Othello with a game and a starting player.
 	 * 
 	 * @param othello
 	 *            The game of Othello.

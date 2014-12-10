@@ -24,8 +24,8 @@ public interface Othello {
 	public void addGameFinishedObserver(Observer observer);
 
 	/**
-	 * Adds an observer. The observers update will be called when a move has
-	 * finished including the nodes that have changed by the move.
+	 * Adds an observer. The observers update will be called when a move has finished including the nodes that have
+	 * changed by the move.
 	 *
 	 * @param observer
 	 *            the observer
@@ -104,29 +104,25 @@ public interface Othello {
 	public boolean isMoveValid(String playerId, String nodeId);
 
 	/**
-	 * If the player in turn is a computer than this computer makes a move and
-	 * updates the player in turn. All observers will be notified with the
-	 * additional argument being the list of nodes that were swapped.
+	 * If the player in turn is a computer than this computer makes a move and updates the player in turn. All observers
+	 * will be notified with the additional argument being the list of nodes that were swapped.
 	 *
-	 * @return the nodes that where swapped for this move, including the node
-	 *         where the player made the move
+	 * @return the nodes that where swapped for this move, including the node where the player made the move
 	 * @throws IllegalStateException
 	 *             if there is not a computer in turn
 	 */
 	public List<Node> move();
 
 	/**
-	 * Validates if the move is correct and if the player is in turn. If so,
-	 * then the move is made which updates the board and the player in turn. All
-	 * observers will be notified with the additional argument being the list of
-	 * nodes that were swapped.
+	 * Validates if the move is correct and if the player is in turn. If so, then the move is made which updates the
+	 * board and the player in turn. All observers will be notified with the additional argument being the list of nodes
+	 * that were swapped.
 	 *
 	 * @param playerId
 	 *            the id of the player that makes the move
 	 * @param nodeId
 	 *            the id of the node where the player wants to move
-	 * @return the nodes that where swapped for this move, including the node
-	 *         where the player made the move
+	 * @return the nodes that where swapped for this move, including the node where the player made the move
 	 * @throws IllegalArgumentException
 	 *             if the move is not valid, or if the player is not in turn
 	 */

@@ -19,8 +19,7 @@ public interface Player {
 	}
 
 	/**
-	 * The id is a unique identifier of this player in the context of all
-	 * players
+	 * The id is a unique identifier of this player in the context of all players
 	 *
 	 * @return the id
 	 */
@@ -50,8 +49,7 @@ public interface Player {
 	public Type getType();
 
 	/**
-	 * Sets a new move strategy on the player. The player must be of
-	 * {@link Type} COMPUTER
+	 * Sets a new move strategy on the player. The player must be of {@link Type} COMPUTER
 	 *
 	 * @param moveStrategy
 	 * @throws UnsupportedOperationException

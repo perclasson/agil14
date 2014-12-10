@@ -19,8 +19,7 @@ public class PlayerResult {
 	private List<Player> players;
 
 	/**
-	 * Creates a Result object that represents the result of players in a
-	 * tournament.
+	 * Creates a Result object that represents the result of players in a tournament.
 	 * 
 	 * @param players
 	 *            The players that should be included in the score.
@@ -34,8 +33,8 @@ public class PlayerResult {
 	}
 
 	/**
-	 * Adds the score to the result. A player that has won the game will be
-	 * given a score. Draw does not give any points.
+	 * Adds the score to the result. A player that has won the game will be given a score. Draw does not give any
+	 * points.
 	 * 
 	 * @param score
 	 *            the score that should be added to the result.

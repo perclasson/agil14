@@ -20,8 +20,7 @@ public interface MoveStrategy {
 	 *            the rules of the game
 	 * @param board
 	 *            the board
-	 * @return the node where the player wants to move. If the player is not
-	 *         able to move then null is returned.
+	 * @return the node where the player wants to move. If the player is not able to move then null is returned.
 	 */
 	public Node move(String playerId, Rules rules, Board board);
 

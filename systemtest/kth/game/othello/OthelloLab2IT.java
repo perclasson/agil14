@@ -69,9 +69,8 @@ public class OthelloLab2IT extends AbstractTest {
 	}
 
 	/*
-	 * Demo 4 Start a computer game with two computers. Make ten moves with each
-	 * player. Change the strategy for one of the players. Go to step 2 until
-	 * one of the computers won.
+	 * Demo 4 Start a computer game with two computers. Make ten moves with each player. Change the strategy for one of
+	 * the players. Go to step 2 until one of the computers won.
 	 */
 	@Test
 	public void twoComputerOnAClassicalBoardTest() {
@@ -91,8 +90,7 @@ public class OthelloLab2IT extends AbstractTest {
 	}
 
 	/*
-	 * Demo 5 Start a human against human game. Make four moves for each player.
-	 * Show the score.
+	 * Demo 5 Start a human against human game. Make four moves for each player. Show the score.
 	 */
 	@Test
 	public void humanVersusHumanGame() {
@@ -115,8 +113,7 @@ public class OthelloLab2IT extends AbstractTest {
 	}
 
 	/*
-	 * Demo 6 Create three computers. Use the diamond board from the board
-	 * factory. Play the game and show the result.
+	 * Demo 6 Create three computers. Use the diamond board from the board factory. Play the game and show the result.
 	 */
 	@Test
 	public void threeComputersOnADiamondBoardTest() {

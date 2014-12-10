@@ -16,8 +16,7 @@ public class DefaultPlayer implements Player {
 	private MoveStrategy moveStrategy;
 
 	/**
-	 * Creates a DefaultPlayer object that represents a Player in the game of
-	 * Othello.
+	 * Creates a DefaultPlayer object that represents a Player in the game of Othello.
 	 * 
 	 * @param type
 	 *            The type of the player.
@@ -33,8 +32,7 @@ public class DefaultPlayer implements Player {
 	}
 
 	/**
-	 * Creates a DefaultPlayer object that represents a Player in the game of
-	 * Othello.
+	 * Creates a DefaultPlayer object that represents a Player in the game of Othello.
 	 * 
 	 * @param type
 	 *            The type of the player.
