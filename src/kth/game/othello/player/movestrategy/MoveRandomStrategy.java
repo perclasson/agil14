@@ -41,12 +41,10 @@ public class MoveRandomStrategy implements MoveStrategy {
 	private List<Node> getPossibleMoves(String playerId, Rules rules, Board board) {
 		List<Node> nodes = new ArrayList<Node>();
 		for (Node node : board.getNodes()) {
-			List<Node> swapped = rules.getNodesToSwap(playerId, node.getId());
-			if (swapped.size() > 0) {
+			if (rules.isMoveValid(playerId, node.getId())) {
 				nodes.add(node);
 			}
 		}
 		return nodes;
 	}
-
 }

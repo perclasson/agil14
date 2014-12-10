@@ -13,20 +13,20 @@ public class StrategyTournament {
 
 	private List<Player> players;
 	private List<GameInstance> gameInstances;
-	private Result result;
+	private PlayerResult playerResult;
 	private boolean othelloView;
 
-	public StrategyTournament(List<Player> players, List<GameInstance> gameInstances, Result result) {
+	public StrategyTournament(List<Player> players, List<GameInstance> gameInstances, PlayerResult playerResult) {
 		this.players = players;
 		this.gameInstances = gameInstances;
-		this.result = result;
+		this.playerResult = playerResult;
 	}
 
-	public StrategyTournament(List<Player> players, List<GameInstance> gameInstances, Result result, boolean othelloView) {
+	public StrategyTournament(List<Player> players, List<GameInstance> gameInstances, PlayerResult playerResult, boolean othelloView) {
 		this.players = players;
 		this.gameInstances = gameInstances;
 		this.othelloView = othelloView;
-		this.result = result;
+		this.playerResult = playerResult;
 	}
 
 	public void play() {
@@ -43,10 +43,10 @@ public class StrategyTournament {
 				}
 			}
 
-			result.add(othello.getScore());
+			playerResult.add(othello.getScore());
 		}
 
 		// Print the results
-		System.out.println(result.getResultString(players));
+		System.out.println(playerResult.getResult(players));
 	}
 }

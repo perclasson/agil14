@@ -7,8 +7,7 @@ import kth.game.othello.board.Node;
 import kth.game.othello.rules.Rules;
 
 /**
- * A move strategy where the first move from all possible moves will be chosen.
- * The first move will be selected from the
+ * A move strategy where the move that will swap the least nodes will be made.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon

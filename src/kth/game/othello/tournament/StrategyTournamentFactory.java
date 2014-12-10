@@ -25,7 +25,7 @@ public class StrategyTournamentFactory {
 	public StrategyTournament createTournament(List<MoveStrategy> strategies, boolean othelloView) {
 		List<Player> players = createPlayers(strategies);
 		List<GameInstance> gameInstances = createGameInstances(players);
-		return new StrategyTournament(players, gameInstances, new Result(), othelloView);
+		return new StrategyTournament(players, gameInstances, new PlayerResult(), othelloView);
 	}
 
 	private List<Player> createPlayers(List<MoveStrategy> strategies) {

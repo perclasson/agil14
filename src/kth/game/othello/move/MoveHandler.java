@@ -43,15 +43,14 @@ public class MoveHandler extends Observable {
 	 * See the {@link kth.game.othello.Othello} interface for other details.
 	 */
 	public List<Node> move() {
-		// If the current player is not a computer
-		if (playerHandler.getPlayerInTurn() == null
-				|| playerHandler.getPlayerInTurn().getType() != Player.Type.COMPUTER) {
+		// If the current player is nnot a computer
+		Player playerInTurn = playerHandler.getPlayerInTurn();
+		if (playerInTurn == null || playerInTurn.getType() != Player.Type.COMPUTER) {
 			throw new IllegalStateException("Player in turn is not a computer.");
 		}
-		Player currentComputer = playerHandler.getPlayerInTurn();
-		MoveStrategy moveStrategy = currentComputer.getMoveStrategy();
-		Node node = moveStrategy.move(currentComputer.getId(), rules, gameBoard);
-		return move(currentComputer.getId(), node.getId());
+		MoveStrategy moveStrategy = playerInTurn.getMoveStrategy();
+		Node node = moveStrategy.move(playerInTurn.getId(), rules, gameBoard);
+		return move(playerInTurn.getId(), node.getId());
 	}
 
 	/**
@@ -62,19 +61,19 @@ public class MoveHandler extends Observable {
 			throw new IllegalArgumentException("Given player not in turn.");
 		}
 
-		List<Node> nodes = getNodesToSwap(playerId, nodeId);
+		List<Node> swappedNodes = getNodesToSwap(playerId, nodeId);
 
-		if (nodes.isEmpty()) {
+		if (swappedNodes.isEmpty()) {
 			throw new IllegalArgumentException("Move is not valid.");
 		}
 
-		gameBoard.changeOccupantOnNodes(nodes, playerId);
+		gameBoard.changeOccupantOnNodes(swappedNodes, playerId);
 		playerHandler.changePlayerInTurn();
 
 		setChanged();
-		notifyObservers(nodes);
+		notifyObservers(swappedNodes);
 
-		return nodes;
+		return swappedNodes;
 	}
 
 	/**
