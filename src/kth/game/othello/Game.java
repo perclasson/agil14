@@ -133,9 +133,11 @@ public class Game extends Observable implements Othello {
 	@Override
 	public void undo() {
 		GameState gameState = gameStateHandler.pop();
-		board = new GameBoard(gameState.getNodeData());
-		playerHandler.setPlayerInTurn(gameState.getPlayerInTurnId());
-		score = new GameScore(playerHandler.getPlayers(), board.getNodes());
+		if (gameState != null) {
+			board = new GameBoard(gameState.getNodeData());
+			playerHandler.setPlayerInTurn(gameState.getPlayerInTurnId());
+			score = new GameScore(playerHandler.getPlayers(), board.getNodes());
+		}
 	}
 
 	private void saveCurrentState() {

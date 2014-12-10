@@ -1,5 +1,6 @@
 package kth.game.othello.gamestate;
 
+import java.util.EmptyStackException;
 import java.util.Stack;
 
 import kth.game.othello.Game;
@@ -14,10 +15,15 @@ public class GameStateHandler {
 	}
 
 	public void add(Game game) {
-		gameStates.add(gameStateFactory.create(game));
+		gameStates.push(gameStateFactory.create(game));
 	}
 
 	public GameState pop() {
-		return gameStates.pop();
+		try {
+			return gameStates.pop();
+		} catch (EmptyStackException e) {
+			return null;
+		}
+
 	}
 }
