@@ -65,7 +65,6 @@ public class GameTest {
 		// After undo make sure we pop GameState from GameStateHandler
 		game.undo();
 		verify(gameStateHandler).pop();
-
 	}
 
 	@Test

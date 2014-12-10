@@ -16,6 +16,7 @@ import kth.game.othello.Game;
 public class GameStateHandler {
 	Stack<GameState> gameStates;
 	GameStateFactory gameStateFactory;
+	GameState current = null;
 
 	public GameStateHandler(Stack<GameState> gameStates, GameStateFactory gameStateFactory) {
 		this.gameStates = gameStates;
@@ -29,20 +30,24 @@ public class GameStateHandler {
 	 *            The game to add.
 	 */
 	public void add(Game game) {
-		gameStates.push(gameStateFactory.create(game));
+		if (current != null) {
+			gameStates.push(current);
+		}
+		current = gameStateFactory.create(game);
 	}
 
 	/**
-	 * Get the latest game states.
+	 * Pop and get previous game state.
 	 * 
-	 * @return GameState or null if no old states exist.
+	 * @return GameState or null if no old states exists.
 	 */
 	public GameState pop() {
+
 		try {
-			return gameStates.pop();
+			current = gameStates.pop();
+			return current;
 		} catch (EmptyStackException e) {
 			return null;
 		}
-
 	}
 }
