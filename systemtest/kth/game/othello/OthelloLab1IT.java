@@ -36,12 +36,17 @@ public class OthelloLab1IT extends AbstractTest {
 		othello.start(human.getId());
 
 		int totalMoves = 10;
-		for (int moves = 0; moves < totalMoves; moves++) {
+		int moves = 0;
+		for (moves = 0; moves < totalMoves; moves++) {
 			makeAHumanMove(othello, human);
+			if (!othello.isActive())
+				break;
 			othello.move();
+			if (!othello.isActive())
+				break;
 		}
 
-		Assert.assertEquals(totalMoves * 2 + 4, getNumberOfOccupiedNodes(othello));
+		Assert.assertEquals(moves * 2 + 4, getNumberOfOccupiedNodes(othello));
 	}
 
 	/**

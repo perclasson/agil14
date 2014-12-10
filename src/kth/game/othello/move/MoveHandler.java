@@ -44,7 +44,8 @@ public class MoveHandler extends Observable {
 	 */
 	public List<Node> move() {
 		// If the current player is not a computer
-		if (playerHandler.getPlayerInTurn().getType() != Player.Type.COMPUTER) {
+		if (playerHandler.getPlayerInTurn() == null
+				|| playerHandler.getPlayerInTurn().getType() != Player.Type.COMPUTER) {
 			throw new IllegalStateException("Player in turn is not a computer.");
 		}
 		Player currentComputer = playerHandler.getPlayerInTurn();
