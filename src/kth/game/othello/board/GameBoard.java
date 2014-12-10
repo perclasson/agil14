@@ -47,15 +47,7 @@ public class GameBoard implements Board {
 	@Override
 	public List<Node> getNodes() {
 		ArrayList<Node> nodes = new ArrayList<Node>(boardMap.values());
-		Collections.sort(nodes, new Comparator<Node>() {
-			@Override
-			public int compare(Node n1, Node n2) {
-				if (n1.getYCoordinate() == n2.getYCoordinate())
-					return n1.getXCoordinate() - n2.getXCoordinate();
-				else
-					return n1.getYCoordinate() - n2.getYCoordinate();
-			}
-		});
+		sortNodesInNaturalOrder(nodes);
 		return nodes;
 	}
 
@@ -109,6 +101,7 @@ public class GameBoard implements Board {
 
 	/**
 	 * TODO
+	 * 
 	 * @param nodeId
 	 * @return
 	 */
@@ -151,6 +144,18 @@ public class GameBoard implements Board {
 			sb.append(System.getProperty("line.separator"));
 		}
 		return sb.toString();
+	}
+
+	private void sortNodesInNaturalOrder(List<Node> nodes) {
+		Collections.sort(nodes, new Comparator<Node>() {
+			@Override
+			public int compare(Node n1, Node n2) {
+				if (n1.getYCoordinate() == n2.getYCoordinate())
+					return n1.getXCoordinate() - n2.getXCoordinate();
+				else
+					return n1.getYCoordinate() - n2.getYCoordinate();
+			}
+		});
 	}
 
 }
