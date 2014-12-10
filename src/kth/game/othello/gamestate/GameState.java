@@ -5,7 +5,7 @@ import java.util.Set;
 import kth.game.othello.board.factory.NodeData;
 
 /**
- * This class represent a state (in history) in the game.
+ * This class represent a state in the game.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon

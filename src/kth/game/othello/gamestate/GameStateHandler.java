@@ -6,7 +6,7 @@ import java.util.Stack;
 import kth.game.othello.Game;
 
 /**
- * The responsibility of this class is to save and pop GameStates.
+ * The responsibility of this class is to save and pop GameStates, used in the Game class.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon

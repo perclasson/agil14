@@ -95,10 +95,10 @@ public class BoardNode extends Observable implements Node {
 	/**
 	 * Sets the occupant player of this node.
 	 * 
-	 * @param playerID
+	 * @param playerId
 	 *            The occupant player id.
 	 * @param notification
-	 *            The notification to be sent to the observer.
+	 *            The notification to be sent to the observer, contain previous and current player on node.
 	 */
 	public void setOccupantPlayerId(String playerId, NodeOccupantNotification notification) {
 		if (this.playerId != playerId) {

@@ -1,7 +1,7 @@
 package kth.game.othello.board;
 
 /**
- * A notification that contains information about a node's player id.
+ * A notification that contains information about a node's player id. It is used in observers of BoardNodes.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon
@@ -12,8 +12,7 @@ public class NodeOccupantNotification {
 	public String newOccupantPlayerId;
 
 	/**
-	 * Creates a new NodeOccupantNotification that contains the previous and new
-	 * occupant player id.
+	 * Creates a new NodeOccupantNotification that contains the previous and new occupant player id.
 	 * 
 	 * @param prevPlayerId
 	 *            The previous player id.
