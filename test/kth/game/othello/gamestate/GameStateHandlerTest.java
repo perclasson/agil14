@@ -1,21 +1,23 @@
 package kth.game.othello.gamestate;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 import kth.game.othello.Game;
-import kth.game.othello.board.Board;
-import kth.game.othello.board.Node;
-import kth.game.othello.player.Player;
 
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class GameStateTest {
+/**
+ * This class tests GameStateHandler.
+ * 
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ *
+ */
+public class GameStateHandlerTest {
 
 	@Test
 	public void testGameStateHandler() {
@@ -37,23 +39,6 @@ public class GameStateTest {
 		// GameStateHandler gets latest GameState from factory and returns it on pop
 		gameStateHandler.add(game);
 		assertEquals(newGameState, gameStateHandler.pop());
-	}
-
-	@Test
-	public void testGameStateFactory() {
-		// Set up
-		Game game = Mockito.mock(Game.class);
-		Player player = Mockito.mock(Player.class);
-		Board board = Mockito.mock(Board.class);
-		Mockito.when(game.getPlayerInTurn()).thenReturn(player);
-		Mockito.when(game.getBoard()).thenReturn(board);
-		List<Node> nodes = new ArrayList<Node>();
-		Mockito.when(board.getNodes()).thenReturn(nodes);
-
-		GameStateFactory gameStateFactory = new GameStateFactory();
-		GameState gameState = gameStateFactory.create(game);
-		assertTrue(gameState instanceof GameState);
-		assertTrue(gameState != null);
 	}
 
 }
