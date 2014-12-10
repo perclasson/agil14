@@ -37,7 +37,6 @@ public class Game extends Observable implements Othello {
 		this.moveHandler = moveHandler;
 		this.playerHandler = playerHandler;
 		this.score = score;
-		this.gameId = gameId;
 		this.gameStateHandler = gameStateHandler;
 		this.gameId = UUID.randomUUID().toString();
 	}
