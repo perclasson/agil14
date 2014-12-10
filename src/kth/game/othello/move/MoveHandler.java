@@ -24,14 +24,14 @@ public class MoveHandler extends Observable {
 	private Rules rules;
 
 	/**
-	 * Creates a MoveHandler object that validates if moves are correct.
+	 * Creates a MoveHandler object that handles and validates moves.
 	 * 
 	 * @param gameBoard
 	 *            The board of the game.
 	 * @param playerHandler
 	 *            The player handler of the game.
 	 * @param rules
-	 *            TODO
+	 *            The rules of the game.
 	 */
 	public MoveHandler(GameBoard gameBoard, PlayerHandler playerHandler, Rules rules) {
 		this.gameBoard = gameBoard;

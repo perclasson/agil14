@@ -16,9 +16,15 @@ import kth.game.othello.rules.Rules;
  * @author Tommy Roshult
  */
 public class MoveRandomStrategy implements MoveStrategy {
-
 	private Random random;
 
+	/**
+	 * Creates a MoveRandomStrategy object that can be used to move randomly
+	 * given a random number generator.
+	 * 
+	 * @param random
+	 *            Random generator.
+	 */
 	public MoveRandomStrategy(Random random) {
 		this.random = random;
 	}

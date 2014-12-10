@@ -18,6 +18,16 @@ public class DefaultRules implements Rules {
 	private final List<Direction> directions;
 	private final GameBoard board;
 
+	/**
+	 * Creates a DefaultRules object given directions and a GameBoard to play
+	 * on. The moves that will be possible to make depends on the the directions
+	 * and board sent in.
+	 * 
+	 * @param directions
+	 *            The directions in which a move can be made.
+	 * @param board
+	 *            The board that the moves should be made on.
+	 */
 	public DefaultRules(List<Direction> directions, GameBoard board) {
 		this.directions = directions;
 		this.board = board;
