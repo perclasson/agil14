@@ -11,8 +11,9 @@ import kth.game.othello.player.movestrategy.MaxSwappedStrategy;
 import kth.game.othello.player.movestrategy.MinSwappedStrategy;
 import kth.game.othello.player.movestrategy.MoveRandomStrategy;
 import kth.game.othello.player.movestrategy.MoveStrategy;
-import kth.game.othello.tournament.StrategyTournament;
-import kth.game.othello.tournament.StrategyTournamentFactory;
+import kth.game.othello.tournament.Result;
+import kth.game.othello.tournament.Tournament;
+import kth.game.othello.tournament.TournamentFactory;
 
 import org.junit.Test;
 
@@ -27,24 +28,26 @@ import org.junit.Test;
 public class OthelloLab3IT extends AbstractTest {
 
 	private List<MoveStrategy> strategies;
-	private StrategyTournamentFactory strategyTournamentFactory;
+	private TournamentFactory tournamentFactory;
 
 	public OthelloLab3IT() {
 		this.strategies = Arrays.asList(new MaxSwappedStrategy(), new MinSwappedStrategy(), new MoveRandomStrategy(
 				new Random()), new CornerStrategy());
-		this.strategyTournamentFactory = new StrategyTournamentFactory(new OthelloGameFactory(), new PlayerFactory());
+		this.tournamentFactory = new TournamentFactory(new OthelloGameFactory(), new PlayerFactory());
 	}
 
 	@Test
 	public void tournamentUsingViewTest() {
-		StrategyTournament strategyTournament = strategyTournamentFactory.createTournament(strategies, true);
-		strategyTournament.play();
+		Tournament tournament = tournamentFactory.createComputerTournament(strategies, true);
+		Result result = tournament.play();
+		System.out.println(result);
 	}
 
 	@Test
 	public void tournamentTest() {
-		StrategyTournament strategyTournament = strategyTournamentFactory.createTournament(strategies, false);
-		strategyTournament.play();
+		Tournament tournament = tournamentFactory.createComputerTournament(strategies, false);
+		Result result = tournament.play();
+		System.out.println(result.getResult());
 	}
 
 }

@@ -14,21 +14,23 @@ import kth.game.othello.score.ScoreItem;
  * @author Per Classon
  * @author Tommy Roshult
  */
-public class PlayerResult {
+public class PlayerResult implements Result {
 
 	private HashMap<String, Integer> results;
+	private List<Player> players;
 
 	/**
 	 * Creates a Result object that represents the result of players in a
 	 * tournament.
 	 */
-	public PlayerResult() {
+	public PlayerResult(List<Player> players) {
 		this.results = new HashMap<String, Integer>();
+		this.players = players;
 	}
 
 	/**
 	 * Adds the score to the result. A player that has won the game will be
-	 * given a score. A draw does not give any points.
+	 * given a score. Draw does not give any points.
 	 * 
 	 * @param score
 	 *            the score that should be added to the result.
@@ -63,7 +65,7 @@ public class PlayerResult {
 	 *            the players that will be included in the result.
 	 * @return a string containing the result of the players.
 	 */
-	public String getResult(List<Player> players) {
+	public String getResult() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Tournament results: " + System.lineSeparator());
 		for (Player player : players) {
@@ -76,4 +78,5 @@ public class PlayerResult {
 		Integer newScore = results.get(playerId) == null ? 0 : results.get(playerId) + 1;
 		results.put(playerId, newScore);
 	}
+
 }
