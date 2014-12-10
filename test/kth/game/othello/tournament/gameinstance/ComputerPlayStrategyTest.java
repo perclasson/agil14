@@ -1,17 +1,24 @@
 package kth.game.othello.tournament.gameinstance;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import kth.game.othello.Othello;
 import kth.game.othello.player.Player;
 import kth.game.othello.score.Score;
-import kth.game.othello.tournament.gameinstance.ComputerPlayStrategy;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.times;
+/**
+ * Unit tests of class ComputerPlayStrategy.
+ * 
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ *
+ */
 
 public class ComputerPlayStrategyTest {
 

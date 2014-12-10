@@ -13,6 +13,14 @@ import kth.game.othello.rules.Rules;
 
 import org.junit.Test;
 
+/**
+ * Unit tests of class MinSwappedStrategy.
+ * 
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ *
+ */
 public class MinSwappedStrategyTest {
 	@Test
 	public void testMove() {

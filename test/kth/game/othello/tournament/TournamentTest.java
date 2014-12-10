@@ -1,5 +1,10 @@
 package kth.game.othello.tournament;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,11 +17,14 @@ import kth.game.othello.tournament.gameinstance.GamePlayStrategy;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
-
+/**
+ * Unit tests of class TournamentTest.
+ * 
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ *
+ */
 public class TournamentTest {
 
 	public GameInstance mockGameInstance(Score score) {

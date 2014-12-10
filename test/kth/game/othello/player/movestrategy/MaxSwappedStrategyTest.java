@@ -13,6 +13,14 @@ import kth.game.othello.rules.Rules;
 
 import org.junit.Test;
 
+/**
+ * Unit tests of class MaxSwappedStrategy.
+ * 
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ *
+ */
 public class MaxSwappedStrategyTest {
 
 	@Test
