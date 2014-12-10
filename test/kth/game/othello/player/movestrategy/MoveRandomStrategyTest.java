@@ -50,7 +50,7 @@ public class MoveRandomStrategyTest {
 		when(rand.nextInt(nodes.size())).thenReturn(1);
 		assertEquals(randomMoveStragey.move(playerId, rules, board).getId(), nodeId2);
 
-		when(rand.nextInt(3)).thenReturn(0);
+		when(rand.nextInt(nodes.size())).thenReturn(0);
 		assertEquals(randomMoveStragey.move(playerId, rules, board).getId(), nodeId1);
 
 	}
