@@ -68,7 +68,6 @@ public class MoveHandler extends Observable {
 		}
 
 		gameBoard.changeOccupantOnNodes(nodes, playerId);
-
 		playerHandler.changePlayerInTurn();
 
 		setChanged();

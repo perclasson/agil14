@@ -9,7 +9,7 @@ import kth.game.othello.view.swing.OthelloViewFactory;
 
 public class StrategyTournament {
 	private static int TIME_BETWEEN_SWAPS = 0;
-	private static int TIME_BETWEEN_MOVES = 100;
+	private static int TIME_BETWEEN_MOVES = 1000;
 
 	private List<Player> players;
 	private List<GameInstance> gameInstances;
