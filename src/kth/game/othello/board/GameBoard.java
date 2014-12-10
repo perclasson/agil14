@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import kth.game.othello.board.factory.NodeData;
+import kth.game.othello.gamestate.GameState;
 
 /**
  * This class represents a game board of Othello. The responsibility of the board is to gather the nodes included in the
@@ -150,6 +151,15 @@ public class GameBoard implements Board {
 					return n1.getYCoordinate() - n2.getYCoordinate();
 			}
 		});
+	}
+
+	public void resetToGameState(GameState gameState) {
+		for (NodeData nodeData : gameState.getNodeData()) {
+			Node node = getNode(nodeData.getXCoordinate(), nodeData.getYCoordinate());
+			if (node.getOccupantPlayerId() != nodeData.getOccupantPlayerId()) {
+				changeOccupantOnNode(node, nodeData.getOccupantPlayerId());
+			}
+		}
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.Observer;
 import java.util.UUID;
 
 import kth.game.othello.board.Board;
+import kth.game.othello.board.GameBoard;
 import kth.game.othello.board.Node;
 import kth.game.othello.gamestate.GameState;
 import kth.game.othello.gamestate.GameStateHandler;
@@ -22,14 +23,14 @@ import kth.game.othello.score.Score;
  * @author Tommy Roshult
  */
 public class Game extends Observable implements Othello {
-	private Board board;
+	private GameBoard board;
 	private MoveHandler moveHandler;
 	private PlayerHandler playerHandler;
 	private Score score;
 	private String gameId;
 	private GameStateHandler gameStateHandler;
 
-	public Game(Board board, PlayerHandler playerHandler, MoveHandler moveHandler, Score score,
+	public Game(GameBoard board, PlayerHandler playerHandler, MoveHandler moveHandler, Score score,
 			GameStateHandler gameStateHandler) {
 		this.board = board;
 		this.moveHandler = moveHandler;
@@ -126,7 +127,7 @@ public class Game extends Observable implements Othello {
 	public void undo() {
 		GameState gameState = gameStateHandler.pop();
 		if (gameState != null) {
-			moveHandler.resetToGameState(gameState);
+			board.resetToGameState(gameState);
 			playerHandler.setPlayerInTurn(gameState.getPlayerInTurnId());
 		}
 	}
