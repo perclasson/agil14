@@ -5,7 +5,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import kth.game.othello.board.Board;
 import kth.game.othello.board.Node;
@@ -25,36 +24,33 @@ public class CornerStrategyTest {
 
 	@Test
 	public void testMove() {
-		MoveStrategy m = new MaxSwappedStrategy();
+		MoveStrategy cornerStrategy = new CornerStrategy();
 		String playerId = "player";
 		Rules rules = mock(Rules.class);
 		Board board = mock(Board.class);
 
-		// Empty board etc should return null
-		assertEquals(m.move(playerId, rules, board), null);
-
 		// Mock nodes for the board
-		Node node1 = mockNode(2, 4);
+		Node node1 = mockNode(0, 0); // This is the expected node as it is in the corner
 		Node node2 = mockNode(1, 1);
-		Node node3 = mockNode(3, 4);
+		Node node3 = mockNode(0, 1);
+
 		ArrayList<Node> nodes = new ArrayList<Node>();
 		nodes.add(node1);
 		nodes.add(node2);
 		nodes.add(node3);
 		when(board.getNodes()).thenReturn(nodes);
+
+		// Return all the nodes when getting nodes to swap
+		for (Node node : nodes) {
+			when(rules.getNodesToSwap(playerId, node.getId())).thenReturn(nodes);
+		}
+
 		// Board is 8x8
 		when(board.getMaxX()).thenReturn(8);
 		when(board.getMaxY()).thenReturn(8);
 
-		// Make rule return different sizes
-		List<Node> nodes1 = mock(List.class);
-		when(nodes1.size()).thenReturn(1);
-
-		when(rules.getNodesToSwap(playerId, node1.getId())).thenReturn(nodes1);
-		when(rules.getNodesToSwap(playerId, node2.getId())).thenReturn(nodes1);
-		when(rules.getNodesToSwap(playerId, node3.getId())).thenReturn(nodes1);
-
-		assertEquals(m.move(playerId, rules, board).getId(), node2.getId());
-
+		// Corner strategy should return the corner node
+		Node cornerNode = cornerStrategy.move(playerId, rules, board);
+		assertEquals(cornerNode.getId(), node1.getId());
 	}
 }
