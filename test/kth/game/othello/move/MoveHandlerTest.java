@@ -1,18 +1,18 @@
 package kth.game.othello.move;
 
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import kth.game.othello.board.GameBoard;
 import kth.game.othello.board.Node;
-import kth.game.othello.move.MoveHandler;
 import kth.game.othello.player.Player;
-import kth.game.othello.player.PlayerHandler;
 import kth.game.othello.player.Player.Type;
+import kth.game.othello.player.PlayerHandler;
 import kth.game.othello.rules.Rules;
 
 import org.junit.Rule;
@@ -21,7 +21,7 @@ import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 
 /**
- * Unit tests of class MoveLogic.
+ * Unit tests of class MoveHandler.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon
@@ -164,5 +164,10 @@ public class MoveHandlerTest {
 
 		// Verify that players turn was changed
 		verify(playerHandler).changePlayerInTurn();
+	}
+
+	@Test
+	public void testObserverAfterMove() {
+		fail("test that we correctly notify observers after move");
 	}
 }

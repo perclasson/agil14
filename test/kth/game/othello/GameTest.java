@@ -1,9 +1,12 @@
 package kth.game.othello;
 
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import kth.game.othello.board.GameBoard;
 import kth.game.othello.board.Node;
@@ -12,6 +15,7 @@ import kth.game.othello.move.MoveHandler;
 import kth.game.othello.player.PlayerHandler;
 import kth.game.othello.score.Score;
 
+import org.junit.Test;
 import org.mockito.Mockito;
 
 public class GameTest {
@@ -60,5 +64,25 @@ public class GameTest {
 		GameStateHandler gamestatehandler = Mockito.mock(GameStateHandler.class);
 		Game game = new Game(board, playerhandler, movehandler, score, gamestatehandler);
 
+	}
+
+	@Test
+	public void testGameIsFinished() {
+		fail("test that the observable is used");
+	}
+
+	@Test
+	public void testUniqueGameId() {
+		List<Game> games = new ArrayList<Game>();
+		for (int i = 0; i < 100; i++) {
+			games.add(new Game(null, null, null, null, null));
+		}
+
+		// Make sure that no game id is equal to another in the list
+		for (int i = 0; i < games.size() - 1; i++) {
+			for (int j = i + 1; j < games.size(); j++) {
+				assertNotEquals(games.get(i).getId(), games.get(j).getId());
+			}
+		}
 	}
 }
