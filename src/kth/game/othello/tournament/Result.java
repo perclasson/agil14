@@ -15,6 +15,10 @@ public class Result {
 		this.results = new HashMap<String, Integer>();
 	}
 
+	/**
+	 * 
+	 * @param score
+	 */
 	public void add(Score score) {
 		List<ScoreItem> scores = score.getPlayersScore();
 
