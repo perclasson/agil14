@@ -18,8 +18,7 @@ public class BoardNode extends Observable implements Node {
 	private int x, y;
 
 	/**
-	 * Creates a new BoardNode object that represents a node on a board. The
-	 * node will not have an occupant.
+	 * Creates a new BoardNode object that represents a node on a board. The node will not have an occupant.
 	 *
 	 * @param x
 	 *            The node's x coordinate position on a board.
@@ -98,13 +97,14 @@ public class BoardNode extends Observable implements Node {
 	 * 
 	 * @param playerID
 	 *            The occupant player id.
+	 * @param notification
+	 *            The notification to be sent to the observer.
 	 */
-	public void setOccupantPlayerId(String playerId) {
-		String oldPlayerId = this.playerId;
-		if (oldPlayerId != playerId) {
+	public void setOccupantPlayerId(String playerId, NodeOccupantNotification notification) {
+		if (this.playerId != playerId) {
 			setChanged();
 			this.playerId = playerId;
-			notifyObservers(new NodeOccupantNotification(oldPlayerId, playerId));
+			notifyObservers(notification);
 		}
 	}
 

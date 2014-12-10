@@ -10,8 +10,8 @@ import java.util.Set;
 import kth.game.othello.board.factory.NodeData;
 
 /**
- * This class represents a game board of Othello. The responsibility of the
- * board is to gather the nodes included in the game.
+ * This class represents a game board of Othello. The responsibility of the board is to gather the nodes included in the
+ * game.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon
@@ -85,8 +85,8 @@ public class GameBoard implements Board {
 	}
 
 	/**
-	 * Changes the occupant player on nodes in the board. The list of nodes
-	 * given will have their occupant changed to the given player id.
+	 * Changes the occupant player on nodes in the board. The list of nodes given will have their occupant changed to
+	 * the given player id.
 	 * 
 	 * @param nodesToBeChanged
 	 *            A list of nodes have their occupant player changed.
@@ -111,7 +111,8 @@ public class GameBoard implements Board {
 	}
 
 	private void changeOccupantOnNode(Node node, String playerId) {
-		boardMap.get(node.getId()).setOccupantPlayerId(playerId);
+		boardMap.get(node.getId()).setOccupantPlayerId(playerId,
+				new NodeOccupantNotification(node.getOccupantPlayerId(), playerId));
 	}
 
 	/**
