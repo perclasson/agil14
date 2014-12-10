@@ -3,12 +3,12 @@ package kth.game.othello;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
 import kth.game.othello.board.GameBoard;
 import kth.game.othello.board.Node;
@@ -85,7 +85,19 @@ public class GameTest {
 
 	@Test
 	public void testGameIsFinished() {
-		fail("test that the observable is used");
+		PlayerHandler playerHandler = Mockito.mock(PlayerHandler.class);
+		MoveHandler moveHandler = Mockito.mock(MoveHandler.class);
+		GameStateHandler gameStateHandler = Mockito.mock(GameStateHandler.class);
+		Mockito.when(playerHandler.getPlayerInTurn()).thenReturn(null);
+
+		Game game = new Game(null, playerHandler, moveHandler, null, gameStateHandler);
+
+		// Verify that observer got update when game is finished and move is made
+		Observer o = Mockito.mock(Observer.class);
+		assertFalse(game.isActive());
+		game.addGameFinishedObserver(o);
+		game.move();
+		Mockito.verify(o).update(game, null);
 	}
 
 	@Test
