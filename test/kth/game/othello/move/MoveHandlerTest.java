@@ -1,12 +1,12 @@
 package kth.game.othello.move;
 
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
 import kth.game.othello.board.GameBoard;
 import kth.game.othello.board.Node;
@@ -125,11 +125,18 @@ public class MoveHandlerTest {
 		// Create the move handler
 		MoveHandler moveHandler = new MoveHandler(board, playerHandler, rules);
 
+		// Add observer to moveHandler
+		Observer observer = Mockito.mock(Observer.class);
+		moveHandler.addObserver(observer);
+
 		// Make a move
 		moveHandler.move(player.getId(), "nodeid");
 
 		// Verify that change occupant was called
 		verify(board).changeOccupantOnNodes(swappedNode, player.getId());
+
+		// Verify that observer was updated after move
+		verify(observer).update(moveHandler, swappedNode);
 	}
 
 	@Test
@@ -159,15 +166,17 @@ public class MoveHandlerTest {
 		// Create the move handler
 		MoveHandler moveHandler = new MoveHandler(board, playerHandler, rules);
 
+		// Add observer to moveHandler
+		Observer observer = Mockito.mock(Observer.class);
+		moveHandler.addObserver(observer);
+
 		// Make a move
 		moveHandler.move(player.getId(), "nodeid");
 
 		// Verify that players turn was changed
 		verify(playerHandler).changePlayerInTurn();
-	}
 
-	@Test
-	public void testObserverAfterMove() {
-		fail("test that we correctly notify observers after move");
+		// Verify that observer was updated after move
+		verify(observer).update(moveHandler, swappedNode);
 	}
 }
