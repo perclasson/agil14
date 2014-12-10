@@ -20,16 +20,15 @@ import kth.game.othello.score.Score;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+/**
+ * Unit tests of class Game.
+ * 
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ *
+ */
 public class GameTest {
-
-	/**
-	 * Unit tests of class Game.
-	 * 
-	 * @author Ludvig Axelsson
-	 * @author Per Classon
-	 * @author Tommy Roshult
-	 *
-	 */
 	private GameBoard mockBoard(int order) {
 		GameBoard board = mock(GameBoard.class);
 		ArrayList<Node> nodes = new ArrayList<Node>();

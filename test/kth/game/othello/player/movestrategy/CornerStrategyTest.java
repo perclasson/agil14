@@ -12,16 +12,15 @@ import kth.game.othello.rules.Rules;
 
 import org.junit.Test;
 
+/**
+ * Unit tests of class CornerStrategy.
+ * 
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ *
+ */
 public class CornerStrategyTest {
-	/**
-	 * Unit tests of class CornerStrategy.
-	 * 
-	 * @author Ludvig Axelsson
-	 * @author Per Classon
-	 * @author Tommy Roshult
-	 *
-	 */
-
 	private Node mockNode(int x, int y) {
 		Node node = mock(Node.class);
 		when(node.getId()).thenReturn("x" + x + "y" + y);
