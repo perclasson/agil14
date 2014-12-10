@@ -153,6 +153,12 @@ public class GameBoard implements Board {
 		});
 	}
 
+	/**
+	 * Reset board nodes to given game state.
+	 * 
+	 * @param gameState
+	 *            The state we want to reset the board to.
+	 */
 	public void resetToGameState(GameState gameState) {
 		for (NodeData nodeData : gameState.getNodeData()) {
 			Node node = getNode(nodeData.getXCoordinate(), nodeData.getYCoordinate());
