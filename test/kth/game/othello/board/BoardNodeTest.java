@@ -6,7 +6,14 @@ import java.util.Observer;
 
 import org.junit.Test;
 import org.mockito.Mockito;
-
+/**
+ * Unit tests of class BoardNode.
+ * 
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ *
+ */
 public class BoardNodeTest {
 	@Test
 	public void setOccupantPlayerIdTest() {
