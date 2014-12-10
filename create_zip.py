@@ -9,7 +9,7 @@ if __name__ == '__main__':
     zip_path = os.path.join(root, zip_name)
     zfile = zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED)
     
-    folders = ['src', 'test', 'systemtest']
+    folders = ['src', 'test', 'systemtest', 'lib']
 
     for folder in folders:
         folder_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), folder)
