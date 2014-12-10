@@ -10,6 +10,9 @@ import kth.game.othello.move.Direction;
 /**
  * This is a representation of the default rules in a Othello game.
  * 
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
  */
 public class DefaultRules implements Rules {
 	private final List<Direction> directions;

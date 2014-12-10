@@ -18,6 +18,21 @@ public class BoardNode extends Observable implements Node {
 	private int x, y;
 
 	/**
+	 * Creates a new BoardNode object that represents a node on a board. The
+	 * node will not have an occupant.
+	 *
+	 * @param x
+	 *            The node's x coordinate position on a board.
+	 * @param y
+	 *            The node's y coordinate position on a board.
+	 */
+	public BoardNode(int x, int y) {
+		this.x = x;
+		this.y = y;
+		setId(x, y);
+	}
+
+	/**
 	 * Creates a new BoardNode object that represents a node on a board.
 	 *
 	 * @param x
@@ -29,21 +44,6 @@ public class BoardNode extends Observable implements Node {
 	 */
 	public BoardNode(int x, int y, String playerId) {
 		this.playerId = playerId;
-		this.x = x;
-		this.y = y;
-		setId(x, y);
-	}
-
-	/**
-	 * Creates a new BoardNode object that represents a node on a board. The
-	 * node will not have an occupant.
-	 *
-	 * @param x
-	 *            The node's x coordinate position on a board.
-	 * @param y
-	 *            The node's y coordinate position on a board.
-	 */
-	public BoardNode(int x, int y) {
 		this.x = x;
 		this.y = y;
 		setId(x, y);

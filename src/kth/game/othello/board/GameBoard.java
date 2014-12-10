@@ -100,10 +100,11 @@ public class GameBoard implements Board {
 	}
 
 	/**
-	 * TODO
+	 * The node in the board with the given node id.
 	 * 
 	 * @param nodeId
-	 * @return
+	 *            the id of the node
+	 * @return the node
 	 */
 	public Node getNode(String nodeId) {
 		return boardMap.get(nodeId);
@@ -118,16 +119,8 @@ public class GameBoard implements Board {
 	 */
 	@Override
 	public String toString() {
-		int xMax = 0;
-		int yMax = 0;
-		for (Node node : boardMap.values()) {
-			if (node.getXCoordinate() > xMax) {
-				xMax = node.getXCoordinate();
-			}
-			if (node.getYCoordinate() > yMax) {
-				yMax = node.getYCoordinate();
-			}
-		}
+		int xMax = getMaxX();
+		int yMax = getMaxY();
 		int max = Math.max(xMax, yMax);
 		StringBuilder sb = new StringBuilder();
 		for (int y = 0; y < max; y++) {
