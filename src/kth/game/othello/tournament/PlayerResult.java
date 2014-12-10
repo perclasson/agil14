@@ -24,8 +24,11 @@ public class PlayerResult implements Result {
 	 * tournament.
 	 */
 	public PlayerResult(List<Player> players) {
-		this.results = new HashMap<String, Integer>();
 		this.players = players;
+		this.results = new HashMap<String, Integer>();
+		for (Player player : players) {
+			results.put(player.getId(), 0);
+		}
 	}
 
 	/**
@@ -74,9 +77,19 @@ public class PlayerResult implements Result {
 		return sb.toString();
 	}
 
+	/**
+	 * Returns the score of the given player id.
+	 * 
+	 * @param playerId
+	 *            The player id.
+	 * @return The score of the player.
+	 */
+	public int getPlayerScore(String playerId) {
+		return results.get(playerId);
+	}
+
 	private void incrementScore(String playerId) {
-		Integer newScore = results.get(playerId) == null ? 0 : results.get(playerId) + 1;
-		results.put(playerId, newScore);
+		results.put(playerId, results.get(playerId) + 1);
 	}
 
 }
