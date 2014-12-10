@@ -16,6 +16,6 @@ public class BoardNodeTest {
 		node.setOccupantPlayerId("white");
 		assertEquals(node.getOccupantPlayerId(), "white");
 		// TODO
-		fail("test notifyObservers ?");
+		fail("test missing for notifyObservers ?");
 	}
 }

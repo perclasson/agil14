@@ -15,7 +15,6 @@ import org.junit.Test;
 
 public class MinSwappedStrategyTest {
 
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testMove() {
 		MoveStrategy m = new MinSwappedStrategy();
