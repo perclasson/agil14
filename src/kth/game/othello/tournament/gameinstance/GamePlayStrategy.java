@@ -5,7 +5,7 @@ import kth.game.othello.player.Player;
 import kth.game.othello.score.Score;
 
 /**
- * A strategy to play the Othello game.
+ * A strategy that can be implemented to play the Othello game.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon

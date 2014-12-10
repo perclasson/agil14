@@ -16,11 +16,11 @@ public class GameInstance {
 	private GamePlayStrategy gamePlayStrategy;
 
 	/**
-	 * Creates an GameInstance object that represents an instance of othello
+	 * Creates an GameInstance object that represents an instance of Othello
 	 * with a game and a starting player.
 	 * 
 	 * @param othello
-	 *            The game of othello.
+	 *            The game of Othello.
 	 * @param startingPlayer
 	 *            The starting player of the game.
 	 * @param gamePlayStrategy
@@ -33,9 +33,9 @@ public class GameInstance {
 	}
 
 	/**
-	 * The game of othello in this instance.
+	 * The game of Othello in this instance.
 	 * 
-	 * @return The game of othello.
+	 * @return The game of Othello.
 	 */
 	public Othello getOthello() {
 		return othello;

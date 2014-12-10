@@ -14,14 +14,16 @@ import kth.game.othello.score.ScoreItem;
  * @author Per Classon
  * @author Tommy Roshult
  */
-public class PlayerResult implements Result {
-
+public class PlayerResult {
 	private HashMap<String, Integer> results;
 	private List<Player> players;
 
 	/**
 	 * Creates a Result object that represents the result of players in a
 	 * tournament.
+	 * 
+	 * @param players
+	 *            The players that should be included in the score.
 	 */
 	public PlayerResult(List<Player> players) {
 		this.players = players;
@@ -86,6 +88,15 @@ public class PlayerResult implements Result {
 	 */
 	public int getPlayerScore(String playerId) {
 		return results.get(playerId);
+	}
+
+	/**
+	 * Returns the players of the result.
+	 * 
+	 * @return The players.
+	 */
+	public List<Player> getPlayers() {
+		return players;
 	}
 
 	private void incrementScore(String playerId) {

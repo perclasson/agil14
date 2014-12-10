@@ -15,25 +15,43 @@ import kth.game.othello.tournament.gameinstance.GamePlayStrategy;
 import kth.game.othello.tournament.gameinstance.ViewPlayStrategy;
 
 /**
- * This factory creates tournaments with players that battle with different
- * strategies.
+ * This factory creates Othello tournaments.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon
  * @author Tommy Roshult
  */
 public class TournamentFactory {
-
 	private static final int CLASSIC_BOARD_ORDER = 8;
 	private OthelloGameFactory othelloFactory;
 	private PlayerFactory playerFactory;
 
+	/**
+	 * Creates a TournamentFactory object that can be used to create tournaments
+	 * of the othello game.
+	 * 
+	 * @param othelloFactory
+	 *            For creating othello games.
+	 * @param playerFactory
+	 *            For creating players.
+	 */
 	public TournamentFactory(OthelloGameFactory othelloFactory, PlayerFactory playerFactory) {
 		this.othelloFactory = othelloFactory;
 		this.playerFactory = playerFactory;
 	}
 
-	public Tournament createComputerTournament(List<MoveStrategy> strategies, boolean othelloView) {
+	/**
+	 * Creates an Othello tournament that will rank the different move
+	 * strategies that is given. Each move strategy will meet the other
+	 * strategies twice and starting the game exactly once.
+	 * 
+	 * @param strategies
+	 *            The move strategies that will be ranked.
+	 * @param othelloView
+	 *            True if the OthelloView should be displayed for each game.
+	 * @return The tournament
+	 */
+	public Tournament createComputerStrategyTournament(List<MoveStrategy> strategies, boolean othelloView) {
 		List<Player> players = createComputerPlayers(strategies);
 		List<GameInstance> gameInstances = createComputerGameInstances(players, othelloView);
 		return new Tournament(gameInstances, new PlayerResult(players));

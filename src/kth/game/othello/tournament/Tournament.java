@@ -6,7 +6,7 @@ import kth.game.othello.tournament.gameinstance.GameInstance;
 import kth.game.othello.tournament.gameinstance.GamePlayStrategy;
 
 /**
- * This class represents a tournament of othello.
+ * This class represents a tournament of Othello.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon
@@ -14,7 +14,7 @@ import kth.game.othello.tournament.gameinstance.GamePlayStrategy;
  */
 public class Tournament {
 	private List<GameInstance> gameInstances;
-	private Result result;
+	private PlayerResult result;
 
 	/**
 	 * Creates a Tournament object that can be played using the given data.
@@ -25,7 +25,7 @@ public class Tournament {
 	 *            The result object that will contain the result of the
 	 *            tournament.
 	 */
-	public Tournament(List<GameInstance> gameInstances, Result result) {
+	public Tournament(List<GameInstance> gameInstances, PlayerResult result) {
 		this.gameInstances = gameInstances;
 		this.result = result;
 	}
@@ -35,7 +35,7 @@ public class Tournament {
 	 * 
 	 * @return The result of the tournament.
 	 */
-	public Result play() {
+	public PlayerResult play() {
 		for (GameInstance game : gameInstances) {
 			GamePlayStrategy playStrategy = game.getPlayStrategy();
 			Score score = playStrategy.play(game.getOthello(), game.getStartingPlayer());

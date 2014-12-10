@@ -50,9 +50,9 @@ public class TournamentTest {
 		gameInstances.add(gameThree);
 
 		// Play the tournament
-		Result result = mock(Result.class);
+		PlayerResult result = mock(PlayerResult.class);
 		Tournament tournament = new Tournament(gameInstances, result);
-		Result newResult = tournament.play();
+		PlayerResult newResult = tournament.play();
 
 		assertEquals(result, newResult);
 

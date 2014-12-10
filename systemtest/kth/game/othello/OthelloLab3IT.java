@@ -1,17 +1,20 @@
 package kth.game.othello;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 import kth.game.othello.factory.OthelloGameFactory;
+import kth.game.othello.player.Player;
 import kth.game.othello.player.PlayerFactory;
 import kth.game.othello.player.movestrategy.CornerStrategy;
 import kth.game.othello.player.movestrategy.MaxSwappedStrategy;
 import kth.game.othello.player.movestrategy.MinSwappedStrategy;
 import kth.game.othello.player.movestrategy.MoveRandomStrategy;
 import kth.game.othello.player.movestrategy.MoveStrategy;
-import kth.game.othello.tournament.Result;
+import kth.game.othello.tournament.PlayerResult;
 import kth.game.othello.tournament.Tournament;
 import kth.game.othello.tournament.TournamentFactory;
 
@@ -37,17 +40,29 @@ public class OthelloLab3IT extends AbstractTest {
 	}
 
 	@Test
-	public void tournamentUsingViewTest() {
-		Tournament tournament = tournamentFactory.createComputerTournament(strategies, true);
-		Result result = tournament.play();
-		System.out.println(result);
+	public void computerStrategyTournamentUsingViewTest() {
+		Tournament tournament = tournamentFactory.createComputerStrategyTournament(strategies, true);
+		PlayerResult result = tournament.play();
+		System.out.println(result.getResult());
+
+		int scores = 0;
+		for (Player player : result.getPlayers()) {
+			scores += result.getPlayerScore(player.getId());
+		}
+		assertEquals(12, scores);
 	}
 
 	@Test
-	public void tournamentTest() {
-		Tournament tournament = tournamentFactory.createComputerTournament(strategies, false);
-		Result result = tournament.play();
+	public void computerStrategyTournamentTest() {
+		Tournament tournament = tournamentFactory.createComputerStrategyTournament(strategies, false);
+		PlayerResult result = tournament.play();
 		System.out.println(result.getResult());
+
+		int scores = 0;
+		for (Player player : result.getPlayers()) {
+			scores += result.getPlayerScore(player.getId());
+		}
+		assertEquals(12, scores);
 	}
 
 }
