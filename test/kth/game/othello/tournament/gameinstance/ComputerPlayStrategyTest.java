@@ -30,6 +30,6 @@ public class ComputerPlayStrategyTest {
 
 		// Move should have been called
 		verify(othello, times(3)).move();
-		assertEquals(returnedScore, score);
+		assertEquals(score, returnedScore);
 	}
 }

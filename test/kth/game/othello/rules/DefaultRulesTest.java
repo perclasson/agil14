@@ -83,7 +83,7 @@ public class DefaultRulesTest {
 		// | white white white |
 		// | empty empty empty |
 		// | empty empty empty |
-		assertEquals(swap.size(), 2);
+		assertEquals(2, swap.size());
 
 		// Scenario:
 		// | white black empty |
@@ -92,7 +92,7 @@ public class DefaultRulesTest {
 		setNode(0, 0, "white", board);
 		setNode(1, 0, "black", board);
 		swap = defaultRules.getNodesToSwap("white", "x1y1");
-		assertEquals(swap.size(), 0);
+		assertEquals(0, swap.size());
 
 		// Scenario:
 		// | white target black |
@@ -102,7 +102,7 @@ public class DefaultRulesTest {
 		setNode(1, 0, null, board);
 		setNode(2, 0, "black", board);
 		swap = defaultRules.getNodesToSwap("white", "x1y0");
-		assertEquals(swap.size(), 0);
+		assertEquals(0, swap.size());
 
 		// Scenario:
 		// | white target black |
@@ -112,7 +112,7 @@ public class DefaultRulesTest {
 		setNode(1, 0, null, board);
 		setNode(2, 0, "black", board);
 		swap = defaultRules.getNodesToSwap("white", "x1y0");
-		assertEquals(swap.size(), 0);
+		assertEquals(0, swap.size());
 
 		// Scenario:
 		// | white black white |
@@ -133,7 +133,7 @@ public class DefaultRulesTest {
 		// | white black white |
 		// | white white black |
 		// | white white white |
-		assertEquals(swap.size(), 4);
+		assertEquals(4, swap.size());
 	}
 
 	@Test

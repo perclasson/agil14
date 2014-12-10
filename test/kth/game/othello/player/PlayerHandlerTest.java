@@ -51,7 +51,7 @@ public class PlayerHandlerTest {
 
 		// No player had any valid move so player in turn should be null
 		// afterwards
-		assertEquals(playerHandler.getPlayerInTurn(), null);
+		assertEquals(null, playerHandler.getPlayerInTurn());
 
 		// Make the player have valid moves
 		when(rules.hasValidMove("1")).thenReturn(true);

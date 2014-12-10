@@ -85,8 +85,8 @@ public class GameScoreTest {
 
 		// When we get the scores in descending order, playerTwo is first
 		List<ScoreItem> scores = score.getPlayersScore();
-		assertEquals(scores.get(0).getPlayerId(), playerTwoId);
-		assertEquals(scores.get(1).getPlayerId(), playerOneId);
+		assertEquals(playerTwoId, scores.get(0).getPlayerId());
+		assertEquals(playerOneId, scores.get(1).getPlayerId());
 	}
 
 	@Test

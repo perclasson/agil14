@@ -63,7 +63,7 @@ public class GameBoardTest {
 
 		// Assert
 		for (Node node : board.getNodes()) {
-			assertEquals(node.getOccupantPlayerId(), "white");
+			assertEquals("white", node.getOccupantPlayerId());
 		}
 
 		ArrayList<Node> nodes = new ArrayList<Node>();
@@ -76,17 +76,17 @@ public class GameBoardTest {
 
 		// Assert
 		for (Node node : board.getNodes()) {
-			assertEquals(node.getOccupantPlayerId(), "black");
+			assertEquals("black", node.getOccupantPlayerId());
 		}
 
 		// Toggle occupant on node one
 		nodes.clear();
 		nodes.add(nodeOne);
 		board.changeOccupantOnNodes(nodes, "black");
-		assertEquals(nodeOne.getOccupantPlayerId(), "black");
+		assertEquals("black", nodeOne.getOccupantPlayerId());
 		board.changeOccupantOnNodes(nodes, "white");
-		assertEquals(nodeOne.getOccupantPlayerId(), "white");
+		assertEquals("white", nodeOne.getOccupantPlayerId());
 		board.changeOccupantOnNodes(nodes, "black");
-		assertEquals(nodeOne.getOccupantPlayerId(), "black");
+		assertEquals("black", nodeOne.getOccupantPlayerId());
 	}
 }

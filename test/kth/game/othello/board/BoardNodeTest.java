@@ -16,7 +16,7 @@ public class BoardNodeTest {
 		Observer observer = Mockito.mock(Observer.class);
 		node.addObserver(observer);
 
-		assertEquals(node.getOccupantPlayerId(), "white");
+		assertEquals("white", node.getOccupantPlayerId());
 		NodeOccupantNotification notification = Mockito.mock(NodeOccupantNotification.class);
 		node.setOccupantPlayerId("test", notification);
 

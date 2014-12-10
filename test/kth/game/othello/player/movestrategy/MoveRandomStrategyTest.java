@@ -48,10 +48,10 @@ public class MoveRandomStrategyTest {
 
 		// Test random that we get random moves
 		when(random.nextInt(nodes.size())).thenReturn(1);
-		assertEquals(randomMoveStragey.move(playerId, rules, board).getId(), nodeId2);
+		assertEquals(nodeId2, randomMoveStragey.move(playerId, rules, board).getId());
 
 		when(random.nextInt(nodes.size())).thenReturn(0);
-		assertEquals(randomMoveStragey.move(playerId, rules, board).getId(), nodeId1);
+		assertEquals(nodeId1, randomMoveStragey.move(playerId, rules, board).getId());
 
 	}
 }

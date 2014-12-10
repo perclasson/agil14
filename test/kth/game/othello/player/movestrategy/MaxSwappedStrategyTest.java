@@ -45,6 +45,6 @@ public class MaxSwappedStrategyTest {
 		when(rules.getNodesToSwap(playerId, nodeId3)).thenReturn(Arrays.asList(node1, node2, node3));
 
 		// We expected the move that gives most swapped nodes
-		assertEquals(maxSwappedStrategy.move(playerId, rules, board).getId(), nodeId3);
+		assertEquals(nodeId3, maxSwappedStrategy.move(playerId, rules, board).getId());
 	}
 }
