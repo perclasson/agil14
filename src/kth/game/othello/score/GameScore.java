@@ -59,7 +59,9 @@ public class GameScore extends Observable implements Observer, Score {
 	@Override
 	public void update(Observable o, Object arg) {
 		NodeOccupantNotification notification = (NodeOccupantNotification) arg;
-		incrementScore(notification.newOccupantPlayerId);
+		if (notification.newOccupantPlayerId != null) {
+			incrementScore(notification.newOccupantPlayerId);
+		}
 		if (notification.oldOccupantPlayerId != null) {
 			decrementScore(notification.oldOccupantPlayerId);
 		}
