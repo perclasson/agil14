@@ -86,12 +86,10 @@ public class OthelloLab3IT extends AbstractTest {
 
 		// Let's make 2 moves
 		game.move();
-
 		assertTrue(oldPlayerInTurn != game.getPlayerInTurn());
-
 		game.move();
 
-		// Lets make 2 undos to get back to start
+		// Lets make 1 undo
 		game.undo();
 
 		// We should not have the same board after just one undo
@@ -104,15 +102,10 @@ public class OthelloLab3IT extends AbstractTest {
 				notAllEquals = true;
 			}
 		}
-
 		assertTrue(notAllEquals);
 
 		// However after 2 undos we should be back at the beginning
 		game.undo();
-
-		Player newPlayerInTurn = game.getPlayerInTurn();
-		assertEquals(oldPlayerInTurn, newPlayerInTurn);
-
 		boolean allEquals = true;
 		for (Node node : game.getBoard().getNodes()) {
 			Integer hashCode = new NodeData(node.getXCoordinate(), node.getYCoordinate(), node.getOccupantPlayerId())
@@ -122,7 +115,7 @@ public class OthelloLab3IT extends AbstractTest {
 				allEquals = false;
 			}
 		}
-
+		assertEquals(oldPlayerInTurn, game.getPlayerInTurn());
 		assertTrue(allEquals);
 	}
 }
