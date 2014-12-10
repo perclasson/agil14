@@ -8,7 +8,22 @@ import kth.game.othello.board.Node;
 import kth.game.othello.board.factory.NodeData;
 import kth.game.othello.player.Player;
 
+/**
+ * The responsibility of this class is to create GameStates from Game.
+ * 
+ * @author Ludvig Axelsson
+ * @author Per Classon
+ * @author Tommy Roshult
+ *
+ */
 public class GameStateFactory {
+	/**
+	 * Create a GameState object from an object Game. It saves the current nodes and playerInTurn.
+	 * 
+	 * @param game
+	 *            The game object.
+	 * @return GameState
+	 */
 	public GameState create(Game game) {
 		Set<NodeData> nodeData = new HashSet<NodeData>();
 

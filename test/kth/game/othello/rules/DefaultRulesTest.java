@@ -16,7 +16,7 @@ import kth.game.othello.move.DirectionFactory;
 import org.junit.Test;
 
 /**
- * Unit tests of class MoveCalculator.
+ * Unit tests of class DefaultRules.
  * 
  * @author Ludvig Axelsson
  * @author Per Classon
