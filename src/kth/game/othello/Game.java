@@ -3,6 +3,7 @@ package kth.game.othello;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.UUID;
 
 import kth.game.othello.board.Board;
 import kth.game.othello.board.GameBoard;
@@ -30,7 +31,7 @@ public class Game extends Observable implements Othello {
 	private String gameId;
 	private GameStateHandler gameStateHandler;
 
-	public Game(Board board, PlayerHandler playerHandler, MoveHandler moveHandler, Score score, String gameId,
+	public Game(Board board, PlayerHandler playerHandler, MoveHandler moveHandler, Score score,
 			GameStateHandler gameStateHandler) {
 		this.board = board;
 		this.moveHandler = moveHandler;
@@ -38,6 +39,7 @@ public class Game extends Observable implements Othello {
 		this.score = score;
 		this.gameId = gameId;
 		this.gameStateHandler = gameStateHandler;
+		this.gameId = UUID.randomUUID().toString();
 	}
 
 	@Override
