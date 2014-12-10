@@ -92,13 +92,6 @@ public class Game extends Observable implements Othello {
 		return nodes;
 	}
 
-	private void notifyObserversIfInactive() {
-		if (!isActive()) {
-			setChanged();
-			notifyObservers();
-		}
-	}
-
 	@Override
 	public void start() {
 		playerHandler.setRandomPlayerInTurn();
@@ -145,4 +138,13 @@ public class Game extends Observable implements Othello {
 		gameStateHandler.add(this);
 	}
 
+	/**
+	 * If game is over notify observers.
+	 */
+	private void notifyObserversIfInactive() {
+		if (!isActive()) {
+			setChanged();
+			notifyObservers();
+		}
+	}
 }
