@@ -79,7 +79,7 @@ public class Game extends Observable implements Othello {
 	public List<Node> move() {
 		List<Node> nodes = moveHandler.move();
 		saveCurrentState();
-		notifyObserversIfInactive();
+		notifyObserversIfGameInactive();
 		return nodes;
 	}
 
@@ -87,7 +87,7 @@ public class Game extends Observable implements Othello {
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
 		List<Node> nodes = moveHandler.move(playerId, nodeId);
 		saveCurrentState();
-		notifyObserversIfInactive();
+		notifyObserversIfGameInactive();
 		return nodes;
 	}
 
@@ -136,7 +136,7 @@ public class Game extends Observable implements Othello {
 		gameStateHandler.add(this);
 	}
 
-	private void notifyObserversIfInactive() {
+	private void notifyObserversIfGameInactive() {
 		if (!isActive()) {
 			setChanged();
 			notifyObservers();
