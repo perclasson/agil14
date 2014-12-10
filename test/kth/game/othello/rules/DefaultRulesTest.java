@@ -38,6 +38,8 @@ public class DefaultRulesTest {
 				when(node.getYCoordinate()).thenReturn(y);
 				when(node.isMarked()).thenReturn(false);
 				when(board.getNode(x, y)).thenReturn(node);
+				when(board.hasNode(x, y)).thenReturn(true);
+				when(board.getNode(node.getId())).thenReturn(node);
 				nodes.add(node);
 			}
 		}

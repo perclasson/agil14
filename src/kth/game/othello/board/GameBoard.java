@@ -18,7 +18,7 @@ import kth.game.othello.board.factory.NodeData;
  * @author Tommy Roshult
  */
 public class GameBoard implements Board {
-	private HashMap<String, BoardNode> board;
+	private HashMap<String, BoardNode> boardMap;
 
 	/**
 	 * Creates a new GameBoard that represents a board of the game.
@@ -27,16 +27,16 @@ public class GameBoard implements Board {
 	 *            A set of NodeData that will be used as nodes in the board.
 	 */
 	public GameBoard(Set<NodeData> nodeData) {
-		this.board = new HashMap<String, BoardNode>();
+		this.boardMap = new HashMap<String, BoardNode>();
 		for (NodeData n : nodeData) {
 			BoardNode node = new BoardNode(n);
-			board.put(node.getId(), node);
+			boardMap.put(node.getId(), node);
 		}
 	}
 
 	@Override
 	public Node getNode(int x, int y) {
-		for (Node node : board.values()) {
+		for (Node node : boardMap.values()) {
 			if (node.getXCoordinate() == x && node.getYCoordinate() == y) {
 				return node;
 			}
@@ -46,7 +46,7 @@ public class GameBoard implements Board {
 
 	@Override
 	public List<Node> getNodes() {
-		ArrayList<Node> nodes = new ArrayList<Node>(board.values());
+		ArrayList<Node> nodes = new ArrayList<Node>(boardMap.values());
 		Collections.sort(nodes, new Comparator<Node>() {
 			@Override
 			public int compare(Node n1, Node n2) {
@@ -62,7 +62,7 @@ public class GameBoard implements Board {
 	@Override
 	public int getMaxX() {
 		int maxX = 0;
-		for (Node n : board.values()) {
+		for (Node n : boardMap.values()) {
 			if (n.getXCoordinate() > maxX) {
 				maxX = n.getXCoordinate();
 			}
@@ -73,7 +73,7 @@ public class GameBoard implements Board {
 	@Override
 	public int getMaxY() {
 		int maxY = 0;
-		for (Node n : board.values()) {
+		for (Node n : boardMap.values()) {
 			if (n.getYCoordinate() > maxY) {
 				maxY = n.getYCoordinate();
 			}
@@ -84,7 +84,7 @@ public class GameBoard implements Board {
 
 	@Override
 	public boolean hasNode(int x, int y) {
-		for (Node n : board.values()) {
+		for (Node n : boardMap.values()) {
 			if (n.getXCoordinate() == x && n.getYCoordinate() == y) {
 				return true;
 			}
@@ -107,8 +107,17 @@ public class GameBoard implements Board {
 		}
 	}
 
+	/**
+	 * TODO
+	 * @param nodeId
+	 * @return
+	 */
+	public Node getNode(String nodeId) {
+		return boardMap.get(nodeId);
+	}
+
 	private void changeOccupantOnNode(Node node, String playerId) {
-		board.get(node.getId()).setOccupantPlayerId(playerId);
+		boardMap.get(node.getId()).setOccupantPlayerId(playerId);
 	}
 
 	/**
@@ -118,7 +127,7 @@ public class GameBoard implements Board {
 	public String toString() {
 		int xMax = 0;
 		int yMax = 0;
-		for (Node node : board.values()) {
+		for (Node node : boardMap.values()) {
 			if (node.getXCoordinate() > xMax) {
 				xMax = node.getXCoordinate();
 			}
