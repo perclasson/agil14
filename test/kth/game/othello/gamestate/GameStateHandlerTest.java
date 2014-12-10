@@ -23,18 +23,18 @@ public class GameStateHandlerTest {
 	public void testGameStateHandler() {
 		// Set up
 		Stack<GameState> gameStates = new Stack<GameState>();
-		GameStateFactory factory = Mockito.mock(GameStateFactory.class);
+		GameStateFactory gameStateFactory = Mockito.mock(GameStateFactory.class);
 		GameState gameState = Mockito.mock(GameState.class);
 		Game game = Mockito.mock(Game.class);
 		gameStates.add(gameState);
 
 		// GameStateHandler return latest GameState or null if no state exists
-		GameStateHandler gameStateHandler = new GameStateHandler(gameStates, factory);
+		GameStateHandler gameStateHandler = new GameStateHandler(gameStates, gameStateFactory);
 		assertEquals(gameState, gameStateHandler.pop());
 		assertEquals(null, gameStateHandler.pop());
 
 		GameState newGameState = Mockito.mock(GameState.class);
-		Mockito.when(factory.create(game)).thenReturn(newGameState);
+		Mockito.when(gameStateFactory.create(game)).thenReturn(newGameState);
 
 		// GameStateHandler gets latest GameState from factory and returns it on pop
 		gameStateHandler.add(game);

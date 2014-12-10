@@ -49,22 +49,22 @@ public class GameTest {
 	public void undoTest() {
 		GameBoard board = mockBoard(3);
 
-		PlayerHandler playerhandler = Mockito.mock(PlayerHandler.class);
-		MoveHandler movehandler = Mockito.mock(MoveHandler.class);
+		PlayerHandler playerHandler = Mockito.mock(PlayerHandler.class);
+		MoveHandler moveHandler = Mockito.mock(MoveHandler.class);
 		Score score = Mockito.mock(Score.class);
-		GameStateHandler gamestatehandler = Mockito.mock(GameStateHandler.class);
-		Game game = new Game(board, playerhandler, movehandler, score, gamestatehandler);
+		GameStateHandler gameStateHandler = Mockito.mock(GameStateHandler.class);
+		Game game = new Game(board, playerHandler, moveHandler, score, gameStateHandler);
 
 		setNode(0, 0, "white", board);
 		setNode(1, 0, "black", board);
 
 		// Verify that game was added as a game state after move
 		game.move("white", "x2y0");
-		verify(gamestatehandler).add(game);
+		verify(gameStateHandler).add(game);
 
 		// After undo make sure we pop GameState from GameStateHandler
 		game.undo();
-		verify(gamestatehandler).pop();
+		verify(gameStateHandler).pop();
 
 	}
 

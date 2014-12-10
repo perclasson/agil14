@@ -16,7 +16,7 @@ import org.junit.Test;
 public class MinSwappedStrategyTest {
 	@Test
 	public void testMove() {
-		MoveStrategy m = new MinSwappedStrategy();
+		MoveStrategy minSwappedStrategy = new MinSwappedStrategy();
 		String playerId = "player";
 		Rules rules = mock(Rules.class);
 		Board board = mock(Board.class);
@@ -44,6 +44,6 @@ public class MinSwappedStrategyTest {
 		when(rules.getNodesToSwap(playerId, nodeId3)).thenReturn(Arrays.asList(node1, node2, node3));
 
 		// Should make the move that gives smallest amount of swapped nodes
-		assertEquals(m.move(playerId, rules, board).getId(), nodeId1);
+		assertEquals(minSwappedStrategy.move(playerId, rules, board).getId(), nodeId1);
 	}
 }

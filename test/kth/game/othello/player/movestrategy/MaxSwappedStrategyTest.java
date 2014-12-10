@@ -17,7 +17,7 @@ public class MaxSwappedStrategyTest {
 
 	@Test
 	public void testMove() {
-		MoveStrategy m = new MaxSwappedStrategy();
+		MoveStrategy maxSwappedStrategy = new MaxSwappedStrategy();
 		String playerId = "player";
 		Rules rules = mock(Rules.class);
 		Board board = mock(Board.class);
@@ -44,7 +44,7 @@ public class MaxSwappedStrategyTest {
 		when(rules.getNodesToSwap(playerId, nodeId2)).thenReturn(Arrays.asList(node1, node2));
 		when(rules.getNodesToSwap(playerId, nodeId3)).thenReturn(Arrays.asList(node1, node2, node3));
 
-		// Should make the move that gives most swapped nodes
-		assertEquals(m.move(playerId, rules, board).getId(), nodeId3);
+		// We expected the move that gives most swapped nodes
+		assertEquals(maxSwappedStrategy.move(playerId, rules, board).getId(), nodeId3);
 	}
 }

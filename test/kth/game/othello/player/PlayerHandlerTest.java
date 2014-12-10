@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import kth.game.othello.player.Player;
-import kth.game.othello.player.PlayerHandler;
 import kth.game.othello.rules.Rules;
 
 import org.junit.Test;
@@ -43,17 +41,17 @@ public class PlayerHandlerTest {
 		// Create player handler
 		Random random = mock(Random.class);
 		Rules rules = mock(Rules.class);
-		PlayerHandler handler = new PlayerHandler(players, rules, random);
+		PlayerHandler playerHandler = new PlayerHandler(players, rules, random);
 
-		handler.setPlayerInTurn(playerOneId);
-		assertEquals(playerOne, handler.getPlayerInTurn());
+		playerHandler.setPlayerInTurn(playerOneId);
+		assertEquals(playerOne, playerHandler.getPlayerInTurn());
 
 		// Change the player in turn
-		handler.changePlayerInTurn();
+		playerHandler.changePlayerInTurn();
 
 		// No player had any valid move so player in turn should be null
 		// afterwards
-		assertEquals(handler.getPlayerInTurn(), null);
+		assertEquals(playerHandler.getPlayerInTurn(), null);
 
 		// Make the player have valid moves
 		when(rules.hasValidMove("1")).thenReturn(true);
@@ -61,21 +59,21 @@ public class PlayerHandlerTest {
 		when(rules.hasValidMove("3")).thenReturn(true);
 
 		// Change from null to player one
-		handler.changePlayerInTurn();
-		assertEquals(playerOne, handler.getPlayerInTurn());
+		playerHandler.changePlayerInTurn();
+		assertEquals(playerOne, playerHandler.getPlayerInTurn());
 
 		// Change from player one to player two
-		handler.changePlayerInTurn();
-		assertEquals(playerTwo, handler.getPlayerInTurn());
+		playerHandler.changePlayerInTurn();
+		assertEquals(playerTwo, playerHandler.getPlayerInTurn());
 
 		// Change from player two to player three
-		handler.changePlayerInTurn();
+		playerHandler.changePlayerInTurn();
 
-		assertEquals(playerThree, handler.getPlayerInTurn());
+		assertEquals(playerThree, playerHandler.getPlayerInTurn());
 
 		// Change from player three to player one
-		handler.changePlayerInTurn();
-		assertEquals(playerOne, handler.getPlayerInTurn());
+		playerHandler.changePlayerInTurn();
+		assertEquals(playerOne, playerHandler.getPlayerInTurn());
 
 	}
 }

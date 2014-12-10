@@ -20,8 +20,8 @@ public class MoveRandomStrategyTest {
 	public void testMove() {
 		Rules rules = mock(Rules.class);
 		Board board = mock(Board.class);
-		Random rand = mock(Random.class);
-		MoveStrategy randomMoveStragey = new MoveRandomStrategy(rand);
+		Random random = mock(Random.class);
+		MoveStrategy randomMoveStragey = new MoveRandomStrategy(random);
 		String playerId = "player";
 
 		// Mock nodes for the board
@@ -47,10 +47,10 @@ public class MoveRandomStrategyTest {
 		}
 
 		// Test random that we get random moves
-		when(rand.nextInt(nodes.size())).thenReturn(1);
+		when(random.nextInt(nodes.size())).thenReturn(1);
 		assertEquals(randomMoveStragey.move(playerId, rules, board).getId(), nodeId2);
 
-		when(rand.nextInt(nodes.size())).thenReturn(0);
+		when(random.nextInt(nodes.size())).thenReturn(0);
 		assertEquals(randomMoveStragey.move(playerId, rules, board).getId(), nodeId1);
 
 	}

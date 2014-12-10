@@ -10,21 +10,21 @@ import org.mockito.Mockito;
 public class BoardNodeTest {
 	@Test
 	public void setOccupantPlayerIdTest() {
-		BoardNode whiteNode = new BoardNode(1, 1, "white");
+		BoardNode node = new BoardNode(1, 1, "white");
 
 		// Add observer to node
 		Observer observer = Mockito.mock(Observer.class);
-		whiteNode.addObserver(observer);
+		node.addObserver(observer);
 
-		assertEquals(whiteNode.getOccupantPlayerId(), "white");
+		assertEquals(node.getOccupantPlayerId(), "white");
 		NodeOccupantNotification notification = Mockito.mock(NodeOccupantNotification.class);
-		whiteNode.setOccupantPlayerId("test", notification);
+		node.setOccupantPlayerId("test", notification);
 
 		// Verify that observer is updated
-		Mockito.verify(observer).update(whiteNode, notification);
+		Mockito.verify(observer).update(node, notification);
 
 		// If nothing has changed, observer will not be updated
-		whiteNode.setOccupantPlayerId("test", Mockito.mock(NodeOccupantNotification.class));
+		node.setOccupantPlayerId("test", Mockito.mock(NodeOccupantNotification.class));
 		Mockito.verifyNoMoreInteractions(observer);
 	}
 }
