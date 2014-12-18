@@ -49,8 +49,10 @@ public class ScoreImpl extends Observable implements Score, Observer {
 	/**
 	 * Modifies the score by examining the {@link NodeImpl} passed as observable and the previously occupying player.
 	 * 
-	 * @param o the node that has been modified.
-	 * @param arg the previous player id.
+	 * @param o
+	 *            the node that has been modified.
+	 * @param arg
+	 *            the previous player id.
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
@@ -82,9 +84,30 @@ public class ScoreImpl extends Observable implements Score, Observer {
 	}
 
 	/**
+	 * Change score for player id
+	 * 
+	 * @param playerId
+	 *            The player to change score for.
+	 * @param delta
+	 *            The change in score we want to make for player.
+	 */
+	public void changeScore(String playerId, int delta) {
+		List<String> updatedPlayers = new ArrayList<String>();
+		for (int i = 0; i < scores.size(); i++) {
+			ScoreItem scoreItem = scores.get(i);
+			if (scoreItem.getPlayerId().equals(playerId)) {
+				updateScore(i, playerId, scoreItem.getScore() + delta);
+				updatedPlayers.add(playerId);
+			}
+		}
+		super.notifyObservers(updatedPlayers);
+	}
+
+	/**
 	 * Set the initial score.
 	 * 
-	 * @param nodes a list of nodes used to calculate the score.
+	 * @param nodes
+	 *            a list of nodes used to calculate the score.
 	 */
 	public void setInitialScore(List<Node> nodes) {
 		for (Node node : nodes) {

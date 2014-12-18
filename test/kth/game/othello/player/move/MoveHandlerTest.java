@@ -15,8 +15,9 @@ import kth.game.othello.player.TurnHandler;
 import kth.game.othello.player.move.strategy.MoveStrategy;
 import kth.game.othello.rules.MoveValidator;
 import kth.game.othello.rules.RulesImpl;
-
 import kth.game.othello.rules.SwapHandler;
+import kth.game.othello.score.ScoreImpl;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Matchers;
@@ -47,6 +48,9 @@ public class MoveHandlerTest {
 		// mock board, needed to start a game
 		BoardImpl board = Mockito.mock(BoardImpl.class);
 
+		// Mock scores
+		ScoreImpl scores = Mockito.mock(ScoreImpl.class);
+
 		// mock move strategy, needed to move
 		MoveStrategy moveStrategy = Mockito.mock(MoveStrategy.class);
 
@@ -64,7 +68,7 @@ public class MoveHandlerTest {
 		HistoryHandler historyHandler = Mockito.mock(HistoryHandler.class);
 
 		TurnHandler turnHandler = new TurnHandler(players, moveValidator);
-		MoveHandler moveHandler = new MoveHandler(board, rules, turnHandler, historyHandler);
+		MoveHandler moveHandler = new MoveHandler(board, rules, turnHandler, historyHandler, scores);
 		String randomPlayer = turnHandler.getRandomPlayer(new Random());
 		turnHandler.setStartingPlayer(randomPlayer);
 		Player player1 = turnHandler.getPlayerInTurn();
@@ -81,6 +85,9 @@ public class MoveHandlerTest {
 		// mock move strategy, needed to move
 		MoveStrategy moveStrategy = Mockito.mock(MoveStrategy.class);
 
+		// Mock scores
+		ScoreImpl scores = Mockito.mock(ScoreImpl.class);
+
 		// add players
 		List<Player> players = new ArrayList<Player>();
 		players.add(PlayerImpl.getComputerPlayer("Player 1", "Player 1", moveStrategy));
@@ -94,7 +101,7 @@ public class MoveHandlerTest {
 		HistoryHandler historyHandler = Mockito.mock(HistoryHandler.class);
 
 		TurnHandler turnHandler = new TurnHandler(players, moveValidator);
-		MoveHandler moveHandler = new MoveHandler(board, rules, turnHandler, historyHandler);
+		MoveHandler moveHandler = new MoveHandler(board, rules, turnHandler, historyHandler, scores);
 		turnHandler.setStartingPlayer(players.get(0).getId());
 		Player player1 = turnHandler.getPlayerInTurn();
 		moveHandler.move();
@@ -120,7 +127,7 @@ public class MoveHandlerTest {
 		HistoryHandler historyHandler = Mockito.mock(HistoryHandler.class);
 
 		TurnHandler turnHandler = new TurnHandler(players, moveValidator);
-		MoveHandler moveHandler = new MoveHandler(board, rules, turnHandler, historyHandler);
+		MoveHandler moveHandler = new MoveHandler(board, rules, turnHandler, historyHandler, null);
 		turnHandler.setStartingPlayer(players.get(0).getId());
 
 		moveHandler.move(players.get(1).getId(), null);
@@ -163,7 +170,7 @@ public class MoveHandlerTest {
 
 		TurnHandler turnHandler = new TurnHandler(players, moveValidator);
 		turnHandler.setStartingPlayer(movingPlayer);
-		MoveHandler moveHandler = new MoveHandler(board, rules, turnHandler, historyHandler);
+		MoveHandler moveHandler = new MoveHandler(board, rules, turnHandler, historyHandler, null);
 
 		List<Node> swappedNodes = moveHandler.move(movingPlayer, moveNodeId);
 
@@ -223,7 +230,7 @@ public class MoveHandlerTest {
 
 		TurnHandler turnHandler = new TurnHandler(players, moveValidator);
 		turnHandler.setStartingPlayer(movingPlayerId);
-		MoveHandler moveHandler = new MoveHandler(board, rules, turnHandler, historyHandler);
+		MoveHandler moveHandler = new MoveHandler(board, rules, turnHandler, historyHandler, null);
 
 		moveHandler.move(movingPlayerId, moveNodeId);
 
@@ -257,7 +264,7 @@ public class MoveHandlerTest {
 
 		Observer observer = Mockito.mock(Observer.class);
 
-		MoveHandler moveHandler = new MoveHandler(board, rules, turnHandler, historyHandler);
+		MoveHandler moveHandler = new MoveHandler(board, rules, turnHandler, historyHandler, null);
 		moveHandler.addObserver(observer);
 		moveHandler.move(playerId, nodeId);
 

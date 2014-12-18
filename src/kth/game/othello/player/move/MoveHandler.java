@@ -10,6 +10,7 @@ import kth.game.othello.history.HistoryHandler;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.TurnHandler;
 import kth.game.othello.rules.RulesImpl;
+import kth.game.othello.score.ScoreImpl;
 
 /**
  * The responsibility of MoveHandler is to perform moves, notify its observers and calling methods for handing over the
@@ -21,12 +22,15 @@ public class MoveHandler extends Observable {
 	private RulesImpl rules;
 	private TurnHandler turnHandler;
 	private HistoryHandler historyHandler;
+	private ScoreImpl scores;
 
-	public MoveHandler(BoardImpl board, RulesImpl rules, TurnHandler turnHandler, HistoryHandler historyHandler) {
+	public MoveHandler(BoardImpl board, RulesImpl rules, TurnHandler turnHandler, HistoryHandler historyHandler,
+			ScoreImpl scores) {
 		this.board = board;
 		this.rules = rules;
 		this.turnHandler = turnHandler;
 		this.historyHandler = historyHandler;
+		this.scores = scores;
 	}
 
 	/**
@@ -34,7 +38,8 @@ public class MoveHandler extends Observable {
 	 * will be notified with the additional argument being the list of nodes that were swapped.
 	 *
 	 * @return the nodes that where swapped for this move, including the node where the player made the move
-	 * @throws IllegalStateException if there is not a computer in turn
+	 * @throws IllegalStateException
+	 *             if there is not a computer in turn
 	 */
 	public List<Node> move() {
 		if (turnHandler.getPlayerInTurn().getType() != Player.Type.COMPUTER) {
@@ -43,7 +48,8 @@ public class MoveHandler extends Observable {
 		Player playerInTurn = turnHandler.getPlayerInTurn();
 		Node node = playerInTurn.getMoveStrategy().move(playerInTurn.getId(), rules, board);
 		if (node == null) {
-			// no available moves
+			// no available moves, let's remove 2 points
+			scores.changeScore(playerInTurn.getId(), -2);
 			turnHandler.nextPlayer();
 			return new ArrayList<Node>();
 		}
@@ -55,10 +61,13 @@ public class MoveHandler extends Observable {
 	 * board and the player in turn. All observers will be notified with the additional argument being the list of nodes
 	 * that were swapped.
 	 *
-	 * @param playerId the id of the player that makes the move
-	 * @param nodeId the id of the node where the player wants to move
+	 * @param playerId
+	 *            the id of the player that makes the move
+	 * @param nodeId
+	 *            the id of the node where the player wants to move
 	 * @return the nodes that where swapped for this move, including the node where the player made the move
-	 * @throws IllegalArgumentException if the move is not valid, or if the player is not in turn
+	 * @throws IllegalArgumentException
+	 *             if the move is not valid, or if the player is not in turn
 	 */
 	public List<Node> move(String playerId, String nodeId) throws IllegalArgumentException {
 		// check if move is being done for correct player

@@ -58,6 +58,21 @@ public class ScoreImplTest {
 	}
 
 	@Test
+	public void updateRemoveTwoPointToPlayer() {
+		// mock Node
+		NodeImpl node = Mockito.mock(NodeImpl.class);
+		Mockito.when(node.getOccupantPlayerId()).thenReturn(player2);
+
+		ScoreImpl scoreImpl = new ScoreImpl(getInitialScores(), null);
+
+		// remove 2 points from player2
+		scoreImpl.changeScore(player2, -2);
+
+		int newPointsPlayer2 = scoreImpl.getPoints(player2);
+		Assert.assertEquals(initialPointsPlayer2 - 2, newPointsPlayer2);
+	}
+
+	@Test
 	public void updateRemovesPointFromPreviousPlayer() {
 		// mock Node
 		NodeImpl node = Mockito.mock(NodeImpl.class);

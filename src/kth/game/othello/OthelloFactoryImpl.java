@@ -17,10 +17,10 @@ import kth.game.othello.player.Player;
 import kth.game.othello.player.PlayerImpl;
 import kth.game.othello.player.TurnHandler;
 import kth.game.othello.player.move.MoveHandler;
-import kth.game.othello.rules.MoveValidator;
-import kth.game.othello.rules.SwapHandler;
 import kth.game.othello.player.move.strategy.FirstMove;
+import kth.game.othello.rules.MoveValidator;
 import kth.game.othello.rules.RulesImpl;
+import kth.game.othello.rules.SwapHandler;
 import kth.game.othello.score.ScoreImpl;
 import kth.game.othello.score.ScoreImplFactory;
 
@@ -78,7 +78,7 @@ public class OthelloFactoryImpl implements OthelloFactory {
 		RulesImpl rules = new RulesImpl(board, validator, swapHandler);
 		TurnHandler turnHandler = new TurnHandler(players, validator);
 		HistoryHandler historyHandler = new HistoryHandler(turnHandler);
-		MoveHandler moveHandler = new MoveHandler(board, rules, turnHandler, historyHandler);
+		MoveHandler moveHandler = new MoveHandler(board, rules, turnHandler, historyHandler, scoreImpl);
 
 		return new OthelloImpl(UUID.randomUUID().toString(), board, players, rules, scoreImpl, turnHandler,
 				moveHandler, historyHandler);
@@ -87,7 +87,8 @@ public class OthelloFactoryImpl implements OthelloFactory {
 	/**
 	 * Translates a set of NodeData to a ordered list of Node
 	 *
-	 * @param nodesData the set of NodeData to be translated
+	 * @param nodesData
+	 *            the set of NodeData to be translated
 	 * @return the ordered list of Node
 	 */
 	public List<Node> translateNodesData(Set<NodeData> nodesData) {
@@ -104,7 +105,8 @@ public class OthelloFactoryImpl implements OthelloFactory {
 	/**
 	 * Sorts a list of Node in descending order
 	 *
-	 * @param nodes the list to be sorted
+	 * @param nodes
+	 *            the list to be sorted
 	 */
 	private void sortNodes(List<Node> nodes) {
 		Collections.sort(nodes, new Comparator<Node>() {
