@@ -56,6 +56,17 @@ public class ScoreImplTest {
 
 		int newPointsPlayer2 = scoreImpl.getPoints(player2);
 		Assert.assertEquals(initialPointsPlayer2 + 1, newPointsPlayer2);
+		
+		// Set node value to 5
+		Mockito.when(node.getValue()).thenReturn(5);
+
+		// Occupy the same node again
+		scoreImpl.update(node, null);
+		
+		// Score should be added by 5
+		newPointsPlayer2 = scoreImpl.getPoints(player2);
+		int currentScore = initialPointsPlayer2 + 1;
+		Assert.assertEquals(currentScore + 5, newPointsPlayer2);		
 	}
 
 	@Test
@@ -191,4 +202,5 @@ public class ScoreImplTest {
 			}
 		}
 	}
+
 }
