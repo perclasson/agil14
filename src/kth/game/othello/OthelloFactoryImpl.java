@@ -113,7 +113,7 @@ public class OthelloFactoryImpl implements OthelloFactory {
 	 * @return Set of boundary nodes.
 	 */
 	private Set<NodeData> getBoundaryNodes(Set<NodeData> nodesData) {
-		Set<NodeData> boundaryNodes = new HashSet<>();
+		Set<NodeData> boundaryNodes = new HashSet<NodeData>();
 		int maxX = 0;
 		int maxY = 0;
 		for (NodeData node : nodesData) {
