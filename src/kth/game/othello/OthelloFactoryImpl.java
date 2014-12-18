@@ -3,6 +3,7 @@ package kth.game.othello;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -85,6 +86,56 @@ public class OthelloFactoryImpl implements OthelloFactory {
 	}
 
 	/**
+	 * Check if coordinates is a boundary on board.
+	 * 
+	 * @param board
+	 * @param x
+	 * @param y
+	 * @return boolean
+	 */
+	private boolean isAtBoundary(NodeData[][] board, int x, int y) {
+		try {
+			if (board[x + 1][y] == null || board[x - 1][y] == null || board[x][y + 1] == null
+					|| board[x][y - 1] == null) {
+				return true;
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Returns the boundary nodes.
+	 * 
+	 * @param nodesData
+	 *            The data.
+	 * @return Set of boundary nodes.
+	 */
+	private Set<NodeData> getBoundaryNodes(Set<NodeData> nodesData) {
+		Set<NodeData> boundaryNodes = new HashSet<>();
+		int maxX = 0;
+		int maxY = 0;
+		for (NodeData node : nodesData) {
+			maxX = Math.max(node.getXCoordinate(), maxX);
+			maxY = Math.max(node.getYCoordinate(), maxY);
+		}
+		NodeData[][] board = new NodeData[maxX + 1][maxY + 1];
+		for (NodeData node : nodesData) {
+			board[node.getXCoordinate()][node.getYCoordinate()] = node;
+		}
+
+		for (int x = 0; x < board.length; x++) {
+			for (int y = 0; y < board[x].length; y++) {
+				if (board[x][y] != null && isAtBoundary(board, x, y)) {
+					boundaryNodes.add(board[x][y]);
+				}
+			}
+		}
+		return boundaryNodes;
+	}
+
+	/**
 	 * Translates a set of NodeData to a ordered list of Node
 	 *
 	 * @param nodesData
@@ -93,9 +144,16 @@ public class OthelloFactoryImpl implements OthelloFactory {
 	 */
 	public List<Node> translateNodesData(Set<NodeData> nodesData) {
 		List<Node> nodes = new ArrayList<Node>();
+		Set<NodeData> boundaryNodes = getBoundaryNodes(nodesData);
 
 		for (NodeData nodeData : nodesData) {
-			nodes.add(new NodeImpl(nodeData.getXCoordinate(), nodeData.getYCoordinate(), nodeData.getOccupantPlayerId()));
+			int value = 1;
+			if (boundaryNodes.contains(nodeData)) {
+				// if we have a boundary node, the value should be 2
+				value = 2;
+			}
+			nodes.add(new NodeImpl(nodeData.getXCoordinate(), nodeData.getYCoordinate(),
+					nodeData.getOccupantPlayerId(), value));
 		}
 
 		sortNodes(nodes);

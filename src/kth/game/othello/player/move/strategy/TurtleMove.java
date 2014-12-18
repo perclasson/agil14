@@ -9,9 +9,9 @@ import kth.game.othello.board.BoardImpl;
 import kth.game.othello.board.Node;
 import kth.game.othello.board.NodeImpl;
 import kth.game.othello.rules.MoveValidator;
-import kth.game.othello.rules.SwapHandler;
 import kth.game.othello.rules.Rules;
 import kth.game.othello.rules.RulesImpl;
+import kth.game.othello.rules.SwapHandler;
 
 /**
  * TurtleMove is a {@link kth.game.othello.player.move.strategy.MoveStrategy} that moves to the psition that results in
@@ -31,9 +31,12 @@ public class TurtleMove implements MoveStrategy {
 	/**
 	 * Chooses the move that results in the least amount of nodes to swap for opponents.
 	 *
-	 * @param playerId the id of the player
-	 * @param rules the rules of the game
-	 * @param board the board
+	 * @param playerId
+	 *            the id of the player
+	 * @param rules
+	 *            the rules of the game
+	 * @param board
+	 *            the board
 	 * @return the minimizing node
 	 */
 	private Node turtle(String playerId, Rules rules, Board board) {
@@ -55,9 +58,12 @@ public class TurtleMove implements MoveStrategy {
 	/**
 	 * Get all possible moves for a player on the board with the given rules
 	 *
-	 * @param playerId the id of the player
-	 * @param rules the rules of the game
-	 * @param board the board
+	 * @param playerId
+	 *            the id of the player
+	 * @param rules
+	 *            the rules of the game
+	 * @param board
+	 *            the board
 	 * @return the possible moves for the player on the board
 	 */
 	private List<Node> getPossibleMoves(String playerId, Rules rules, Board board) {
@@ -73,16 +79,19 @@ public class TurtleMove implements MoveStrategy {
 	/**
 	 * Get the resulting boards from all possible moves respectively
 	 *
-	 * @param playerId the id of the player
-	 * @param rules the rules of the game
-	 * @param board the board
+	 * @param playerId
+	 *            the id of the player
+	 * @param rules
+	 *            the rules of the game
+	 * @param board
+	 *            the board
 	 * @return a board mapped to a certain move by the node that was placed in the move
 	 */
 	private HashMap<Node, BoardImpl> getResultsOfPossibleMoves(String playerId, Rules rules, Board board) {
 		List<Node> nodes = getPossibleMoves(playerId, rules, board);
 		HashMap<Node, BoardImpl> moveResults = new HashMap<Node, BoardImpl>();
 		for (Node node : nodes) {
-			Node placedNode = new NodeImpl(node.getXCoordinate(), node.getYCoordinate(), playerId);
+			Node placedNode = new NodeImpl(node.getXCoordinate(), node.getYCoordinate(), playerId, 1);
 			List<Node> nodesToSwap = rules.getNodesToSwap(playerId, node.getId());
 			ArrayList<Node> newNodes = new ArrayList<Node>(board.getNodes().size());
 			for (Node oldNode : board.getNodes()) {
@@ -96,8 +105,10 @@ public class TurtleMove implements MoveStrategy {
 	/**
 	 * Get the maximum number of possible pieces that can be swapped by any of the given players on te given board
 	 *
-	 * @param moveBoard board to check for possible swaps
-	 * @param playerIds the ids of the players on the board
+	 * @param moveBoard
+	 *            board to check for possible swaps
+	 * @param playerIds
+	 *            the ids of the players on the board
 	 * @return the maximum number of nodes that can be swapped by any of the given players on given board
 	 */
 	private int getNumberOfPossibleOpponentSwaps(BoardImpl moveBoard, List<String> playerIds) {
@@ -120,16 +131,19 @@ public class TurtleMove implements MoveStrategy {
 	/**
 	 * Get a new Node that is either a replica of oldNode or the placedNode or a node that has been swapped
 	 *
-	 * @param oldNode previous node
-	 * @param placedNode node that was placed
-	 * @param nodesToSwap nodes that were swapped as a result of the placement of placedNode
+	 * @param oldNode
+	 *            previous node
+	 * @param placedNode
+	 *            node that was placed
+	 * @param nodesToSwap
+	 *            nodes that were swapped as a result of the placement of placedNode
 	 * @return either replica of oldNode, placedNode or a node that has been swapped
 	 */
 	private Node getNodeAfterSwap(Node oldNode, Node placedNode, List<Node> nodesToSwap) {
 		for (Node swapNode : nodesToSwap) {
 			if (swapNode.getId().equals(oldNode.getId())) {
 				return new NodeImpl(swapNode.getXCoordinate(), swapNode.getYCoordinate(),
-						placedNode.getOccupantPlayerId());
+						placedNode.getOccupantPlayerId(), 1);
 			}
 		}
 		if (placedNode.getId().equals(oldNode.getId())) {
@@ -142,8 +156,10 @@ public class TurtleMove implements MoveStrategy {
 	/**
 	 * get the ids of the players with pieces on the board except for one given by playerId
 	 *
-	 * @param playerId the playerId of the player to be excluded
-	 * @param board the board to search for players
+	 * @param playerId
+	 *            the playerId of the player to be excluded
+	 * @param board
+	 *            the board to search for players
 	 * @return all players but the player given by playerId that have pieces on board
 	 */
 	private ArrayList<String> getOtherPlayersOnBoard(String playerId, Board board) {

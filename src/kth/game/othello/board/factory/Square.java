@@ -11,8 +11,10 @@ public class Square {
 	/**
 	 * This board is the traditional board for two players.
 	 * 
-	 * @param size an even number determining the size of the board
-	 * @param players the list players of players, that must be two
+	 * @param size
+	 *            an even number determining the size of the board
+	 * @param players
+	 *            the list players of players, that must be two
 	 * @return the nodes of the board
 	 */
 	public Set<NodeData> getNodes(int size, List<Player> players) {
@@ -38,8 +40,8 @@ public class Square {
 		nodes.add(new NodeData(startX + middle - 1, startY + middle - 1, player2Id));
 		nodes.add(new NodeData(startX + middle, startY + middle, player2Id));
 
-		for (int x = 0; x < size; x++) {
-			for (int y = 0; y < size; y++) {
+		for (int x = 0; x < startX + size; x++) {
+			for (int y = 0; y < startY + size; y++) {
 				nodes.add(new NodeData(x, y));
 			}
 		}

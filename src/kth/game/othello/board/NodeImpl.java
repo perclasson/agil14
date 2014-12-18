@@ -12,37 +12,46 @@ public class NodeImpl extends Observable implements Node {
 	private String occupantPlayerId;
 	private int xCoordinate;
 	private int yCoordinate;
+	private int value;
 
 	/**
 	 *
 	 * Create an othello node given x and y coordinates without an occupying player.
 	 *
-	 * @param xCoordinate x coordinate in the board.
-	 * @param yCoordinate y coordinate in the board.
+	 * @param xCoordinate
+	 *            x coordinate in the board.
+	 * @param yCoordinate
+	 *            y coordinate in the board.
 	 */
-	public NodeImpl(int xCoordinate, int yCoordinate) {
+	public NodeImpl(int xCoordinate, int yCoordinate, int value) {
 		this.xCoordinate = xCoordinate;
 		this.yCoordinate = yCoordinate;
 		occupantPlayerId = null;
+		this.value = value;
 	}
 
 	/**
 	 *
-	 * @param xCoordinate x coordinate in the board.
-	 * @param yCoordinate y coordinate in the board.
-	 * @param occupantPlayerId id of the occupying player. Null if unoccupied.
+	 * @param xCoordinate
+	 *            x coordinate in the board.
+	 * @param yCoordinate
+	 *            y coordinate in the board.
+	 * @param occupantPlayerId
+	 *            id of the occupying player. Null if unoccupied.
 	 */
-	public NodeImpl(int xCoordinate, int yCoordinate, String occupantPlayerId) {
+	public NodeImpl(int xCoordinate, int yCoordinate, String occupantPlayerId, int value) {
 		this.xCoordinate = xCoordinate;
 		this.yCoordinate = yCoordinate;
 		this.occupantPlayerId = occupantPlayerId;
+		this.value = value;
 	}
 
 	/**
 	 *
 	 * Create a copy of an existing othello node.
 	 *
-	 * @param node node to be copied
+	 * @param node
+	 *            node to be copied
 	 */
 	public NodeImpl(Node node) {
 		this.xCoordinate = node.getXCoordinate();
@@ -123,4 +132,12 @@ public class NodeImpl extends Observable implements Node {
 		super.addObserver(observer);
 	}
 
+	/**
+	 * Get the value of the node.
+	 * 
+	 * @return the int value
+	 */
+	public int getValue() {
+		return value;
+	}
 }

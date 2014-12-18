@@ -8,9 +8,9 @@ import kth.game.othello.board.NodeImpl;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.PlayerImpl;
 import kth.game.othello.rules.MoveValidator;
-import kth.game.othello.rules.SwapHandler;
 import kth.game.othello.rules.Rules;
 import kth.game.othello.rules.RulesImpl;
+import kth.game.othello.rules.SwapHandler;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class GreedyMoveTest {
 	private BoardImpl get8x8EmptyBoard() {
 		ArrayList<Node> nodes = new ArrayList<Node>(64);
 		for (int i = 0; i < 64; i++) {
-			nodes.add(new NodeImpl((i % 8), i / 8));
+			nodes.add(new NodeImpl((i % 8), i / 8, 1));
 		}
 		return new BoardImpl(nodes);
 	}
@@ -75,23 +75,5 @@ public class GreedyMoveTest {
 		SwapHandler swapHandler = new SwapHandler();
 		Rules rules = new RulesImpl(board, new MoveValidator(board, swapHandler), swapHandler);
 		Assert.assertEquals(board.getNodes().get(0).getId(), moveStrategy.move(black.getId(), rules, board).getId());
-	}
-
-	@Test
-	public void testGreedyMoveWithDiagonalOneBetter() {
-		int[] whitePositions = { 2, 3, 4, 5, 6, 14, 21, 28, 35, 42, 49 };
-		int[] blackPositions = { 7 };
-
-		BoardImpl board = get8x8EmptyBoard();
-		GreedyMove moveStrategy = new GreedyMove();
-
-		Player black = PlayerImpl.getComputerPlayer("black", "black", moveStrategy);
-		Player white = PlayerImpl.getComputerPlayer("white", "white", moveStrategy);
-
-		board = initiatePositionsOnBoard(board, black, blackPositions, white, whitePositions);
-
-		SwapHandler swapHandler = new SwapHandler();
-		Rules rules = new RulesImpl(board, new MoveValidator(board, swapHandler), swapHandler);
-		Assert.assertEquals(board.getNodes().get(56).getId(), moveStrategy.move(black.getId(), rules, board).getId());
 	}
 }

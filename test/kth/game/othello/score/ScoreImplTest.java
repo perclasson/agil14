@@ -47,6 +47,7 @@ public class ScoreImplTest {
 		// mock Node
 		NodeImpl node = Mockito.mock(NodeImpl.class);
 		Mockito.when(node.getOccupantPlayerId()).thenReturn(player2);
+		Mockito.when(node.getValue()).thenReturn(1);
 
 		ScoreImpl scoreImpl = new ScoreImpl(getInitialScores(), null);
 
@@ -77,6 +78,7 @@ public class ScoreImplTest {
 		// mock Node
 		NodeImpl node = Mockito.mock(NodeImpl.class);
 		Mockito.when(node.getOccupantPlayerId()).thenReturn(null);
+		Mockito.when(node.getValue()).thenReturn(1);
 
 		ScoreImpl scoreImpl = new ScoreImpl(getInitialScores(), null);
 
@@ -153,15 +155,19 @@ public class ScoreImplTest {
 		// mock nodes
 		NodeImpl node1 = Mockito.mock(NodeImpl.class);
 		Mockito.when(node1.getOccupantPlayerId()).thenReturn(player1);
+		Mockito.when(node1.getValue()).thenReturn(1);
 
 		NodeImpl node2 = Mockito.mock(NodeImpl.class);
 		Mockito.when(node2.getOccupantPlayerId()).thenReturn(player2);
+		Mockito.when(node2.getValue()).thenReturn(1);
 
 		NodeImpl node3 = Mockito.mock(NodeImpl.class);
 		Mockito.when(node3.getOccupantPlayerId()).thenReturn(player2);
+		Mockito.when(node3.getValue()).thenReturn(1);
 
 		NodeImpl node4 = Mockito.mock(NodeImpl.class);
 		Mockito.when(node4.getOccupantPlayerId()).thenReturn(null);
+		Mockito.when(node4.getValue()).thenReturn(1);
 
 		initialNodes.add(node1);
 		initialNodes.add(node2);

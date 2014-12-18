@@ -21,7 +21,8 @@ public class Castle {
 	/**
 	 * This board has a shape of a castle and can be played by two players.
 	 * 
-	 * @param players The list of players, that must be three
+	 * @param players
+	 *            The list of players, that must be three
 	 * @return the nodes of the board
 	 */
 	public Set<NodeData> getNodes(List<Player> players) {
@@ -41,8 +42,8 @@ public class Castle {
 
 	private Set<NodeData> getCornerNodes(int size, int startX, int startY) {
 		Set<NodeData> nodes = new HashSet<NodeData>();
-		for (int x = startX; x < size; x++) {
-			for (int y = startY; y < size; y++) {
+		for (int x = startX; x < startX + size; x++) {
+			for (int y = startY; y < startY + size; y++) {
 				nodes.add(new NodeData(x, y));
 			}
 		}

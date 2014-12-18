@@ -247,8 +247,8 @@ public class MoveHandlerTest {
 		Player player = PlayerImpl.getHumanPlayer(playerId, "Human");
 
 		List<Node> nodesToSwap = new ArrayList<Node>();
-		nodesToSwap.add(new NodeImpl(1, 1, playerId));
-		nodesToSwap.add(new NodeImpl(2, 2, playerId));
+		nodesToSwap.add(new NodeImpl(1, 1, playerId, 1));
+		nodesToSwap.add(new NodeImpl(2, 2, playerId, 1));
 
 		TurnHandler turnHandler = Mockito.mock(TurnHandler.class);
 		Mockito.when(turnHandler.getPlayerInTurn()).thenReturn(player);
@@ -258,7 +258,7 @@ public class MoveHandlerTest {
 		Mockito.when(rules.getNodesToSwap(playerId, nodeId)).thenReturn(nodesToSwap);
 
 		BoardImpl board = Mockito.mock(BoardImpl.class);
-		Mockito.when(board.getNode(nodeId)).thenReturn(new NodeImpl(3, 3, playerId));
+		Mockito.when(board.getNode(nodeId)).thenReturn(new NodeImpl(3, 3, playerId, 1));
 
 		HistoryHandler historyHandler = Mockito.mock(HistoryHandler.class);
 

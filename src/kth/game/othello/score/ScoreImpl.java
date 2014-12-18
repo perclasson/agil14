@@ -58,6 +58,7 @@ public class ScoreImpl extends Observable implements Score, Observer {
 	public void update(Observable o, Object arg) {
 		// Receives node as observable and previous player id as arg
 		List<String> updatedPlayers = new ArrayList<String>();
+		NodeImpl node = (NodeImpl) o;
 		String newPlayerId = ((NodeImpl) o).getOccupantPlayerId();
 		String oldPlayerId = null;
 		if (arg != null) {
@@ -66,12 +67,12 @@ public class ScoreImpl extends Observable implements Score, Observer {
 		for (int i = 0; i < scores.size(); i++) {
 			ScoreItem scoreItem = scores.get(i);
 			if (scoreItem.getPlayerId().equals(newPlayerId)) {
-				updateScore(i, newPlayerId, scoreItem.getScore() + 1);
+				updateScore(i, newPlayerId, scoreItem.getScore() + node.getValue());
 				updatedPlayers.add(newPlayerId);
 			}
 			scoreItem = scores.get(i);
 			if (scoreItem.getPlayerId().equals(oldPlayerId)) {
-				updateScore(i, oldPlayerId, scoreItem.getScore() - 1);
+				updateScore(i, oldPlayerId, scoreItem.getScore() - node.getValue());
 				updatedPlayers.add(oldPlayerId);
 			}
 		}

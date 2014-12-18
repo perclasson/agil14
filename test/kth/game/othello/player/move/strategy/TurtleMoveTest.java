@@ -8,9 +8,9 @@ import kth.game.othello.board.NodeImpl;
 import kth.game.othello.player.Player;
 import kth.game.othello.player.PlayerImpl;
 import kth.game.othello.rules.MoveValidator;
-import kth.game.othello.rules.SwapHandler;
 import kth.game.othello.rules.Rules;
 import kth.game.othello.rules.RulesImpl;
+import kth.game.othello.rules.SwapHandler;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class TurtleMoveTest {
 	private BoardImpl get8x8EmptyBoard() {
 		ArrayList<Node> nodes = new ArrayList<Node>(64);
 		for (int i = 0; i < 64; i++) {
-			nodes.add(new NodeImpl((i % 8), i / 8));
+			nodes.add(new NodeImpl((i % 8), i / 8, 1));
 		}
 		return new BoardImpl(nodes);
 	}

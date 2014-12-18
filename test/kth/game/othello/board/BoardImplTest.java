@@ -13,7 +13,7 @@ public class BoardImplTest {
 		List<Node> nodes = new ArrayList<Node>();
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-				nodes.add(new NodeImpl(i, j));
+				nodes.add(new NodeImpl(i, j, 1));
 			}
 		}
 
