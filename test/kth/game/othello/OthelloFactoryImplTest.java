@@ -11,6 +11,7 @@ import kth.game.othello.player.Player.Type;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 public class OthelloFactoryImplTest {
 
@@ -101,4 +102,24 @@ public class OthelloFactoryImplTest {
 		}
 	}
 
+	@Test
+	public void testGetBoundaryNodesOfSquare() {
+		Set<NodeData> nodesData = new HashSet<NodeData>();
+		Set<NodeData> expectedBoundaryNodes = new HashSet<NodeData>();
+
+		for (int x = 0; x < 4; x++) {
+			for (int y = 0; y < 4; y++) {
+				NodeData nodeData = Mockito.mock(NodeData.class);
+				Mockito.when(nodeData.getXCoordinate()).thenReturn(x);
+				Mockito.when(nodeData.getYCoordinate()).thenReturn(y);
+				nodesData.add(nodeData);
+				if (x == 0 || y == 0 || x == 3 || y == 3) {
+					expectedBoundaryNodes.add(nodeData);
+				}
+			}
+		}
+
+		OthelloFactoryImpl factory = getOthelloFactory();
+		Assert.assertEquals(expectedBoundaryNodes, factory.getBoundaryNodes(nodesData));
+	}
 }
