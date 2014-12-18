@@ -21,16 +21,6 @@ public class BoardImplTest {
 	}
 
 	@Test
-	public void getNodesInUpRightDirection() {
-		int size = 8;
-		BoardImpl board = getSquareBoard(size);
-		Node node = board.getNode(5, 3);
-		List<Node> nodesInDirection = board.getNodesInDirection(Direction.UP_RIGHT, node.getXCoordinate(),
-				node.getYCoordinate());
-		Assert.assertEquals(2, nodesInDirection.size());
-	}
-
-	@Test
 	public void getNodesInRightDirectionAtEdge() {
 		int size = 8;
 		BoardImpl board = getSquareBoard(size);

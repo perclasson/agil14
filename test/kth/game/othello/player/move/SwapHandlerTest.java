@@ -9,8 +9,8 @@ import kth.game.othello.OthelloFactoryImpl;
 import kth.game.othello.board.BoardImpl;
 import kth.game.othello.board.Node;
 import kth.game.othello.player.Player;
-
 import kth.game.othello.rules.SwapHandler;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -24,7 +24,7 @@ public class SwapHandlerTest {
 	public void testGetNodesToSwap() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 		int[] whitePositions = { 7, 12, 14, 17, 18, 19, 20, 22, 28, 29, 30, 35, 37, 39, 42, 49 };
 		int[] blackPositions = { 3, 16, 23, 45, 56 };
-		int[] expectedSwapPositions = { 12, 17, 18, 19, 20, 22, 28, 29, 35, 37, 42, 49 };
+		int[] expectedSwapPositions = { 17, 18, 19, 20, 22, 29, 37 };
 
 		Othello game = getGameFactory().createComputerGame();
 		BoardImpl board = (BoardImpl) game.getBoard();
@@ -47,9 +47,13 @@ public class SwapHandlerTest {
 		SwapHandler swapHandler = new SwapHandler();
 		String nodeId = nodes.get(21).getId();
 		List<Node> nodesToSwap = swapHandler.getNodesToSwap(player1.getId(), nodeId, board);
+
 		Assert.assertTrue(nodesToSwap.size() == expectedSwapPositions.length);
+
 		for (int i = 0; i < expectedSwapPositions.length; i++) {
+
 			Node expectedNode = nodes.get(expectedSwapPositions[i]);
+
 			Assert.assertTrue(nodesToSwap.contains(expectedNode));
 		}
 	}

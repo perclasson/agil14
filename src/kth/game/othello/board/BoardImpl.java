@@ -14,7 +14,8 @@ public class BoardImpl implements Board {
 
 	/**
 	 *
-	 * @param nodes a list of nodes for the board.
+	 * @param nodes
+	 *            a list of nodes for the board.
 	 */
 	public BoardImpl(List<Node> nodes) {
 		this.nodes = nodes;
@@ -23,7 +24,8 @@ public class BoardImpl implements Board {
 	/**
 	 * Copy constructor. The constructor will also create copies for the nodes.
 	 * 
-	 * @param board the board to be copied.
+	 * @param board
+	 *            the board to be copied.
 	 */
 	public BoardImpl(Board board) {
 		nodes = new ArrayList<Node>();
@@ -40,7 +42,8 @@ public class BoardImpl implements Board {
 	/**
 	 * Returns the node for the given nodeId, null if not found.
 	 *
-	 * @param nodeId the nodeId of the desired node.
+	 * @param nodeId
+	 *            the nodeId of the desired node.
 	 * @return the node with the given nodeId, null if not found.
 	 */
 	public Node getNode(String nodeId) {
@@ -55,8 +58,10 @@ public class BoardImpl implements Board {
 	/**
 	 * Set the occupant player id for a node.
 	 * 
-	 * @param nodeId the id of the node.
-	 * @param playerId the player id to set.
+	 * @param nodeId
+	 *            the id of the node.
+	 * @param playerId
+	 *            the player id to set.
 	 */
 	public void setOccupantPlayerId(String nodeId, String playerId) {
 		Node node = getNode(nodeId);
@@ -69,9 +74,12 @@ public class BoardImpl implements Board {
 	/**
 	 * Returns a list of all nodes in the direction that is indicated from the position given by the coordinates.
 	 *
-	 * @param direction direction in which to retrieve nodes
-	 * @param x the x-coordinate of starting position
-	 * @param y the y-coordinate of starting position
+	 * @param direction
+	 *            direction in which to retrieve nodes
+	 * @param x
+	 *            the x-coordinate of starting position
+	 * @param y
+	 *            the y-coordinate of starting position
 	 * @return a list of nodes in the given direction
 	 */
 	public List<Node> getNodesInDirection(Direction direction, int x, int y) {
@@ -90,29 +98,24 @@ public class BoardImpl implements Board {
 	/**
 	 * Returns the first node in the given direction from the start index.
 	 *
-	 * @param x the x-coordinate of the reference node
-	 * @param y the y-coordinate of the reference node
-	 * @param direction direction in which to retrieve the node
+	 * @param x
+	 *            the x-coordinate of the reference node
+	 * @param y
+	 *            the y-coordinate of the reference node
+	 * @param direction
+	 *            direction in which to retrieve the node
 	 * @return the node in that direction. returns null if it does not exist
 	 */
 	private Node getNodeInDirection(int x, int y, Direction direction) {
 		switch (direction) {
 		case DOWN:
 			return hasNode(x, y + 1) ? getNode(x, y + 1) : null;
-		case DOWN_LEFT:
-			return hasNode(x - 1, y + 1) ? getNode(x - 1, y + 1) : null;
-		case DOWN_RIGHT:
-			return hasNode(x + 1, y + 1) ? getNode(x + 1, y + 1) : null;
 		case LEFT:
 			return hasNode(x - 1, y) ? getNode(x - 1, y) : null;
 		case RIGHT:
 			return hasNode(x + 1, y) ? getNode(x + 1, y) : null;
 		case UP:
 			return hasNode(x, y - 1) ? getNode(x, y - 1) : null;
-		case UP_LEFT:
-			return hasNode(x - 1, y - 1) ? getNode(x - 1, y - 1) : null;
-		case UP_RIGHT:
-			return hasNode(x + 1, y - 1) ? getNode(x + 1, y - 1) : null;
 		default:
 			return null;
 		}
